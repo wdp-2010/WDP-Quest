@@ -1,0 +1,1010 @@
+# Expert Quests (80-100% Progress)
+# 50 quests for ultimate end-game challenges
+
+quests:
+  # Ultimate Boss Challenges (10 quests)
+  wither_slayer:
+    name: "Wither Slayer"
+    description: "Defeat the mighty Wither"
+    icon: NETHER_STAR
+    category: EXPERT
+    required-progress: 80
+    sort-order: 1
+    hard: true
+    days-available: 3
+    objectives:
+      kill_wither:
+        type: KILL
+        entity: WITHER
+        amount: 1
+        description: "Kill the Wither"
+    rewards:
+      coins: 5000
+      experience: 1000
+      tokens: 50
+
+  wither_master:
+    name: "Wither Master"
+    description: "Defeat multiple withers"
+    icon: NETHER_STAR
+    category: EXPERT
+    required-progress: 88
+    sort-order: 2
+    hard: true
+    days-available: 5
+    objectives:
+      kill_withers:
+        type: KILL
+        entity: WITHER
+        amount: 5
+        description: "Kill 5 Withers"
+    rewards:
+      coins: 10000
+      experience: 2000
+      tokens: 100
+
+  dragon_destroyer:
+    name: "Dragon Destroyer"
+    description: "Kill the dragon 5 times"
+    icon: DRAGON_HEAD
+    category: EXPERT
+    required-progress: 85
+    sort-order: 3
+    hard: true
+    days-available: 5
+    objectives:
+      kill_dragons:
+        type: KILL
+        entity: ENDER_DRAGON
+        amount: 5
+        description: "Kill 5 Ender Dragons"
+    rewards:
+      coins: 8000
+      experience: 1500
+      tokens: 75
+
+  elder_guardian_master:
+    name: "Elder Guardian Master"
+    description: "Clear all monuments"
+    icon: SPONGE
+    category: EXPERT
+    required-progress: 82
+    sort-order: 4
+    hard: true
+    days-available: 3
+    objectives:
+      kill_elders:
+        type: KILL
+        entity: ELDER_GUARDIAN
+        amount: 12
+        description: "Kill 12 elder guardians"
+    rewards:
+      coins: 4000
+      experience: 800
+      tokens: 40
+
+  raid_champion:
+    name: "Raid Champion"
+    description: "Complete many raids"
+    icon: TOTEM_OF_UNDYING
+    category: EXPERT
+    required-progress: 83
+    sort-order: 5
+    hard: true
+    days-available: 3
+    objectives:
+      kill_ravagers:
+        type: KILL
+        entity: RAVAGER
+        amount: 50
+        description: "Kill 50 ravagers"
+      kill_evokers:
+        type: KILL
+        entity: EVOKER
+        amount: 50
+        description: "Kill 50 evokers"
+    rewards:
+      coins: 5000
+      experience: 1000
+      tokens: 50
+
+  warden_slayer:
+    name: "Warden Slayer"
+    description: "Defeat the terrifying Warden"
+    icon: SCULK_CATALYST
+    category: EXPERT
+    required-progress: 92
+    sort-order: 6
+    hard: true
+    days-available: 3
+    objectives:
+      kill_warden:
+        type: KILL
+        entity: WARDEN
+        amount: 1
+        description: "Kill the Warden"
+    rewards:
+      coins: 7500
+      experience: 1500
+      tokens: 75
+
+  warden_hunter:
+    name: "Warden Hunter"
+    description: "Kill multiple wardens"
+    icon: SCULK_SHRIEKER
+    category: EXPERT
+    required-progress: 98
+    sort-order: 7
+    hard: true
+    days-available: 7
+    objectives:
+      kill_wardens:
+        type: KILL
+        entity: WARDEN
+        amount: 5
+        description: "Kill 5 Wardens"
+    rewards:
+      coins: 15000
+      experience: 3000
+      tokens: 150
+
+  thousand_endermen:
+    name: "Thousand Endermen"
+    description: "Slay a thousand endermen"
+    icon: ENDER_PEARL
+    category: EXPERT
+    required-progress: 84
+    sort-order: 8
+    objectives:
+      kill_endermen:
+        type: KILL
+        entity: ENDERMAN
+        amount: 1000
+        description: "Kill 1000 endermen"
+    rewards:
+      coins: 4500
+      experience: 900
+      tokens: 45
+
+  piglin_brute_champion:
+    name: "Piglin Brute Champion"
+    description: "Defeat many piglin brutes"
+    icon: GOLDEN_AXE
+    category: EXPERT
+    required-progress: 81
+    sort-order: 9
+    objectives:
+      kill_brutes:
+        type: KILL
+        entity: PIGLIN_BRUTE
+        amount: 100
+        description: "Kill 100 piglin brutes"
+    rewards:
+      coins: 3500
+      experience: 700
+      tokens: 35
+
+  hostile_genocide:
+    name: "Hostile Genocide"
+    description: "Kill thousands of mobs"
+    icon: DIAMOND_SWORD
+    category: EXPERT
+    required-progress: 86
+    sort-order: 10
+    objectives:
+      kill_zombies:
+        type: KILL
+        entity: ZOMBIE
+        amount: 1000
+        description: "Kill 1000 zombies"
+      kill_skeletons:
+        type: KILL
+        entity: SKELETON
+        amount: 1000
+        description: "Kill 1000 skeletons"
+      kill_creepers:
+        type: KILL
+        entity: CREEPER
+        amount: 500
+        description: "Kill 500 creepers"
+    rewards:
+      coins: 6000
+      experience: 1200
+      tokens: 60
+
+  # Ultimate Resources (10 quests)
+  netherite_hoarder:
+    name: "Netherite Hoarder"
+    description: "Gather massive netherite"
+    icon: NETHERITE_INGOT
+    category: EXPERT
+    required-progress: 87
+    sort-order: 11
+    objectives:
+      mine_debris:
+        type: MINE
+        material: ANCIENT_DEBRIS
+        amount: 64
+        description: "Mine 64 ancient debris"
+    rewards:
+      coins: 8000
+      experience: 1600
+      tokens: 80
+
+  netherite_blocks:
+    name: "Netherite Blocks"
+    description: "Create netherite blocks"
+    icon: NETHERITE_BLOCK
+    category: EXPERT
+    required-progress: 95
+    sort-order: 12
+    objectives:
+      craft_blocks:
+        type: CRAFT
+        material: NETHERITE_BLOCK
+        amount: 9
+        description: "Craft 9 netherite blocks"
+    rewards:
+      coins: 20000
+      experience: 4000
+      tokens: 200
+
+  diamond_vault:
+    name: "Diamond Vault"
+    description: "Amass a diamond fortune"
+    icon: DIAMOND_BLOCK
+    category: EXPERT
+    required-progress: 82
+    sort-order: 13
+    objectives:
+      mine_diamonds:
+        type: MINE
+        material: DIAMOND_ORE
+        amount: 500
+        description: "Mine 500 diamond ore"
+    rewards:
+      coins: 5000
+      experience: 1000
+      tokens: 50
+
+  emerald_emperor:
+    name: "Emerald Emperor"
+    description: "Control the emerald trade"
+    icon: EMERALD_BLOCK
+    category: EXPERT
+    required-progress: 84
+    sort-order: 14
+    objectives:
+      mine_emeralds:
+        type: MINE
+        material: EMERALD_ORE
+        amount: 256
+        description: "Mine 256 emerald ore"
+    rewards:
+      coins: 5500
+      experience: 1100
+      tokens: 55
+
+  shulker_shell_empire:
+    name: "Shulker Shell Empire"
+    description: "Collect many shulker shells"
+    icon: SHULKER_SHELL
+    category: EXPERT
+    required-progress: 86
+    sort-order: 15
+    objectives:
+      collect_shells:
+        type: COLLECT
+        material: SHULKER_SHELL
+        amount: 128
+        description: "Collect 128 shulker shells"
+    rewards:
+      coins: 6000
+      experience: 1200
+      tokens: 60
+
+  elytra_collection:
+    name: "Elytra Collection"
+    description: "Find multiple elytra"
+    icon: ELYTRA
+    category: EXPERT
+    required-progress: 88
+    sort-order: 16
+    objectives:
+      collect_elytra:
+        type: COLLECT
+        material: ELYTRA
+        amount: 5
+        description: "Collect 5 elytra"
+    rewards:
+      coins: 7500
+      experience: 1500
+      tokens: 75
+
+  beacon_network:
+    name: "Beacon Network"
+    description: "Build multiple beacons"
+    icon: BEACON
+    category: EXPERT
+    required-progress: 85
+    sort-order: 17
+    objectives:
+      craft_beacons:
+        type: CRAFT
+        material: BEACON
+        amount: 6
+        description: "Craft 6 beacons"
+    rewards:
+      coins: 7000
+      experience: 1400
+      tokens: 70
+
+  conduit_network:
+    name: "Conduit Network"
+    description: "Build multiple conduits"
+    icon: CONDUIT
+    category: EXPERT
+    required-progress: 83
+    sort-order: 18
+    objectives:
+      craft_conduits:
+        type: CRAFT
+        material: CONDUIT
+        amount: 4
+        description: "Craft 4 conduits"
+    rewards:
+      coins: 4500
+      experience: 900
+      tokens: 45
+
+  trident_arsenal:
+    name: "Trident Arsenal"
+    description: "Collect many tridents"
+    icon: TRIDENT
+    category: EXPERT
+    required-progress: 84
+    sort-order: 19
+    objectives:
+      collect_tridents:
+        type: COLLECT
+        material: TRIDENT
+        amount: 10
+        description: "Collect 10 tridents"
+    rewards:
+      coins: 5000
+      experience: 1000
+      tokens: 50
+
+  nether_star_hoarder:
+    name: "Nether Star Hoarder"
+    description: "Collect nether stars"
+    icon: NETHER_STAR
+    category: EXPERT
+    required-progress: 90
+    sort-order: 20
+    objectives:
+      collect_stars:
+        type: COLLECT
+        material: NETHER_STAR
+        amount: 6
+        description: "Collect 6 nether stars"
+    rewards:
+      coins: 8500
+      experience: 1700
+      tokens: 85
+
+  # Legendary Skills (10 quests)
+  level_100:
+    name: "Level 100 Legend"
+    description: "Reach experience level 100"
+    icon: EXPERIENCE_BOTTLE
+    category: EXPERT
+    required-progress: 85
+    sort-order: 21
+    objectives:
+      gain_levels:
+        type: LEVEL_UP
+        amount: 100
+        description: "Gain 100 levels"
+    rewards:
+      coins: 5000
+      experience: 1500
+      tokens: 50
+
+  trading_tycoon:
+    name: "Trading Tycoon"
+    description: "Become a master trader"
+    icon: VILLAGER_SPAWN_EGG
+    category: EXPERT
+    required-progress: 82
+    sort-order: 22
+    objectives:
+      trade:
+        type: TRADE
+        amount: 2000
+        description: "Complete 2000 trades"
+    rewards:
+      coins: 4500
+      experience: 900
+      tokens: 45
+
+  enchantment_god:
+    name: "Enchantment God"
+    description: "Enchant endless items"
+    icon: ENCHANTING_TABLE
+    category: EXPERT
+    required-progress: 83
+    sort-order: 23
+    objectives:
+      enchant:
+        type: ENCHANT
+        amount: 500
+        description: "Enchant 500 items"
+    rewards:
+      coins: 5000
+      experience: 1000
+      tokens: 50
+
+  fishing_god:
+    name: "Fishing God"
+    description: "Master the fishing art"
+    icon: FISHING_ROD
+    category: EXPERT
+    required-progress: 81
+    sort-order: 24
+    objectives:
+      fish:
+        type: FISH
+        amount: 2000
+        description: "Catch 2000 fish"
+    rewards:
+      coins: 4000
+      experience: 800
+      tokens: 40
+
+  breeding_empire:
+    name: "Breeding Empire"
+    description: "Build a massive farm"
+    icon: HAY_BLOCK
+    category: EXPERT
+    required-progress: 80
+    sort-order: 25
+    objectives:
+      breed:
+        type: BREED
+        amount: 1000
+        description: "Breed 1000 animals"
+    rewards:
+      coins: 3500
+      experience: 700
+      tokens: 35
+
+  smelting_god:
+    name: "Smelting God"
+    description: "Smelt in godly quantities"
+    icon: BLAST_FURNACE
+    category: EXPERT
+    required-progress: 82
+    sort-order: 26
+    objectives:
+      smelt_gold:
+        type: SMELT
+        material: GOLD_INGOT
+        amount: 5000
+        description: "Smelt 5000 gold ingots"
+    rewards:
+      coins: 4500
+      experience: 900
+      tokens: 45
+
+  mega_architect:
+    name: "Mega Architect"
+    description: "Build massive structures"
+    icon: SCAFFOLDING
+    category: EXPERT
+    required-progress: 84
+    sort-order: 27
+    objectives:
+      place_blocks:
+        type: PLACE
+        material: STONE_BRICKS
+        amount: 10000
+        description: "Place 10000 stone bricks"
+    rewards:
+      coins: 5000
+      experience: 1000
+      tokens: 50
+
+  mining_legend:
+    name: "Mining Legend"
+    description: "Mine incredible amounts"
+    icon: DIAMOND_PICKAXE
+    category: EXPERT
+    required-progress: 83
+    sort-order: 28
+    objectives:
+      mine_stone:
+        type: MINE
+        material: STONE
+        amount: 50000
+        description: "Mine 50000 stone"
+    rewards:
+      coins: 4500
+      experience: 900
+      tokens: 45
+
+  tree_destroyer:
+    name: "Tree Destroyer"
+    description: "Harvest forests"
+    icon: DIAMOND_AXE
+    category: EXPERT
+    required-progress: 81
+    sort-order: 29
+    objectives:
+      mine_logs:
+        type: MINE
+        material: OAK_LOG
+        amount: 10000
+        description: "Mine 10000 logs"
+    rewards:
+      coins: 4000
+      experience: 800
+      tokens: 40
+
+  kill_everything:
+    name: "Genocide Run"
+    description: "Kill everything that moves"
+    icon: NETHERITE_SWORD
+    category: EXPERT
+    required-progress: 90
+    sort-order: 30
+    objectives:
+      kill_zombies:
+        type: KILL
+        entity: ZOMBIE
+        amount: 5000
+        description: "Kill 5000 zombies"
+      kill_skeletons:
+        type: KILL
+        entity: SKELETON
+        amount: 5000
+        description: "Kill 5000 skeletons"
+    rewards:
+      coins: 10000
+      experience: 2000
+      tokens: 100
+
+  # Ultimate Challenges (10 quests)
+  all_nether_stars:
+    name: "Star Collector"
+    description: "Craft using nether stars"
+    icon: BEACON
+    category: EXPERT
+    required-progress: 92
+    sort-order: 31
+    objectives:
+      craft_beacons:
+        type: CRAFT
+        material: BEACON
+        amount: 10
+        description: "Craft 10 beacons"
+    rewards:
+      coins: 12000
+      experience: 2400
+      tokens: 120
+
+  ancient_debris_master:
+    name: "Ancient Debris Master"
+    description: "Mine extreme debris"
+    icon: ANCIENT_DEBRIS
+    category: EXPERT
+    required-progress: 94
+    sort-order: 32
+    objectives:
+      mine_debris:
+        type: MINE
+        material: ANCIENT_DEBRIS
+        amount: 256
+        description: "Mine 256 ancient debris"
+    rewards:
+      coins: 15000
+      experience: 3000
+      tokens: 150
+
+  deep_dark_explorer:
+    name: "Deep Dark Explorer"
+    description: "Explore the deep dark"
+    icon: SCULK
+    category: EXPERT
+    required-progress: 88
+    sort-order: 33
+    objectives:
+      mine_sculk:
+        type: MINE
+        material: SCULK
+        amount: 500
+        description: "Mine 500 sculk"
+    rewards:
+      coins: 6500
+      experience: 1300
+      tokens: 65
+
+  sculk_collector:
+    name: "Sculk Collector"
+    description: "Collect all sculk variants"
+    icon: SCULK_SENSOR
+    category: EXPERT
+    required-progress: 89
+    sort-order: 34
+    objectives:
+      collect_sculk_sensor:
+        type: COLLECT
+        material: SCULK_SENSOR
+        amount: 32
+        description: "Collect 32 sculk sensors"
+      collect_sculk_catalyst:
+        type: COLLECT
+        material: SCULK_CATALYST
+        amount: 16
+        description: "Collect 16 sculk catalysts"
+    rewards:
+      coins: 7000
+      experience: 1400
+      tokens: 70
+
+  music_disc_collector:
+    name: "Music Disc Collector"
+    description: "Collect rare music discs"
+    icon: MUSIC_DISC_PIGSTEP
+    category: EXPERT
+    required-progress: 86
+    sort-order: 35
+    objectives:
+      collect_disc:
+        type: COLLECT
+        material: MUSIC_DISC_PIGSTEP
+        amount: 3
+        description: "Collect 3 pigstep discs"
+    rewards:
+      coins: 6000
+      experience: 1200
+      tokens: 60
+
+  totem_hoarder:
+    name: "Totem Hoarder"
+    description: "Collect many totems"
+    icon: TOTEM_OF_UNDYING
+    category: EXPERT
+    required-progress: 87
+    sort-order: 36
+    objectives:
+      collect_totems:
+        type: COLLECT
+        material: TOTEM_OF_UNDYING
+        amount: 20
+        description: "Collect 20 totems"
+    rewards:
+      coins: 6500
+      experience: 1300
+      tokens: 65
+
+  end_city_conqueror:
+    name: "End City Conqueror"
+    description: "Raid many end cities"
+    icon: PURPUR_BLOCK
+    category: EXPERT
+    required-progress: 91
+    sort-order: 37
+    objectives:
+      mine_purpur:
+        type: MINE
+        material: PURPUR_BLOCK
+        amount: 2000
+        description: "Mine 2000 purpur blocks"
+    rewards:
+      coins: 8000
+      experience: 1600
+      tokens: 80
+
+  obsidian_empire:
+    name: "Obsidian Empire"
+    description: "Mine mountains of obsidian"
+    icon: OBSIDIAN
+    category: EXPERT
+    required-progress: 85
+    sort-order: 38
+    objectives:
+      mine_obsidian:
+        type: MINE
+        material: OBSIDIAN
+        amount: 1000
+        description: "Mine 1000 obsidian"
+    rewards:
+      coins: 5500
+      experience: 1100
+      tokens: 55
+
+  crying_obsidian_collector:
+    name: "Crying Obsidian Collector"
+    description: "Collect crying obsidian"
+    icon: CRYING_OBSIDIAN
+    category: EXPERT
+    required-progress: 84
+    sort-order: 39
+    objectives:
+      collect_crying:
+        type: COLLECT
+        material: CRYING_OBSIDIAN
+        amount: 128
+        description: "Collect 128 crying obsidian"
+    rewards:
+      coins: 5000
+      experience: 1000
+      tokens: 50
+
+  gilded_blackstone_miner:
+    name: "Gilded Blackstone Miner"
+    description: "Mine gilded blackstone"
+    icon: GILDED_BLACKSTONE
+    category: EXPERT
+    required-progress: 83
+    sort-order: 40
+    objectives:
+      mine_gilded:
+        type: MINE
+        material: GILDED_BLACKSTONE
+        amount: 256
+        description: "Mine 256 gilded blackstone"
+    rewards:
+      coins: 4500
+      experience: 900
+      tokens: 45
+
+  # Completion & Mastery (10 quests)
+  completionist:
+    name: "Completionist"
+    description: "Complete 100 other quests"
+    icon: NETHER_STAR
+    category: EXPERT
+    required-progress: 95
+    sort-order: 41
+    objectives:
+      custom_quests:
+        type: CUSTOM
+        data: "complete_100_quests"
+        amount: 100
+        description: "Complete 100 quests"
+    rewards:
+      coins: 15000
+      experience: 3000
+      tokens: 150
+
+  ultimate_miner:
+    name: "Ultimate Miner"
+    description: "Mine every ore type"
+    icon: DIAMOND_PICKAXE
+    category: EXPERT
+    required-progress: 90
+    sort-order: 42
+    objectives:
+      mine_coal:
+        type: MINE
+        material: COAL_ORE
+        amount: 1000
+        description: "Mine 1000 coal ore"
+      mine_iron:
+        type: MINE
+        material: IRON_ORE
+        amount: 1000
+        description: "Mine 1000 iron ore"
+      mine_gold:
+        type: MINE
+        material: GOLD_ORE
+        amount: 500
+        description: "Mine 500 gold ore"
+      mine_diamond:
+        type: MINE
+        material: DIAMOND_ORE
+        amount: 256
+        description: "Mine 256 diamond ore"
+    rewards:
+      coins: 10000
+      experience: 2000
+      tokens: 100
+
+  ultimate_hunter:
+    name: "Ultimate Hunter"
+    description: "Kill every hostile mob"
+    icon: NETHERITE_SWORD
+    category: EXPERT
+    required-progress: 93
+    sort-order: 43
+    objectives:
+      kill_blazes:
+        type: KILL
+        entity: BLAZE
+        amount: 500
+        description: "Kill 500 blazes"
+      kill_ghasts:
+        type: KILL
+        entity: GHAST
+        amount: 200
+        description: "Kill 200 ghasts"
+      kill_endermen:
+        type: KILL
+        entity: ENDERMAN
+        amount: 1000
+        description: "Kill 1000 endermen"
+    rewards:
+      coins: 12000
+      experience: 2400
+      tokens: 120
+
+  ultimate_crafter:
+    name: "Ultimate Crafter"
+    description: "Craft every netherite item"
+    icon: NETHERITE_INGOT
+    category: EXPERT
+    required-progress: 96
+    sort-order: 44
+    objectives:
+      craft_sword:
+        type: CRAFT
+        material: NETHERITE_SWORD
+        amount: 1
+        description: "Craft netherite sword"
+      craft_pickaxe:
+        type: CRAFT
+        material: NETHERITE_PICKAXE
+        amount: 1
+        description: "Craft netherite pickaxe"
+      craft_axe:
+        type: CRAFT
+        material: NETHERITE_AXE
+        amount: 1
+        description: "Craft netherite axe"
+      craft_shovel:
+        type: CRAFT
+        material: NETHERITE_SHOVEL
+        amount: 1
+        description: "Craft netherite shovel"
+      craft_hoe:
+        type: CRAFT
+        material: NETHERITE_HOE
+        amount: 1
+        description: "Craft netherite hoe"
+    rewards:
+      coins: 12000
+      experience: 2400
+      tokens: 120
+
+  ultimate_armorer:
+    name: "Ultimate Armorer"
+    description: "Craft netherite armor sets"
+    icon: NETHERITE_CHESTPLATE
+    category: EXPERT
+    required-progress: 97
+    sort-order: 45
+    objectives:
+      craft_helmet:
+        type: CRAFT
+        material: NETHERITE_HELMET
+        amount: 3
+        description: "Craft 3 netherite helmets"
+      craft_chestplate:
+        type: CRAFT
+        material: NETHERITE_CHESTPLATE
+        amount: 3
+        description: "Craft 3 netherite chestplates"
+      craft_leggings:
+        type: CRAFT
+        material: NETHERITE_LEGGINGS
+        amount: 3
+        description: "Craft 3 netherite leggings"
+      craft_boots:
+        type: CRAFT
+        material: NETHERITE_BOOTS
+        amount: 3
+        description: "Craft 3 netherite boots"
+    rewards:
+      coins: 18000
+      experience: 3600
+      tokens: 180
+
+  ultimate_farmer:
+    name: "Ultimate Farmer"
+    description: "Master all farming"
+    icon: WHEAT
+    category: EXPERT
+    required-progress: 88
+    sort-order: 46
+    objectives:
+      collect_wheat:
+        type: COLLECT
+        material: WHEAT
+        amount: 5000
+        description: "Collect 5000 wheat"
+      collect_carrots:
+        type: COLLECT
+        material: CARROT
+        amount: 3000
+        description: "Collect 3000 carrots"
+      collect_potatoes:
+        type: COLLECT
+        material: POTATO
+        amount: 3000
+        description: "Collect 3000 potatoes"
+    rewards:
+      coins: 7000
+      experience: 1400
+      tokens: 70
+
+  ultimate_fisherman:
+    name: "Ultimate Fisherman"
+    description: "Catch rare treasures"
+    icon: FISHING_ROD
+    category: EXPERT
+    required-progress: 86
+    sort-order: 47
+    objectives:
+      fish:
+        type: FISH
+        amount: 5000
+        description: "Catch 5000 fish"
+    rewards:
+      coins: 6000
+      experience: 1200
+      tokens: 60
+
+  ultimate_enchanter:
+    name: "Ultimate Enchanter"
+    description: "Become enchanting master"
+    icon: ENCHANTING_TABLE
+    category: EXPERT
+    required-progress: 91
+    sort-order: 48
+    objectives:
+      enchant:
+        type: ENCHANT
+        amount: 1000
+        description: "Enchant 1000 items"
+    rewards:
+      coins: 8500
+      experience: 1700
+      tokens: 85
+
+  server_legend:
+    name: "Server Legend"
+    description: "Achieve 100% progress"
+    icon: NETHER_STAR
+    category: EXPERT
+    required-progress: 100
+    sort-order: 49
+    objectives:
+      custom_legend:
+        type: CUSTOM
+        data: "achieve_max_progress"
+        amount: 1
+        description: "Reach 100% server progress"
+    rewards:
+      coins: 50000
+      experience: 10000
+      tokens: 500
+
+  ultimate_champion:
+    name: "Ultimate Champion"
+    description: "Complete all quest categories"
+    icon: DRAGON_EGG
+    category: EXPERT
+    required-progress: 99
+    sort-order: 50
+    objectives:
+      custom_champion:
+        type: CUSTOM
+        data: "complete_all_categories"
+        amount: 1
+        description: "Complete 200 quests"
+    rewards:
+      coins: 100000
+      experience: 20000
+      tokens: 1000

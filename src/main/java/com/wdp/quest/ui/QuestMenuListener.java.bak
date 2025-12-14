@@ -1,0 +1,274 @@
+package com.wdp.quest.ui;
+
+import com.wdp.quest.WDPQuestPlugin;
+import com.wdp.quest.quest.Quest;
+import com.wdp.quest.ui.QuestMenuHandler.MenuState;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.List;
+
+/**
+ * Handles inventory click events for quest menus.
+ * 
+ * Main Menu Layout (54 slots, 9 columns x 6 rows):
+ * Row 0: [Head:0] [ :1] [Prev:2] [ :3] [Title:4] [ :5] [Close:6] [Next:7] [Currency:8]
+ * Row 1: [Q1 Icon:9] [Bar:10-17]
+ * Row 2: [------ Separator ------]
+ * Row 3: [Q2 Icon:27] [Bar:28-35]
+ * Row 4: [------ Separator ------]
+ * Row 5: [Q3 Icon:45] [Bar:46-53]
+ * 
+ * Detail Menu Layout:
+ * Row 0: [Back:0] [ ] [ ] [ ] [Icon:4] [ ] [ ] [ ] [Status:8]
+ * Row 1: [ProgLabel:9] [Bar:10-17]
+ * Row 2: [ObjLabel:18] [Obj:19-26]
+ * Row 3: [RewardLabel:27] [Rewards:28-35]
+ * Row 4: [ filler ]
+ * Row 5: [ ] [ ] [Track:47] [ ] [Start:49] [ ] [Abandon:51] [ ] [ ]
+ */
+public class QuestMenuListener implements Listener {
+    
+    private final WDPQuestPlugin plugin;
+    private final QuestMenuHandler menuHandler;
+    
+    // Main menu slot constants
+    private static final int PREV_PAGE_SLOT = 2;
+    private static final int CLOSE_SLOT = 6;
+    private static final int NEXT_PAGE_SLOT = 7;
+    
+    // Quest icon slots in main menu (rows 1, 3, 5 with separators)
+    private static final int[] QUEST_ICON_SLOTS = {9, 27, 45};
+    private static final int QUESTS_PER_PAGE = 3;
+    
+    // Detail menu slot constants
+    private static final int BACK_SLOT = 0;
+    private static final int TRACK_SLOT = 47;
+    private static final int START_SLOT = 49;
+    private static final int ABANDON_SLOT = 51;
+    
+    public QuestMenuListener(WDPQuestPlugin plugin) {
+        this.plugin = plugin;
+        
+        // Get the menu handler from the command
+        var questCmd = plugin.getCommand("quest");
+        if (questCmd != null && questCmd.getExecutor() instanceof com.wdp.quest.commands.QuestCommand cmd) {
+            this.menuHandler = cmd.getMenuHandler();
+        } else {
+            this.menuHandler = new QuestMenuHandler(plugin);
+        }
+    }
+    
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+        
+        MenuState state = menuHandler.getMenuState(player.getUniqueId());
+        if (state == null) return;
+        
+        plugin.getLogger().info("[MENU DEBUG] Click detected - Player: " + player.getName() + ", Slot: " + event.getRawSlot() + ", MenuType: " + state.type + ", Page: " + state.page);
+        
+        // Always cancel ALL clicks to prevent item movement from both inventories
+        event.setCancelled(true);
+        
+        // Only process clicks in the top inventory (our menu)
+        if (event.getRawSlot() < 0 || event.getRawSlot() >= event.getInventory().getSize()) return;
+        
+        ItemStack clicked = event.getCurrentItem();
+        if (clicked == null || clicked.getType() == Material.AIR) {
+            plugin.getLogger().info("[MENU DEBUG] Click ignored - null or AIR item");
+            return;
+        }
+        if (isFillerItem(clicked)) {
+            plugin.getLogger().info("[MENU DEBUG] Click ignored - filler item: " + clicked.getType());
+            return;
+        }
+        
+        int slot = event.getRawSlot();
+        
+        plugin.getLogger().info("[MENU DEBUG] Processing click - Slot: " + slot + ", Item: " + clicked.getType() + ", MenuType: " + state.type);
+        
+        // Play click sound
+        player.playSound(player.getLocation(), plugin.getConfigManager().getSound("click"), 0.5f, 1.0f);
+        
+        switch (state.type) {
+            case MAIN -> handleMainMenuClick(player, slot, clicked, state);
+            case DETAIL -> handleDetailMenuClick(player, slot, clicked, state);
+        }
+    }
+    
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onInventoryDrag(InventoryDragEvent event) {
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+        
+        MenuState state = menuHandler.getMenuState(player.getUniqueId());
+        if (state == null) return;
+        
+        // Cancel all drag events in our menus
+        event.setCancelled(true);
+    }
+    
+    @EventHandler
+    public void onInventoryClose(InventoryCloseEvent event) {
+        if (event.getPlayer() instanceof Player player) {
+            plugin.getLogger().info("[MENU DEBUG] Inventory closed for " + player.getName() + ", clearing menu state");
+            menuHandler.clearMenuState(player.getUniqueId());
+        }
+    }
+    
+    /**
+     * Handles clicks in the main quest menu.
+     */
+    private void handleMainMenuClick(Player player, int slot, ItemStack clicked, MenuState state) {
+        List<Quest> dailyQuests = plugin.getDailyQuestManager().getDailyQuests(player);
+        int page = state.page;
+        int startIndex = page * QUESTS_PER_PAGE;
+        int totalPages = (int) Math.ceil((double) dailyQuests.size() / QUESTS_PER_PAGE);
+        
+        // Close button (slot 6)
+        if (slot == CLOSE_SLOT) {
+            plugin.getLogger().info("[MENU DEBUG] Close button clicked");
+            player.closeInventory();
+            return;
+        }
+        
+        // Previous page (slot 2)
+        if (slot == PREV_PAGE_SLOT) {
+            plugin.getLogger().info("[MENU DEBUG] Previous button clicked - Current page: " + page);
+            if (page > 0) {
+                plugin.getLogger().info("[MENU DEBUG] Navigating to page " + (page - 1) + " with updateOnly=true");
+                menuHandler.openMainMenu(player, page - 1, true); // Update existing inventory
+            } else {
+                plugin.getLogger().warning("[MENU DEBUG] Previous clicked but already on page 0!");
+            }
+            return;
+        }
+        
+        // Next page (slot 7)
+        if (slot == NEXT_PAGE_SLOT) {
+            int maxPage = Math.max(0, totalPages - 1);
+            plugin.getLogger().info("[MENU DEBUG] Next button clicked - Current page: " + page + ", MaxPage: " + maxPage);
+            if (page < maxPage) {
+                plugin.getLogger().info("[MENU DEBUG] Navigating to page " + (page + 1) + " with updateOnly=true");
+                menuHandler.openMainMenu(player, page + 1, true); // Update existing inventory
+            } else {
+                plugin.getLogger().warning("[MENU DEBUG] Next clicked but already on last page!");
+            }
+            return;
+        }
+        
+        // Check if clicked on any quest icon (slots 9, 27, 45)
+        for (int i = 0; i < QUEST_ICON_SLOTS.length; i++) {
+            if (slot == QUEST_ICON_SLOTS[i]) {
+                int questIndex = startIndex + i;
+                plugin.getLogger().info("[MENU DEBUG] Quest icon clicked at slot " + slot + ", questIndex: " + questIndex + ", totalQuests: " + dailyQuests.size());
+                if (questIndex < dailyQuests.size()) {
+                    Quest quest = dailyQuests.get(questIndex);
+                    plugin.getLogger().info("[MENU DEBUG] Opening detail for quest: " + quest.getId());
+                    menuHandler.openQuestDetail(player, quest, state.page);
+                } else {
+                    plugin.getLogger().warning("[MENU DEBUG] Quest index out of bounds: " + questIndex);
+                }
+                return;
+            }
+        }
+        
+        plugin.getLogger().info("[MENU DEBUG] Click at slot " + slot + " did not match any handler");
+    }
+    
+    /**
+     * Handles clicks in the quest detail menu.
+     */
+    private void handleDetailMenuClick(Player player, int slot, ItemStack clicked, MenuState state) {
+        String questId = state.data;
+        if (questId == null) return;
+        
+        Quest quest = plugin.getQuestManager().getQuest(questId);
+        if (quest == null) return;
+        
+        var playerData = plugin.getPlayerQuestManager().getPlayerData(player);
+        boolean isActive = playerData.isQuestActive(questId);
+        boolean isCompleted = playerData.isQuestCompleted(questId);
+        double playerProgress = plugin.getProgressIntegration().getPlayerProgress(player);
+        boolean canStart = playerProgress >= quest.getRequiredProgress();
+        
+        switch (slot) {
+            // Back button (slot 0)
+            case BACK_SLOT -> {
+                plugin.getLogger().info("[MENU DEBUG] Back button clicked - returning to page " + state.page);
+                menuHandler.openMainMenu(player, state.page);
+            }
+            
+            // Track button (slot 47) - only when active
+            case TRACK_SLOT -> {
+                if (isActive) {
+                    if (playerData.isTracking(questId)) {
+                        playerData.setTrackedQuestId(null);
+                        player.sendMessage(plugin.getConfigManager().colorize("&7Stopped tracking quest."));
+                    } else {
+                        playerData.setTrackedQuestId(questId);
+                        player.sendMessage(plugin.getConfigManager().colorize("&aNow tracking: &e" + quest.getDisplayName()));
+                    }
+                    // Refresh the detail view
+                    menuHandler.openQuestDetail(player, quest, state.page);
+                }
+            }
+            
+            // Start/Repeat button (slot 49)
+            case START_SLOT -> {
+                Material type = clicked.getType();
+                
+                // Start quest (Emerald)
+                if (type == Material.EMERALD && canStart && !isActive && !isCompleted) {
+                    if (plugin.getPlayerQuestManager().startQuest(player, quest)) {
+                        menuHandler.openQuestDetail(player, quest, state.page);
+                    }
+                }
+                // Repeat quest (Experience Bottle)
+                else if (type == Material.EXPERIENCE_BOTTLE && isCompleted && quest.isRepeatable() && 
+                         !playerData.isOnCooldown(questId)) {
+                    playerData.removeQuest(questId);
+                    if (plugin.getPlayerQuestManager().startQuest(player, quest)) {
+                        menuHandler.openQuestDetail(player, quest, state.page);
+                    }
+                }
+            }
+            
+            // Abandon button (slot 51) - only when active
+            case ABANDON_SLOT -> {
+                if (isActive && clicked.getType() == Material.TNT) {
+                    plugin.getPlayerQuestManager().abandonQuest(player, questId);
+                    player.sendMessage(plugin.getConfigManager().colorize("&cAbandoned quest: &e" + quest.getDisplayName()));
+                    menuHandler.openQuestDetail(player, quest, state.page);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Checks if an item is a filler/background item that should be ignored.
+     */
+    private boolean isFillerItem(ItemStack item) {
+        if (item == null) return true;
+        Material type = item.getType();
+        
+        // All stained glass panes are fillers
+        if (type.name().endsWith("_STAINED_GLASS_PANE")) {
+            return true;
+        }
+        
+        // Paper items (progress bar segments) should also be ignored in clicks
+        if (type == Material.PAPER) {
+            return true;
+        }
+        
+        return false;
+    }
+}

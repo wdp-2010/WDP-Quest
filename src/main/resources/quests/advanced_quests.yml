@@ -1,0 +1,921 @@
+# Advanced Quests (60-80% Progress)
+# 50 quests for end-game preparation
+
+quests:
+  # End Preparation (10 quests)
+  end_portal_finder:
+    name: "End Portal Finder"
+    description: "Locate and prepare an end portal"
+    icon: END_PORTAL_FRAME
+    category: ADVANCED
+    required-progress: 60
+    sort-order: 1
+    objectives:
+      collect_eyes:
+        type: COLLECT
+        material: ENDER_EYE
+        amount: 12
+        description: "Collect 12 eyes of ender"
+    rewards:
+      coins: 900
+      experience: 280
+      tokens: 5
+
+  pearl_collector:
+    name: "Pearl Collector"
+    description: "Amass ender pearls"
+    icon: ENDER_PEARL
+    category: ADVANCED
+    required-progress: 62
+    sort-order: 2
+    objectives:
+      collect_pearls:
+        type: COLLECT
+        material: ENDER_PEARL
+        amount: 64
+        description: "Collect 64 ender pearls"
+    rewards:
+      coins: 800
+      experience: 250
+
+  blaze_powder_producer:
+    name: "Blaze Powder Producer"
+    description: "Produce blaze powder in bulk"
+    icon: BLAZE_POWDER
+    category: ADVANCED
+    required-progress: 61
+    sort-order: 3
+    objectives:
+      craft_blaze_powder:
+        type: CRAFT
+        material: BLAZE_POWDER
+        amount: 32
+        description: "Craft 32 blaze powder"
+    rewards:
+      coins: 750
+      experience: 240
+
+  dragon_preparation:
+    name: "Dragon Preparation"
+    description: "Prepare for the dragon fight"
+    icon: DIAMOND_SWORD
+    category: ADVANCED
+    required-progress: 65
+    sort-order: 4
+    objectives:
+      craft_diamond_sword:
+        type: CRAFT
+        material: DIAMOND_SWORD
+        amount: 2
+        description: "Craft 2 diamond swords"
+      craft_bow:
+        type: CRAFT
+        material: BOW
+        amount: 2
+        description: "Craft 2 bows"
+    rewards:
+      coins: 850
+      experience: 270
+
+  armor_upgrade:
+    name: "Ultimate Armor"
+    description: "Craft a complete diamond set"
+    icon: DIAMOND_CHESTPLATE
+    category: ADVANCED
+    required-progress: 63
+    sort-order: 5
+    objectives:
+      craft_helmet:
+        type: CRAFT
+        material: DIAMOND_HELMET
+        amount: 1
+        description: "Craft diamond helmet"
+      craft_chestplate:
+        type: CRAFT
+        material: DIAMOND_CHESTPLATE
+        amount: 1
+        description: "Craft diamond chestplate"
+      craft_leggings:
+        type: CRAFT
+        material: DIAMOND_LEGGINGS
+        amount: 1
+        description: "Craft diamond leggings"
+      craft_boots:
+        type: CRAFT
+        material: DIAMOND_BOOTS
+        amount: 1
+        description: "Craft diamond boots"
+    rewards:
+      coins: 1000
+      experience: 300
+      tokens: 5
+
+  potion_master:
+    name: "Potion Master"
+    description: "Brew various potions for the fight"
+    icon: BREWING_STAND
+    category: ADVANCED
+    required-progress: 64
+    sort-order: 6
+    objectives:
+      collect_potions:
+        type: COLLECT
+        material: POTION
+        amount: 16
+        description: "Collect 16 potions"
+    rewards:
+      coins: 800
+      experience: 250
+
+  bed_bomber:
+    name: "Bed Bomber"
+    description: "Gather beds for the dragon fight"
+    icon: RED_BED
+    category: ADVANCED
+    required-progress: 62
+    sort-order: 7
+    objectives:
+      craft_beds:
+        type: CRAFT
+        material: WHITE_BED
+        amount: 20
+        description: "Craft 20 beds (any color)"
+    rewards:
+      coins: 700
+      experience: 230
+
+  arrow_stockpile:
+    name: "Arrow Stockpile"
+    description: "Stock up on ammunition"
+    icon: ARROW
+    category: ADVANCED
+    required-progress: 61
+    sort-order: 8
+    objectives:
+      craft_arrows:
+        type: CRAFT
+        material: ARROW
+        amount: 256
+        description: "Craft 256 arrows"
+    rewards:
+      coins: 650
+      experience: 210
+
+  golden_apple_hoarder:
+    name: "Golden Apple Hoarder"
+    description: "Craft golden apples for survival"
+    icon: GOLDEN_APPLE
+    category: ADVANCED
+    required-progress: 66
+    sort-order: 9
+    objectives:
+      craft_golden_apples:
+        type: CRAFT
+        material: GOLDEN_APPLE
+        amount: 16
+        description: "Craft 16 golden apples"
+    rewards:
+      coins: 900
+      experience: 280
+
+  obsidian_pillars:
+    name: "Obsidian Pillars"
+    description: "Gather obsidian for protection"
+    icon: OBSIDIAN
+    category: ADVANCED
+    required-progress: 64
+    sort-order: 10
+    objectives:
+      mine_obsidian:
+        type: MINE
+        material: OBSIDIAN
+        amount: 64
+        description: "Mine 64 obsidian"
+    rewards:
+      coins: 800
+      experience: 250
+
+  # Boss Combat (10 quests)
+  ender_dragon_slayer:
+    name: "Ender Dragon Slayer"
+    description: "Defeat the Ender Dragon"
+    icon: DRAGON_HEAD
+    category: ADVANCED
+    required-progress: 70
+    sort-order: 11
+    hard: true
+    days-available: 3
+    objectives:
+      kill_dragon:
+        type: KILL
+        entity: ENDER_DRAGON
+        amount: 1
+        description: "Kill the Ender Dragon"
+    rewards:
+      coins: 2500
+      experience: 500
+      tokens: 25
+
+  dragon_rematch:
+    name: "Dragon Rematch"
+    description: "Defeat the dragon again"
+    icon: DRAGON_EGG
+    category: ADVANCED
+    required-progress: 75
+    sort-order: 12
+    hard: true
+    days-available: 3
+    objectives:
+      kill_dragon:
+        type: KILL
+        entity: ENDER_DRAGON
+        amount: 2
+        description: "Kill 2 Ender Dragons"
+    rewards:
+      coins: 3000
+      experience: 600
+      tokens: 30
+
+  wither_skeleton_skulls:
+    name: "Wither Skeleton Skulls"
+    description: "Collect skulls for the wither"
+    icon: WITHER_SKELETON_SKULL
+    category: ADVANCED
+    required-progress: 68
+    sort-order: 13
+    hard: true
+    days-available: 3
+    objectives:
+      collect_skulls:
+        type: COLLECT
+        material: WITHER_SKELETON_SKULL
+        amount: 3
+        description: "Collect 3 wither skeleton skulls"
+    rewards:
+      coins: 1200
+      experience: 350
+      tokens: 8
+
+  soul_sand_gatherer:
+    name: "Soul Sand Gatherer"
+    description: "Gather soul sand for the wither"
+    icon: SOUL_SAND
+    category: ADVANCED
+    required-progress: 66
+    sort-order: 14
+    objectives:
+      collect_soul_sand:
+        type: COLLECT
+        material: SOUL_SAND
+        amount: 64
+        description: "Collect 64 soul sand"
+    rewards:
+      coins: 750
+      experience: 240
+
+  hundred_endermen:
+    name: "Hundred Endermen"
+    description: "Slay a hundred endermen"
+    icon: ENDER_PEARL
+    category: ADVANCED
+    required-progress: 63
+    sort-order: 15
+    objectives:
+      kill_endermen:
+        type: KILL
+        entity: ENDERMAN
+        amount: 100
+        description: "Kill 100 endermen"
+    rewards:
+      coins: 850
+      experience: 270
+
+  shulker_slayer:
+    name: "Shulker Slayer"
+    description: "Defeat shulkers in end cities"
+    icon: SHULKER_SHELL
+    category: ADVANCED
+    required-progress: 72
+    sort-order: 16
+    objectives:
+      kill_shulkers:
+        type: KILL
+        entity: SHULKER
+        amount: 50
+        description: "Kill 50 shulkers"
+    rewards:
+      coins: 1100
+      experience: 330
+      tokens: 8
+
+  raid_hero:
+    name: "Raid Hero"
+    description: "Complete multiple raids"
+    icon: TOTEM_OF_UNDYING
+    category: ADVANCED
+    required-progress: 67
+    sort-order: 17
+    objectives:
+      kill_ravagers:
+        type: KILL
+        entity: RAVAGER
+        amount: 10
+        description: "Kill 10 ravagers"
+    rewards:
+      coins: 950
+      experience: 290
+      tokens: 5
+
+  guardian_genocide:
+    name: "Guardian Genocide"
+    description: "Clear all guardians"
+    icon: PRISMARINE_SHARD
+    category: ADVANCED
+    required-progress: 64
+    sort-order: 18
+    objectives:
+      kill_guardians:
+        type: KILL
+        entity: GUARDIAN
+        amount: 200
+        description: "Kill 200 guardians"
+    rewards:
+      coins: 850
+      experience: 270
+
+  hostile_hunter:
+    name: "Hostile Hunter"
+    description: "Kill many hostile mobs"
+    icon: IRON_SWORD
+    category: ADVANCED
+    required-progress: 62
+    sort-order: 19
+    objectives:
+      kill_zombies:
+        type: KILL
+        entity: ZOMBIE
+        amount: 300
+        description: "Kill 300 zombies"
+      kill_skeletons:
+        type: KILL
+        entity: SKELETON
+        amount: 300
+        description: "Kill 300 skeletons"
+    rewards:
+      coins: 900
+      experience: 280
+
+  piglin_brute_bane:
+    name: "Piglin Brute Bane"
+    description: "Defeat piglin brutes"
+    icon: GOLDEN_AXE
+    category: ADVANCED
+    required-progress: 65
+    sort-order: 20
+    objectives:
+      kill_brutes:
+        type: KILL
+        entity: PIGLIN_BRUTE
+        amount: 20
+        description: "Kill 20 piglin brutes"
+    rewards:
+      coins: 880
+      experience: 275
+
+  # End Exploration (10 quests)
+  end_city_raider:
+    name: "End City Raider"
+    description: "Raid end cities for loot"
+    icon: PURPUR_BLOCK
+    category: ADVANCED
+    required-progress: 73
+    sort-order: 21
+    objectives:
+      mine_purpur:
+        type: MINE
+        material: PURPUR_BLOCK
+        amount: 256
+        description: "Mine 256 purpur blocks"
+    rewards:
+      coins: 1200
+      experience: 350
+      tokens: 10
+
+  elytra_finder:
+    name: "Elytra Finder"
+    description: "Find elytra in end ships"
+    icon: ELYTRA
+    category: ADVANCED
+    required-progress: 75
+    sort-order: 22
+    objectives:
+      collect_elytra:
+        type: COLLECT
+        material: ELYTRA
+        amount: 1
+        description: "Find an elytra"
+    rewards:
+      coins: 2000
+      experience: 500
+      tokens: 20
+
+  dragon_breath_collector:
+    name: "Dragon Breath Collector"
+    description: "Collect dragon's breath"
+    icon: DRAGON_BREATH
+    category: ADVANCED
+    required-progress: 71
+    sort-order: 23
+    objectives:
+      collect_breath:
+        type: COLLECT
+        material: DRAGON_BREATH
+        amount: 16
+        description: "Collect 16 dragon's breath"
+    rewards:
+      coins: 1000
+      experience: 300
+      tokens: 5
+
+  chorus_harvester:
+    name: "Chorus Harvester"
+    description: "Harvest chorus fruits"
+    icon: CHORUS_FRUIT
+    category: ADVANCED
+    required-progress: 68
+    sort-order: 24
+    objectives:
+      collect_chorus:
+        type: COLLECT
+        material: CHORUS_FRUIT
+        amount: 64
+        description: "Collect 64 chorus fruits"
+    rewards:
+      coins: 900
+      experience: 280
+
+  end_stone_miner:
+    name: "End Stone Miner"
+    description: "Mine end stone in bulk"
+    icon: END_STONE
+    category: ADVANCED
+    required-progress: 66
+    sort-order: 25
+    objectives:
+      mine_end_stone:
+        type: MINE
+        material: END_STONE
+        amount: 512
+        description: "Mine 512 end stone"
+    rewards:
+      coins: 800
+      experience: 250
+
+  end_rod_crafter:
+    name: "End Rod Crafter"
+    description: "Craft end rods for lighting"
+    icon: END_ROD
+    category: ADVANCED
+    required-progress: 69
+    sort-order: 26
+    objectives:
+      craft_end_rods:
+        type: CRAFT
+        material: END_ROD
+        amount: 32
+        description: "Craft 32 end rods"
+    rewards:
+      coins: 900
+      experience: 280
+
+  purpur_pillar_builder:
+    name: "Purpur Pillar Builder"
+    description: "Craft purpur pillars"
+    icon: PURPUR_PILLAR
+    category: ADVANCED
+    required-progress: 67
+    sort-order: 27
+    objectives:
+      craft_purpur_pillar:
+        type: CRAFT
+        material: PURPUR_PILLAR
+        amount: 64
+        description: "Craft 64 purpur pillars"
+    rewards:
+      coins: 850
+      experience: 270
+
+  shulker_box_collection:
+    name: "Shulker Box Collection"
+    description: "Craft colored shulker boxes"
+    icon: PURPLE_SHULKER_BOX
+    category: ADVANCED
+    required-progress: 74
+    sort-order: 28
+    objectives:
+      craft_shulker:
+        type: CRAFT
+        material: SHULKER_BOX
+        amount: 16
+        description: "Craft 16 shulker boxes"
+    rewards:
+      coins: 1500
+      experience: 400
+      tokens: 15
+
+  ender_crystal_destroyer:
+    name: "Crystal Destroyer"
+    description: "Destroy ender crystals"
+    icon: END_CRYSTAL
+    category: ADVANCED
+    required-progress: 70
+    sort-order: 29
+    objectives:
+      collect_crystal:
+        type: CRAFT
+        material: END_CRYSTAL
+        amount: 4
+        description: "Craft 4 end crystals"
+    rewards:
+      coins: 950
+      experience: 290
+
+  end_gateway_traveler:
+    name: "Gateway Traveler"
+    description: "Travel through end gateways"
+    icon: ENDER_PEARL
+    category: ADVANCED
+    required-progress: 72
+    sort-order: 30
+    objectives:
+      collect_pearls:
+        type: COLLECT
+        material: ENDER_PEARL
+        amount: 128
+        description: "Collect 128 ender pearls"
+    rewards:
+      coins: 1100
+      experience: 330
+
+  # Advanced Crafting (10 quests)
+  netherite_sword_smith:
+    name: "Netherite Sword Smith"
+    description: "Upgrade to netherite sword"
+    icon: NETHERITE_SWORD
+    category: ADVANCED
+    required-progress: 65
+    sort-order: 31
+    objectives:
+      craft_netherite_sword:
+        type: CRAFT
+        material: NETHERITE_SWORD
+        amount: 1
+        description: "Craft a netherite sword"
+    rewards:
+      coins: 1200
+      experience: 350
+      tokens: 10
+
+  netherite_pickaxe_smith:
+    name: "Netherite Pickaxe Smith"
+    description: "Upgrade to netherite pickaxe"
+    icon: NETHERITE_PICKAXE
+    category: ADVANCED
+    required-progress: 66
+    sort-order: 32
+    objectives:
+      craft_netherite_pickaxe:
+        type: CRAFT
+        material: NETHERITE_PICKAXE
+        amount: 1
+        description: "Craft a netherite pickaxe"
+    rewards:
+      coins: 1200
+      experience: 350
+      tokens: 10
+
+  netherite_armor_full:
+    name: "Full Netherite Armor"
+    description: "Craft complete netherite armor"
+    icon: NETHERITE_CHESTPLATE
+    category: ADVANCED
+    required-progress: 75
+    sort-order: 33
+    objectives:
+      craft_helmet:
+        type: CRAFT
+        material: NETHERITE_HELMET
+        amount: 1
+        description: "Craft netherite helmet"
+      craft_chestplate:
+        type: CRAFT
+        material: NETHERITE_CHESTPLATE
+        amount: 1
+        description: "Craft netherite chestplate"
+      craft_leggings:
+        type: CRAFT
+        material: NETHERITE_LEGGINGS
+        amount: 1
+        description: "Craft netherite leggings"
+      craft_boots:
+        type: CRAFT
+        material: NETHERITE_BOOTS
+        amount: 1
+        description: "Craft netherite boots"
+    rewards:
+      coins: 3000
+      experience: 600
+      tokens: 30
+
+  beacon_full_power:
+    name: "Full Power Beacon"
+    description: "Power a beacon fully"
+    icon: BEACON
+    category: ADVANCED
+    required-progress: 70
+    sort-order: 34
+    objectives:
+      craft_iron_blocks:
+        type: CRAFT
+        material: IRON_BLOCK
+        amount: 164
+        description: "Craft 164 iron blocks"
+    rewards:
+      coins: 1500
+      experience: 400
+      tokens: 15
+
+  enchanted_golden_apple:
+    name: "Enchanted Golden Apple"
+    description: "Find an enchanted golden apple"
+    icon: ENCHANTED_GOLDEN_APPLE
+    category: ADVANCED
+    required-progress: 68
+    sort-order: 35
+    objectives:
+      collect_egap:
+        type: COLLECT
+        material: ENCHANTED_GOLDEN_APPLE
+        amount: 1
+        description: "Find 1 enchanted golden apple"
+    rewards:
+      coins: 1800
+      experience: 450
+      tokens: 15
+
+  firework_crafter:
+    name: "Firework Crafter"
+    description: "Craft fireworks for elytra"
+    icon: FIREWORK_ROCKET
+    category: ADVANCED
+    required-progress: 73
+    sort-order: 36
+    objectives:
+      craft_fireworks:
+        type: CRAFT
+        material: FIREWORK_ROCKET
+        amount: 128
+        description: "Craft 128 firework rockets"
+    rewards:
+      coins: 1000
+      experience: 300
+
+  lingering_potion_maker:
+    name: "Lingering Potion Maker"
+    description: "Create lingering potions"
+    icon: LINGERING_POTION
+    category: ADVANCED
+    required-progress: 72
+    sort-order: 37
+    objectives:
+      craft_lingering:
+        type: CRAFT
+        material: LINGERING_POTION
+        amount: 8
+        description: "Craft 8 lingering potions"
+    rewards:
+      coins: 1100
+      experience: 330
+
+  tipped_arrow_crafter:
+    name: "Tipped Arrow Crafter"
+    description: "Create tipped arrows"
+    icon: TIPPED_ARROW
+    category: ADVANCED
+    required-progress: 71
+    sort-order: 38
+    objectives:
+      craft_tipped_arrows:
+        type: CRAFT
+        material: TIPPED_ARROW
+        amount: 64
+        description: "Craft 64 tipped arrows"
+    rewards:
+      coins: 950
+      experience: 290
+
+  block_of_netherite:
+    name: "Block of Netherite"
+    description: "Create a netherite block"
+    icon: NETHERITE_BLOCK
+    category: ADVANCED
+    required-progress: 78
+    sort-order: 39
+    objectives:
+      craft_netherite_block:
+        type: CRAFT
+        material: NETHERITE_BLOCK
+        amount: 1
+        description: "Craft a netherite block"
+    rewards:
+      coins: 2500
+      experience: 500
+      tokens: 25
+
+  diamond_block_rich:
+    name: "Diamond Block Rich"
+    description: "Craft multiple diamond blocks"
+    icon: DIAMOND_BLOCK
+    category: ADVANCED
+    required-progress: 65
+    sort-order: 40
+    objectives:
+      craft_diamond_blocks:
+        type: CRAFT
+        material: DIAMOND_BLOCK
+        amount: 9
+        description: "Craft 9 diamond blocks"
+    rewards:
+      coins: 1200
+      experience: 350
+      tokens: 10
+
+  # Achievements & Skills (10 quests)
+  level_75:
+    name: "Level 75 Master"
+    description: "Reach experience level 75"
+    icon: EXPERIENCE_BOTTLE
+    category: ADVANCED
+    required-progress: 68
+    sort-order: 41
+    objectives:
+      gain_levels:
+        type: LEVEL_UP
+        amount: 75
+        description: "Gain 75 levels"
+    rewards:
+      coins: 1200
+      experience: 400
+      tokens: 10
+
+  master_trader:
+    name: "Master Trader"
+    description: "Trade extensively with villagers"
+    icon: EMERALD_BLOCK
+    category: ADVANCED
+    required-progress: 64
+    sort-order: 42
+    objectives:
+      trade:
+        type: TRADE
+        amount: 500
+        description: "Complete 500 trades"
+    rewards:
+      coins: 1000
+      experience: 300
+      tokens: 5
+
+  enchantment_master:
+    name: "Enchantment Master"
+    description: "Enchant many items"
+    icon: ENCHANTED_BOOK
+    category: ADVANCED
+    required-progress: 66
+    sort-order: 43
+    objectives:
+      enchant:
+        type: ENCHANT
+        amount: 100
+        description: "Enchant 100 items"
+    rewards:
+      coins: 1100
+      experience: 330
+      tokens: 8
+
+  fishing_legend:
+    name: "Fishing Legend"
+    description: "Catch many fish"
+    icon: FISHING_ROD
+    category: ADVANCED
+    required-progress: 62
+    sort-order: 44
+    objectives:
+      fish:
+        type: FISH
+        amount: 500
+        description: "Catch 500 fish"
+    rewards:
+      coins: 900
+      experience: 280
+
+  breeding_master:
+    name: "Breeding Master"
+    description: "Breed many animals"
+    icon: WHEAT
+    category: ADVANCED
+    required-progress: 61
+    sort-order: 45
+    objectives:
+      breed:
+        type: BREED
+        amount: 200
+        description: "Breed 200 animals"
+    rewards:
+      coins: 800
+      experience: 250
+
+  smelting_factory:
+    name: "Smelting Factory"
+    description: "Smelt in industrial quantities"
+    icon: BLAST_FURNACE
+    category: ADVANCED
+    required-progress: 63
+    sort-order: 46
+    objectives:
+      smelt_iron:
+        type: SMELT
+        material: IRON_INGOT
+        amount: 1000
+        description: "Smelt 1000 iron ingots"
+    rewards:
+      coins: 950
+      experience: 290
+
+  mega_builder:
+    name: "Mega Builder"
+    description: "Place thousands of blocks"
+    icon: QUARTZ_BLOCK
+    category: ADVANCED
+    required-progress: 64
+    sort-order: 47
+    objectives:
+      place_blocks:
+        type: PLACE
+        material: QUARTZ_BLOCK
+        amount: 2000
+        description: "Place 2000 quartz blocks"
+    rewards:
+      coins: 1000
+      experience: 300
+
+  deep_mining:
+    name: "Deep Mining"
+    description: "Mine deepslate variants"
+    icon: DEEPSLATE
+    category: ADVANCED
+    required-progress: 62
+    sort-order: 48
+    objectives:
+      mine_deepslate:
+        type: MINE
+        material: DEEPSLATE
+        amount: 1000
+        description: "Mine 1000 deepslate"
+    rewards:
+      coins: 850
+      experience: 270
+
+  copper_collector:
+    name: "Copper Collector"
+    description: "Collect large amounts of copper"
+    icon: COPPER_BLOCK
+    category: ADVANCED
+    required-progress: 60
+    sort-order: 49
+    objectives:
+      mine_copper:
+        type: MINE
+        material: COPPER_ORE
+        amount: 256
+        description: "Mine 256 copper ore"
+    rewards:
+      coins: 750
+      experience: 240
+
+  advancement_master:
+    name: "Advancement Master"
+    description: "Earn the End advancement"
+    icon: DRAGON_HEAD
+    category: ADVANCED
+    required-progress: 70
+    sort-order: 50
+    objectives:
+      earn_advancement:
+        type: ADVANCEMENT
+        data: "story/enter_the_end"
+        amount: 1
+        description: "Enter the End"
+    rewards:
+      coins: 1500
+      experience: 400
+      tokens: 15

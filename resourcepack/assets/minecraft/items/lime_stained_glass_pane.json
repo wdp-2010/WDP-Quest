@@ -1,0 +1,96 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/lime_stained_glass_pane"
+    },
+    "cases": [
+      {
+        "when": "1000",
+        "model": {
+          "type": "minecraft:model",
+          "model": "wdp_quest:item/progress_normal_0"
+        }
+      },
+      {
+        "when": "1001",
+        "model": {
+          "type": "minecraft:model",
+          "model": "wdp_quest:item/progress_normal_1"
+        }
+      },
+      {
+        "when": "1002",
+        "model": {
+          "type": "minecraft:model",
+          "model": "wdp_quest:item/progress_normal_2"
+        }
+      },
+      {
+        "when": "1003",
+        "model": {
+          "type": "minecraft:model",
+          "model": "wdp_quest:item/progress_normal_3"
+        }
+      },
+      {
+        "when": "1004",
+        "model": {
+          "type": "minecraft:model",
+          "model": "wdp_quest:item/progress_normal_4"
+        }
+      },
+      {
+        "when": "1005",
+        "model": {
+          "type": "minecraft:model",
+          "model": "wdp_quest:item/progress_normal_5"
+        }
+      },
+      {
+        "when": "1010",
+        "model": {
+          "type": "minecraft:model",
+          "model": "wdp_quest:item/progress_hard_0"
+        }
+      },
+      {
+        "when": "1011",
+        "model": {
+          "type": "minecraft:model",
+          "model": "wdp_quest:item/progress_hard_1"
+        }
+      },
+      {
+        "when": "1012",
+        "model": {
+          "type": "minecraft:model",
+          "model": "wdp_quest:item/progress_hard_2"
+        }
+      },
+      {
+        "when": "1013",
+        "model": {
+          "type": "minecraft:model",
+          "model": "wdp_quest:item/progress_hard_3"
+        }
+      },
+      {
+        "when": "1014",
+        "model": {
+          "type": "minecraft:model",
+          "model": "wdp_quest:item/progress_hard_4"
+        }
+      },
+      {
+        "when": "1015",
+        "model": {
+          "type": "minecraft:model",
+          "model": "wdp_quest:item/progress_hard_5"
+        }
+      }
+    ]
+  }
+}

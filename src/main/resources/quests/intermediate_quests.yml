@@ -1,0 +1,873 @@
+# Intermediate Quests (40-60% Progress)
+# 50 quests for experienced players
+
+quests:
+  # Nether Exploration (10 quests)
+  nether_adventurer:
+    name: "Nether Adventurer"
+    description: "Begin your journey to the Nether"
+    icon: NETHERRACK
+    category: INTERMEDIATE
+    required-progress: 40
+    sort-order: 1
+    objectives:
+      mine_netherrack:
+        type: MINE
+        material: NETHERRACK
+        amount: 256
+        description: "Mine 256 netherrack"
+    rewards:
+      coins: 400
+      experience: 150
+
+  blaze_hunter:
+    name: "Blaze Hunter"
+    description: "Defeat blazes in fortresses"
+    icon: BLAZE_ROD
+    category: INTERMEDIATE
+    required-progress: 45
+    sort-order: 2
+    objectives:
+      kill_blazes:
+        type: KILL
+        entity: BLAZE
+        amount: 20
+        description: "Kill 20 blazes"
+    rewards:
+      coins: 550
+      experience: 180
+
+  wither_skeleton_hunt:
+    name: "Wither Skeleton Hunt"
+    description: "Hunt wither skeletons for skulls"
+    icon: WITHER_SKELETON_SKULL
+    category: INTERMEDIATE
+    required-progress: 50
+    sort-order: 3
+    objectives:
+      kill_wither_skeletons:
+        type: KILL
+        entity: WITHER_SKELETON
+        amount: 25
+        description: "Kill 25 wither skeletons"
+    rewards:
+      coins: 650
+      tokens: 5
+      experience: 200
+    hard: true
+    days-available: 3
+
+  ghast_buster:
+    name: "Ghast Buster"
+    description: "Take down flying ghasts"
+    icon: GHAST_TEAR
+    category: INTERMEDIATE
+    required-progress: 44
+    sort-order: 4
+    objectives:
+      kill_ghasts:
+        type: KILL
+        entity: GHAST
+        amount: 10
+        description: "Kill 10 ghasts"
+    rewards:
+      coins: 500
+      experience: 170
+
+  magma_cube_crusher:
+    name: "Magma Cube Crusher"
+    description: "Squash magma cubes"
+    icon: MAGMA_CREAM
+    category: INTERMEDIATE
+    required-progress: 42
+    sort-order: 5
+    objectives:
+      kill_magma_cubes:
+        type: KILL
+        entity: MAGMA_CUBE
+        amount: 30
+        description: "Kill 30 magma cubes"
+    rewards:
+      coins: 450
+      experience: 160
+
+  piglin_negotiator:
+    name: "Piglin Negotiator"
+    description: "Trade with piglins"
+    icon: GOLD_INGOT
+    category: INTERMEDIATE
+    required-progress: 46
+    sort-order: 6
+    objectives:
+      kill_piglins:
+        type: KILL
+        entity: PIGLIN
+        amount: 25
+        description: "Kill 25 piglins (or trade!)"
+    rewards:
+      coins: 520
+      experience: 175
+
+  hoglin_hunter:
+    name: "Hoglin Hunter"
+    description: "Hunt hoglins for food"
+    icon: COOKED_PORKCHOP
+    category: INTERMEDIATE
+    required-progress: 43
+    sort-order: 7
+    objectives:
+      kill_hoglins:
+        type: KILL
+        entity: HOGLIN
+        amount: 15
+        description: "Kill 15 hoglins"
+    rewards:
+      coins: 480
+      experience: 165
+
+  nether_gold_miner:
+    name: "Nether Gold Miner"
+    description: "Mine nether gold ore"
+    icon: NETHER_GOLD_ORE
+    category: INTERMEDIATE
+    required-progress: 41
+    sort-order: 8
+    objectives:
+      mine_nether_gold:
+        type: MINE
+        material: NETHER_GOLD_ORE
+        amount: 64
+        description: "Mine 64 nether gold ore"
+    rewards:
+      coins: 420
+      experience: 155
+
+  quartz_quarrier:
+    name: "Quartz Quarrier"
+    description: "Mine nether quartz"
+    icon: QUARTZ
+    category: INTERMEDIATE
+    required-progress: 42
+    sort-order: 9
+    objectives:
+      mine_quartz:
+        type: MINE
+        material: NETHER_QUARTZ_ORE
+        amount: 128
+        description: "Mine 128 nether quartz ore"
+    rewards:
+      coins: 440
+      experience: 158
+
+  ancient_debris_seeker:
+    name: "Ancient Debris Seeker"
+    description: "Find precious ancient debris"
+    icon: ANCIENT_DEBRIS
+    category: INTERMEDIATE
+    required-progress: 55
+    sort-order: 10
+    hard: true
+    days-available: 3
+    objectives:
+      mine_ancient_debris:
+        type: MINE
+        material: ANCIENT_DEBRIS
+        amount: 8
+        description: "Mine 8 ancient debris"
+    rewards:
+      coins: 800
+      experience: 250
+      tokens: 5
+
+  # Advanced Combat (10 quests)
+  enderman_master:
+    name: "Enderman Master"
+    description: "Slay many endermen"
+    icon: ENDER_PEARL
+    category: INTERMEDIATE
+    required-progress: 48
+    sort-order: 11
+    objectives:
+      kill_endermen:
+        type: KILL
+        entity: ENDERMAN
+        amount: 50
+        description: "Kill 50 endermen"
+    rewards:
+      coins: 600
+      experience: 190
+
+  elder_guardian_slayer:
+    name: "Elder Guardian Slayer"
+    description: "Defeat an elder guardian"
+    icon: SPONGE
+    category: INTERMEDIATE
+    required-progress: 52
+    sort-order: 12
+    hard: true
+    days-available: 3
+    objectives:
+      kill_elder_guardian:
+        type: KILL
+        entity: ELDER_GUARDIAN
+        amount: 3
+        description: "Kill 3 elder guardians"
+    rewards:
+      coins: 750
+      experience: 220
+      tokens: 3
+
+  raid_defender:
+    name: "Raid Defender"
+    description: "Defend a village from a raid"
+    icon: OMINOUS_BOTTLE
+    category: INTERMEDIATE
+    required-progress: 50
+    sort-order: 13
+    objectives:
+      kill_pillagers:
+        type: KILL
+        entity: PILLAGER
+        amount: 50
+        description: "Kill 50 raid mobs"
+      kill_vindicators:
+        type: KILL
+        entity: VINDICATOR
+        amount: 20
+        description: "Kill 20 vindicators"
+    rewards:
+      coins: 700
+      experience: 210
+
+  creeper_king:
+    name: "Creeper King"
+    description: "Become master of creeper slaying"
+    icon: CREEPER_HEAD
+    category: INTERMEDIATE
+    required-progress: 45
+    sort-order: 14
+    objectives:
+      kill_creepers:
+        type: KILL
+        entity: CREEPER
+        amount: 100
+        description: "Kill 100 creepers"
+    rewards:
+      coins: 580
+      experience: 185
+
+  zombie_apocalypse:
+    name: "Zombie Apocalypse"
+    description: "Survive the zombie horde"
+    icon: ZOMBIE_HEAD
+    category: INTERMEDIATE
+    required-progress: 43
+    sort-order: 15
+    objectives:
+      kill_zombies:
+        type: KILL
+        entity: ZOMBIE
+        amount: 200
+        description: "Kill 200 zombies"
+    rewards:
+      coins: 520
+      experience: 175
+
+  skeleton_army:
+    name: "Skeleton Army"
+    description: "Defeat the skeletal forces"
+    icon: SKELETON_SKULL
+    category: INTERMEDIATE
+    required-progress: 44
+    sort-order: 16
+    objectives:
+      kill_skeletons:
+        type: KILL
+        entity: SKELETON
+        amount: 200
+        description: "Kill 200 skeletons"
+    rewards:
+      coins: 520
+      experience: 175
+
+  spider_queen:
+    name: "Spider Queen"
+    description: "Clear spider infestations"
+    icon: SPIDER_EYE
+    category: INTERMEDIATE
+    required-progress: 42
+    sort-order: 17
+    objectives:
+      kill_spiders:
+        type: KILL
+        entity: SPIDER
+        amount: 150
+        description: "Kill 150 spiders"
+    rewards:
+      coins: 480
+      experience: 165
+
+  witch_hunter_elite:
+    name: "Witch Hunter Elite"
+    description: "Master witch hunting"
+    icon: POTION
+    category: INTERMEDIATE
+    required-progress: 46
+    sort-order: 18
+    objectives:
+      kill_witches:
+        type: KILL
+        entity: WITCH
+        amount: 25
+        description: "Kill 25 witches"
+    rewards:
+      coins: 550
+      experience: 180
+
+  drowned_destroyer:
+    name: "Drowned Destroyer"
+    description: "Clear the oceans of drowned"
+    icon: NAUTILUS_SHELL
+    category: INTERMEDIATE
+    required-progress: 47
+    sort-order: 19
+    objectives:
+      kill_drowned:
+        type: KILL
+        entity: DROWNED
+        amount: 75
+        description: "Kill 75 drowned"
+    rewards:
+      coins: 560
+      experience: 182
+
+  phantom_purge:
+    name: "Phantom Purge"
+    description: "Eliminate the night terrors"
+    icon: PHANTOM_MEMBRANE
+    category: INTERMEDIATE
+    required-progress: 48
+    sort-order: 20
+    objectives:
+      kill_phantoms:
+        type: KILL
+        entity: PHANTOM
+        amount: 50
+        description: "Kill 50 phantoms"
+    rewards:
+      coins: 580
+      experience: 185
+
+  # Advanced Crafting (10 quests)
+  netherite_forge:
+    name: "Netherite Forge"
+    description: "Create netherite equipment"
+    icon: NETHERITE_INGOT
+    category: INTERMEDIATE
+    required-progress: 55
+    sort-order: 21
+    objectives:
+      craft_netherite_ingot:
+        type: CRAFT
+        material: NETHERITE_INGOT
+        amount: 4
+        description: "Craft 4 netherite ingots"
+    rewards:
+      coins: 850
+      experience: 260
+      tokens: 5
+
+  beacon_builder:
+    name: "Beacon Builder"
+    description: "Construct a beacon"
+    icon: BEACON
+    category: INTERMEDIATE
+    required-progress: 58
+    sort-order: 22
+    objectives:
+      craft_beacon:
+        type: CRAFT
+        material: BEACON
+        amount: 1
+        description: "Craft a beacon"
+    rewards:
+      coins: 1000
+      experience: 300
+      tokens: 10
+
+  conduit_constructor:
+    name: "Conduit Constructor"
+    description: "Build an underwater conduit"
+    icon: CONDUIT
+    category: INTERMEDIATE
+    required-progress: 54
+    sort-order: 23
+    objectives:
+      craft_conduit:
+        type: CRAFT
+        material: CONDUIT
+        amount: 1
+        description: "Craft a conduit"
+    rewards:
+      coins: 750
+      experience: 220
+      tokens: 5
+
+  ender_chest_maker:
+    name: "Ender Chest Maker"
+    description: "Craft ender storage"
+    icon: ENDER_CHEST
+    category: INTERMEDIATE
+    required-progress: 48
+    sort-order: 24
+    objectives:
+      craft_ender_chest:
+        type: CRAFT
+        material: ENDER_CHEST
+        amount: 2
+        description: "Craft 2 ender chests"
+    rewards:
+      coins: 600
+      experience: 190
+
+  shulker_box_builder:
+    name: "Shulker Box Builder"
+    description: "Create portable storage"
+    icon: SHULKER_BOX
+    category: INTERMEDIATE
+    required-progress: 56
+    sort-order: 25
+    objectives:
+      craft_shulker_box:
+        type: CRAFT
+        material: SHULKER_BOX
+        amount: 3
+        description: "Craft 3 shulker boxes"
+    rewards:
+      coins: 800
+      experience: 240
+      tokens: 3
+
+  respawn_anchor_maker:
+    name: "Respawn Anchor Maker"
+    description: "Craft a nether respawn point"
+    icon: RESPAWN_ANCHOR
+    category: INTERMEDIATE
+    required-progress: 52
+    sort-order: 26
+    objectives:
+      craft_respawn_anchor:
+        type: CRAFT
+        material: RESPAWN_ANCHOR
+        amount: 1
+        description: "Craft a respawn anchor"
+    rewards:
+      coins: 650
+      experience: 200
+
+  lodestone_locator:
+    name: "Lodestone Locator"
+    description: "Craft navigation lodestones"
+    icon: LODESTONE
+    category: INTERMEDIATE
+    required-progress: 50
+    sort-order: 27
+    objectives:
+      craft_lodestone:
+        type: CRAFT
+        material: LODESTONE
+        amount: 2
+        description: "Craft 2 lodestones"
+    rewards:
+      coins: 620
+      experience: 195
+
+  smithing_table_setup:
+    name: "Smithing Setup"
+    description: "Prepare for netherite upgrades"
+    icon: SMITHING_TABLE
+    category: INTERMEDIATE
+    required-progress: 45
+    sort-order: 28
+    objectives:
+      craft_smithing_table:
+        type: CRAFT
+        material: SMITHING_TABLE
+        amount: 1
+        description: "Craft a smithing table"
+    rewards:
+      coins: 500
+      experience: 170
+
+  spyglass_crafter:
+    name: "Spyglass Crafter"
+    description: "Craft a spyglass for scouting"
+    icon: SPYGLASS
+    category: INTERMEDIATE
+    required-progress: 44
+    sort-order: 29
+    objectives:
+      craft_spyglass:
+        type: CRAFT
+        material: SPYGLASS
+        amount: 2
+        description: "Craft 2 spyglasses"
+    rewards:
+      coins: 480
+      experience: 165
+
+  tinted_glass_maker:
+    name: "Tinted Glass Maker"
+    description: "Create light-blocking glass"
+    icon: TINTED_GLASS
+    category: INTERMEDIATE
+    required-progress: 46
+    sort-order: 30
+    objectives:
+      craft_tinted_glass:
+        type: CRAFT
+        material: TINTED_GLASS
+        amount: 32
+        description: "Craft 32 tinted glass"
+    rewards:
+      coins: 520
+      experience: 175
+
+  # Ocean & Exploration (10 quests)
+  ocean_explorer:
+    name: "Ocean Explorer"
+    description: "Explore the ocean depths"
+    icon: PRISMARINE
+    category: INTERMEDIATE
+    required-progress: 45
+    sort-order: 31
+    objectives:
+      mine_prismarine:
+        type: MINE
+        material: PRISMARINE
+        amount: 128
+        description: "Mine 128 prismarine"
+    rewards:
+      coins: 550
+      experience: 180
+
+  coral_collector:
+    name: "Coral Collector"
+    description: "Gather coral from reefs"
+    icon: TUBE_CORAL
+    category: INTERMEDIATE
+    required-progress: 43
+    sort-order: 32
+    objectives:
+      collect_coral:
+        type: COLLECT
+        material: TUBE_CORAL
+        amount: 32
+        description: "Collect 32 coral (any type)"
+    rewards:
+      coins: 480
+      experience: 165
+
+  sea_lantern_builder:
+    name: "Sea Lantern Builder"
+    description: "Craft underwater lighting"
+    icon: SEA_LANTERN
+    category: INTERMEDIATE
+    required-progress: 47
+    sort-order: 33
+    objectives:
+      craft_sea_lantern:
+        type: CRAFT
+        material: SEA_LANTERN
+        amount: 16
+        description: "Craft 16 sea lanterns"
+    rewards:
+      coins: 560
+      experience: 182
+
+  heart_of_sea_finder:
+    name: "Heart of the Sea"
+    description: "Find a heart of the sea"
+    icon: HEART_OF_THE_SEA
+    category: INTERMEDIATE
+    required-progress: 50
+    sort-order: 34
+    objectives:
+      collect_heart:
+        type: COLLECT
+        material: HEART_OF_THE_SEA
+        amount: 1
+        description: "Find 1 heart of the sea"
+    rewards:
+      coins: 650
+      experience: 200
+
+  trident_thrower:
+    name: "Trident Thrower"
+    description: "Collect tridents from drowned"
+    icon: TRIDENT
+    category: INTERMEDIATE
+    required-progress: 52
+    sort-order: 35
+    objectives:
+      collect_trident:
+        type: COLLECT
+        material: TRIDENT
+        amount: 2
+        description: "Collect 2 tridents"
+    rewards:
+      coins: 700
+      experience: 210
+
+  turtle_protector:
+    name: "Turtle Protector"
+    description: "Help turtles and collect scutes"
+    icon: TURTLE_SCUTE
+    category: INTERMEDIATE
+    required-progress: 44
+    sort-order: 36
+    objectives:
+      collect_scutes:
+        type: COLLECT
+        material: TURTLE_SCUTE
+        amount: 5
+        description: "Collect 5 turtle scutes"
+    rewards:
+      coins: 500
+      experience: 170
+
+  dolphin_friend:
+    name: "Dolphin's Grace"
+    description: "Swim with dolphins extensively"
+    icon: COD
+    category: INTERMEDIATE
+    required-progress: 42
+    sort-order: 37
+    objectives:
+      catch_cod:
+        type: FISH
+        amount: 100
+        description: "Catch 100 fish"
+    rewards:
+      coins: 450
+      experience: 160
+
+  shipwreck_looter:
+    name: "Shipwreck Looter"
+    description: "Loot sunken ships"
+    icon: CHEST
+    category: INTERMEDIATE
+    required-progress: 46
+    sort-order: 38
+    objectives:
+      collect_map:
+        type: COLLECT
+        material: FILLED_MAP
+        amount: 3
+        description: "Find 3 treasure maps"
+    rewards:
+      coins: 540
+      experience: 178
+
+  monument_master:
+    name: "Monument Master"
+    description: "Conquer an ocean monument"
+    icon: DARK_PRISMARINE
+    category: INTERMEDIATE
+    required-progress: 54
+    sort-order: 39
+    objectives:
+      mine_dark_prismarine:
+        type: MINE
+        material: DARK_PRISMARINE
+        amount: 64
+        description: "Mine 64 dark prismarine"
+    rewards:
+      coins: 720
+      experience: 215
+
+  sponge_collector:
+    name: "Sponge Collector"
+    description: "Collect sponges from monuments"
+    icon: WET_SPONGE
+    category: INTERMEDIATE
+    required-progress: 55
+    sort-order: 40
+    objectives:
+      collect_sponge:
+        type: COLLECT
+        material: WET_SPONGE
+        amount: 16
+        description: "Collect 16 wet sponges"
+    rewards:
+      coins: 750
+      experience: 220
+
+  # Skills & Progression (10 quests)
+  master_enchanter:
+    name: "Master Enchanter"
+    description: "Enchant many items"
+    icon: ENCHANTING_TABLE
+    category: INTERMEDIATE
+    required-progress: 48
+    sort-order: 41
+    objectives:
+      enchant_items:
+        type: ENCHANT
+        amount: 30
+        description: "Enchant 30 items"
+    rewards:
+      coins: 600
+      experience: 190
+
+  level_50:
+    name: "Level 50 Achievement"
+    description: "Reach experience level 50"
+    icon: EXPERIENCE_BOTTLE
+    category: INTERMEDIATE
+    required-progress: 50
+    sort-order: 42
+    objectives:
+      gain_levels:
+        type: LEVEL_UP
+        amount: 50
+        description: "Gain 50 levels"
+    rewards:
+      coins: 700
+      experience: 250
+      tokens: 5
+
+  trading_master:
+    name: "Trading Master"
+    description: "Complete many villager trades"
+    icon: EMERALD_BLOCK
+    category: INTERMEDIATE
+    required-progress: 46
+    sort-order: 43
+    objectives:
+      trade:
+        type: TRADE
+        amount: 100
+        description: "Complete 100 trades"
+    rewards:
+      coins: 550
+      experience: 180
+
+  diamond_miner_pro:
+    name: "Diamond Miner Pro"
+    description: "Mine diamonds in bulk"
+    icon: DIAMOND_ORE
+    category: INTERMEDIATE
+    required-progress: 45
+    sort-order: 44
+    objectives:
+      mine_diamonds:
+        type: MINE
+        material: DIAMOND_ORE
+        amount: 64
+        description: "Mine 64 diamond ore"
+    rewards:
+      coins: 850
+      experience: 260
+
+  emerald_empire:
+    name: "Emerald Empire"
+    description: "Amass an emerald fortune"
+    icon: EMERALD_ORE
+    category: INTERMEDIATE
+    required-progress: 48
+    sort-order: 45
+    objectives:
+      mine_emeralds:
+        type: MINE
+        material: EMERALD_ORE
+        amount: 32
+        description: "Mine 32 emerald ore"
+    rewards:
+      coins: 700
+      experience: 210
+
+  lapis_hoarder:
+    name: "Lapis Hoarder"
+    description: "Stockpile lapis for enchanting"
+    icon: LAPIS_BLOCK
+    category: INTERMEDIATE
+    required-progress: 43
+    sort-order: 46
+    objectives:
+      mine_lapis:
+        type: MINE
+        material: LAPIS_ORE
+        amount: 128
+        description: "Mine 128 lapis ore"
+    rewards:
+      coins: 500
+      experience: 170
+
+  redstone_engineer:
+    name: "Redstone Engineer"
+    description: "Gather redstone for machines"
+    icon: REDSTONE_BLOCK
+    category: INTERMEDIATE
+    required-progress: 44
+    sort-order: 47
+    objectives:
+      mine_redstone:
+        type: MINE
+        material: REDSTONE_ORE
+        amount: 256
+        description: "Mine 256 redstone ore"
+    rewards:
+      coins: 550
+      experience: 180
+
+  bulk_smelter:
+    name: "Bulk Smelter"
+    description: "Smelt materials in bulk"
+    icon: BLAST_FURNACE
+    category: INTERMEDIATE
+    required-progress: 42
+    sort-order: 48
+    objectives:
+      smelt_items:
+        type: SMELT
+        material: IRON_INGOT
+        amount: 256
+        description: "Smelt 256 iron ingots"
+    rewards:
+      coins: 480
+      experience: 165
+
+  block_placer:
+    name: "Master Builder"
+    description: "Place many building blocks"
+    icon: STONE_BRICKS
+    category: INTERMEDIATE
+    required-progress: 41
+    sort-order: 49
+    objectives:
+      place_blocks:
+        type: PLACE
+        material: STONE_BRICKS
+        amount: 500
+        description: "Place 500 stone bricks"
+    rewards:
+      coins: 420
+      experience: 155
+
+  advancement_hunter:
+    name: "Advancement Hunter"
+    description: "Earn various advancements"
+    icon: NETHER_STAR
+    category: INTERMEDIATE
+    required-progress: 50
+    sort-order: 50
+    objectives:
+      earn_advancement:
+        type: ADVANCEMENT
+        data: "story/enter_the_nether"
+        amount: 1
+        description: "Enter the Nether"
+    rewards:
+      coins: 650
+      experience: 200

@@ -1,0 +1,33 @@
+name: WDPQuest
+version: ${project.version}
+main: com.wdp.quest.WDPQuestPlugin
+api-version: '1.21'
+author: WDP Development Team
+description: Complete quest system with progress integration and SkillCoins rewards
+website: https://wdpserver.com
+depend: [WDPProgress]
+softdepend: [Vault, AuraSkills]
+
+commands:
+  quest:
+    description: Open the quest menu or manage quests
+    usage: /quest [list|track|abandon|info] [quest]
+    permission: wdp.quest.use
+    aliases: [quests, q]
+  
+  questadmin:
+    description: Admin quest management commands
+    usage: /questadmin <reload|give|reset|complete|setprogress> [player] [quest]
+    permission: wdp.quest.admin
+    aliases: [qadmin, questadm]
+
+permissions:
+  wdp.quest.use:
+    description: Use the quest system
+    default: true
+  wdp.quest.admin:
+    description: Admin quest commands
+    default: op
+  wdp.quest.bypass:
+    description: Bypass quest requirements
+    default: op

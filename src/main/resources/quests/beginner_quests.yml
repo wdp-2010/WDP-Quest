@@ -1,0 +1,875 @@
+# Beginner Quests (0-20% Progress)
+# 50 quests for new players just starting out
+
+quests:
+  # Mining Basics (10 quests)
+  mining_intro:
+    name: "First Steps Underground"
+    description: "Learn the basics of mining"
+    icon: WOODEN_PICKAXE
+    category: BEGINNER
+    required-progress: 0
+    sort-order: 1
+    objectives:
+      mine_stone:
+        type: MINE
+        material: STONE
+        amount: 32
+        description: "Mine 32 stone blocks"
+    rewards:
+      coins: 50
+      experience: 25
+      
+  coal_collector:
+    name: "Coal Collector"
+    description: "Gather coal for torches and fuel"
+    icon: COAL
+    category: BEGINNER
+    required-progress: 2
+    sort-order: 2
+    objectives:
+      mine_coal:
+        type: MINE
+        material: COAL_ORE
+        amount: 16
+        description: "Mine 16 coal ore"
+    rewards:
+      coins: 75
+      experience: 30
+      
+  iron_hunter:
+    name: "Iron Hunter"
+    description: "Find iron ore in the caves"
+    icon: RAW_IRON
+    category: BEGINNER
+    required-progress: 5
+    sort-order: 3
+    objectives:
+      mine_iron:
+        type: MINE
+        material: IRON_ORE
+        amount: 24
+        description: "Mine 24 iron ore"
+    rewards:
+      coins: 100
+      experience: 40
+      
+  copper_discovery:
+    name: "Copper Discovery"
+    description: "Mine copper ore from the caves"
+    icon: RAW_COPPER
+    category: BEGINNER
+    required-progress: 3
+    sort-order: 4
+    objectives:
+      mine_copper:
+        type: MINE
+        material: COPPER_ORE
+        amount: 32
+        description: "Mine 32 copper ore"
+    rewards:
+      coins: 80
+      experience: 35
+      
+  gravel_digger:
+    name: "Gravel Digger"
+    description: "Dig through gravel to find flint"
+    icon: GRAVEL
+    category: BEGINNER
+    required-progress: 1
+    sort-order: 5
+    objectives:
+      mine_gravel:
+        type: MINE
+        material: GRAVEL
+        amount: 64
+        description: "Mine 64 gravel blocks"
+    rewards:
+      coins: 40
+      experience: 20
+      
+  stone_age:
+    name: "Stone Age"
+    description: "Gather cobblestone for building"
+    icon: COBBLESTONE
+    category: BEGINNER
+    required-progress: 0
+    sort-order: 6
+    objectives:
+      mine_cobble:
+        type: MINE
+        material: COBBLESTONE
+        amount: 128
+        description: "Collect 128 cobblestone"
+    rewards:
+      coins: 60
+      experience: 25
+      
+  dirt_work:
+    name: "Dirt Work"
+    description: "Clear some dirt for construction"
+    icon: DIRT
+    category: BEGINNER
+    required-progress: 0
+    sort-order: 7
+    objectives:
+      mine_dirt:
+        type: MINE
+        material: DIRT
+        amount: 64
+        description: "Dig up 64 dirt blocks"
+    rewards:
+      coins: 30
+      experience: 15
+      
+  sand_collector:
+    name: "Sand Collector"
+    description: "Gather sand for glass making"
+    icon: SAND
+    category: BEGINNER
+    required-progress: 2
+    sort-order: 8
+    objectives:
+      mine_sand:
+        type: MINE
+        material: SAND
+        amount: 64
+        description: "Collect 64 sand blocks"
+    rewards:
+      coins: 50
+      experience: 25
+      
+  clay_finder:
+    name: "Clay Finder"
+    description: "Find clay near water"
+    icon: CLAY_BALL
+    category: BEGINNER
+    required-progress: 4
+    sort-order: 9
+    objectives:
+      mine_clay:
+        type: MINE
+        material: CLAY
+        amount: 24
+        description: "Mine 24 clay blocks"
+    rewards:
+      coins: 70
+      experience: 30
+      
+  deepslate_dive:
+    name: "Deepslate Dive"
+    description: "Explore the deep caves"
+    icon: DEEPSLATE
+    category: BEGINNER
+    required-progress: 8
+    sort-order: 10
+    hard: true
+    days-available: 2
+    objectives:
+      mine_deepslate:
+        type: MINE
+        material: DEEPSLATE
+        amount: 64
+        description: "Mine 64 deepslate"
+    rewards:
+      coins: 90
+      tokens: 1
+      experience: 35
+
+  # Combat Basics (10 quests)
+  zombie_slayer:
+    name: "Zombie Slayer"
+    description: "Defeat the undead menace"
+    icon: ROTTEN_FLESH
+    category: BEGINNER
+    required-progress: 3
+    sort-order: 11
+    objectives:
+      kill_zombies:
+        type: KILL
+        entity: ZOMBIE
+        amount: 15
+        description: "Kill 15 zombies"
+    rewards:
+      coins: 80
+      experience: 40
+      
+  skeleton_hunter:
+    name: "Skeleton Hunter"
+    description: "Take down the bony archers"
+    icon: BONE
+    category: BEGINNER
+    required-progress: 5
+    sort-order: 12
+    objectives:
+      kill_skeletons:
+        type: KILL
+        entity: SKELETON
+        amount: 15
+        description: "Kill 15 skeletons"
+    rewards:
+      coins: 90
+      experience: 45
+      
+  spider_exterminator:
+    name: "Spider Exterminator"
+    description: "Clear out the creepy crawlies"
+    icon: SPIDER_EYE
+    category: BEGINNER
+    required-progress: 4
+    sort-order: 13
+    objectives:
+      kill_spiders:
+        type: KILL
+        entity: SPIDER
+        amount: 12
+        description: "Kill 12 spiders"
+    rewards:
+      coins: 75
+      experience: 35
+      
+  creeper_control:
+    name: "Creeper Control"
+    description: "Carefully eliminate creepers"
+    icon: GUNPOWDER
+    category: BEGINNER
+    required-progress: 8
+    sort-order: 14
+    objectives:
+      kill_creepers:
+        type: KILL
+        entity: CREEPER
+        amount: 8
+        description: "Kill 8 creepers"
+    rewards:
+      coins: 120
+      experience: 50
+      
+  drowned_defender:
+    name: "Drowned Defender"
+    description: "Fight the underwater undead"
+    icon: TRIDENT
+    category: BEGINNER
+    required-progress: 10
+    sort-order: 15
+    objectives:
+      kill_drowned:
+        type: KILL
+        entity: DROWNED
+        amount: 10
+        description: "Kill 10 drowned"
+    rewards:
+      coins: 100
+      experience: 45
+      
+  slime_squasher:
+    name: "Slime Squasher"
+    description: "Bounce some slimes"
+    icon: SLIME_BALL
+    category: BEGINNER
+    required-progress: 6
+    sort-order: 16
+    objectives:
+      kill_slimes:
+        type: KILL
+        entity: SLIME
+        amount: 20
+        description: "Kill 20 slimes"
+    rewards:
+      coins: 85
+      experience: 40
+      
+  enderman_encounter:
+    name: "First Enderman"
+    description: "Face your first enderman"
+    icon: ENDER_PEARL
+    category: BEGINNER
+    required-progress: 15
+    sort-order: 17
+    hard: true
+    days-available: 2
+    objectives:
+      kill_enderman:
+        type: KILL
+        entity: ENDERMAN
+        amount: 3
+        description: "Kill 3 endermen"
+    rewards:
+      coins: 150
+      tokens: 2
+      experience: 60
+      
+  witch_hunt:
+    name: "Witch Hunt"
+    description: "Take down a witch"
+    icon: GLASS_BOTTLE
+    category: BEGINNER
+    required-progress: 12
+    sort-order: 18
+    objectives:
+      kill_witch:
+        type: KILL
+        entity: WITCH
+        amount: 3
+        description: "Kill 3 witches"
+    rewards:
+      coins: 130
+      experience: 55
+      
+  phantom_menace:
+    name: "Phantom Menace"
+    description: "Get some sleep... but first"
+    icon: PHANTOM_MEMBRANE
+    category: BEGINNER
+    required-progress: 10
+    sort-order: 19
+    objectives:
+      kill_phantom:
+        type: KILL
+        entity: PHANTOM
+        amount: 5
+        description: "Kill 5 phantoms"
+    rewards:
+      coins: 110
+      experience: 50
+      
+  husk_hunter:
+    name: "Desert Defender"
+    description: "Clear husks from the desert"
+    icon: SAND
+    category: BEGINNER
+    required-progress: 7
+    sort-order: 20
+    objectives:
+      kill_husk:
+        type: KILL
+        entity: HUSK
+        amount: 10
+        description: "Kill 10 husks"
+    rewards:
+      coins: 85
+      experience: 40
+
+  # Crafting Basics (10 quests)
+  tool_maker:
+    name: "Tool Maker"
+    description: "Craft your first tools"
+    icon: CRAFTING_TABLE
+    category: BEGINNER
+    required-progress: 0
+    sort-order: 21
+    objectives:
+      craft_pickaxe:
+        type: CRAFT
+        material: WOODEN_PICKAXE
+        amount: 1
+        description: "Craft a wooden pickaxe"
+    rewards:
+      coins: 25
+      experience: 15
+      
+  stone_tools:
+    name: "Stone Tools"
+    description: "Upgrade to stone tools"
+    icon: STONE_PICKAXE
+    category: BEGINNER
+    required-progress: 2
+    sort-order: 22
+    objectives:
+      craft_stone_pick:
+        type: CRAFT
+        material: STONE_PICKAXE
+        amount: 1
+        description: "Craft a stone pickaxe"
+      craft_stone_sword:
+        type: CRAFT
+        material: STONE_SWORD
+        amount: 1
+        description: "Craft a stone sword"
+    rewards:
+      coins: 40
+      experience: 20
+      
+  iron_smith:
+    name: "Iron Smith"
+    description: "Forge iron equipment"
+    icon: IRON_INGOT
+    category: BEGINNER
+    required-progress: 8
+    sort-order: 23
+    objectives:
+      craft_iron_pick:
+        type: CRAFT
+        material: IRON_PICKAXE
+        amount: 1
+        description: "Craft an iron pickaxe"
+      craft_iron_sword:
+        type: CRAFT
+        material: IRON_SWORD
+        amount: 1
+        description: "Craft an iron sword"
+    rewards:
+      coins: 100
+      experience: 45
+      
+  torch_lighter:
+    name: "Torch Lighter"
+    description: "Light up the darkness"
+    icon: TORCH
+    category: BEGINNER
+    required-progress: 1
+    sort-order: 24
+    objectives:
+      craft_torches:
+        type: CRAFT
+        material: TORCH
+        amount: 32
+        description: "Craft 32 torches"
+    rewards:
+      coins: 35
+      experience: 20
+      
+  furnace_master:
+    name: "Furnace Master"
+    description: "Build a smelting operation"
+    icon: FURNACE
+    category: BEGINNER
+    required-progress: 3
+    sort-order: 25
+    objectives:
+      craft_furnace:
+        type: CRAFT
+        material: FURNACE
+        amount: 3
+        description: "Craft 3 furnaces"
+    rewards:
+      coins: 50
+      experience: 25
+      
+  chest_creator:
+    name: "Chest Creator"
+    description: "Make storage for your items"
+    icon: CHEST
+    category: BEGINNER
+    required-progress: 2
+    sort-order: 26
+    objectives:
+      craft_chest:
+        type: CRAFT
+        material: CHEST
+        amount: 4
+        description: "Craft 4 chests"
+    rewards:
+      coins: 45
+      experience: 25
+      
+  bed_maker:
+    name: "Bed Maker"
+    description: "Craft a cozy bed"
+    icon: RED_BED
+    category: BEGINNER
+    required-progress: 4
+    sort-order: 27
+    objectives:
+      craft_bed:
+        type: CRAFT
+        material: RED_BED
+        amount: 1
+        description: "Craft a bed"
+    rewards:
+      coins: 55
+      experience: 30
+      
+  bucket_brigade:
+    name: "Bucket Brigade"
+    description: "Craft buckets for liquids"
+    icon: BUCKET
+    category: BEGINNER
+    required-progress: 6
+    sort-order: 28
+    objectives:
+      craft_bucket:
+        type: CRAFT
+        material: BUCKET
+        amount: 3
+        description: "Craft 3 buckets"
+    rewards:
+      coins: 65
+      experience: 30
+      
+  shield_smith:
+    name: "Shield Smith"
+    description: "Craft protection against attacks"
+    icon: SHIELD
+    category: BEGINNER
+    required-progress: 7
+    sort-order: 29
+    objectives:
+      craft_shield:
+        type: CRAFT
+        material: SHIELD
+        amount: 1
+        description: "Craft a shield"
+    rewards:
+      coins: 70
+      experience: 35
+      
+  compass_maker:
+    name: "Navigation Expert"
+    description: "Craft navigation tools"
+    icon: COMPASS
+    category: BEGINNER
+    required-progress: 10
+    sort-order: 30
+    objectives:
+      craft_compass:
+        type: CRAFT
+        material: COMPASS
+        amount: 1
+        description: "Craft a compass"
+      craft_clock:
+        type: CRAFT
+        material: CLOCK
+        amount: 1
+        description: "Craft a clock"
+    rewards:
+      coins: 90
+      experience: 40
+
+  # Farming & Animals (10 quests)
+  wheat_farmer:
+    name: "Wheat Farmer"
+    description: "Grow wheat for bread"
+    icon: WHEAT
+    category: BEGINNER
+    required-progress: 2
+    sort-order: 31
+    objectives:
+      collect_wheat:
+        type: COLLECT
+        material: WHEAT
+        amount: 32
+        description: "Harvest 32 wheat"
+    rewards:
+      coins: 55
+      experience: 25
+      
+  carrot_cultivator:
+    name: "Carrot Cultivator"
+    description: "Grow a carrot crop"
+    icon: CARROT
+    category: BEGINNER
+    required-progress: 4
+    sort-order: 32
+    objectives:
+      collect_carrot:
+        type: COLLECT
+        material: CARROT
+        amount: 32
+        description: "Harvest 32 carrots"
+    rewards:
+      coins: 60
+      experience: 28
+      
+  potato_planter:
+    name: "Potato Planter"
+    description: "Start a potato farm"
+    icon: POTATO
+    category: BEGINNER
+    required-progress: 4
+    sort-order: 33
+    objectives:
+      collect_potato:
+        type: COLLECT
+        material: POTATO
+        amount: 32
+        description: "Harvest 32 potatoes"
+    rewards:
+      coins: 60
+      experience: 28
+      
+  beetroot_bonanza:
+    name: "Beetroot Bonanza"
+    description: "Grow beetroot for dye and food"
+    icon: BEETROOT
+    category: BEGINNER
+    required-progress: 5
+    sort-order: 34
+    objectives:
+      collect_beetroot:
+        type: COLLECT
+        material: BEETROOT
+        amount: 24
+        description: "Harvest 24 beetroot"
+    rewards:
+      coins: 55
+      experience: 25
+      
+  melon_master:
+    name: "Melon Master"
+    description: "Grow refreshing melons"
+    icon: MELON_SLICE
+    category: BEGINNER
+    required-progress: 8
+    sort-order: 35
+    objectives:
+      collect_melon:
+        type: COLLECT
+        material: MELON_SLICE
+        amount: 32
+        description: "Collect 32 melon slices"
+    rewards:
+      coins: 70
+      experience: 32
+      
+  pumpkin_picker:
+    name: "Pumpkin Picker"
+    description: "Harvest pumpkins"
+    icon: PUMPKIN
+    category: BEGINNER
+    required-progress: 6
+    sort-order: 36
+    objectives:
+      collect_pumpkin:
+        type: MINE
+        material: PUMPKIN
+        amount: 16
+        description: "Harvest 16 pumpkins"
+    rewards:
+      coins: 65
+      experience: 30
+      
+  chicken_keeper:
+    name: "Chicken Keeper"
+    description: "Breed chickens for eggs"
+    icon: EGG
+    category: BEGINNER
+    required-progress: 5
+    sort-order: 37
+    objectives:
+      breed_chickens:
+        type: BREED
+        amount: 5
+        description: "Breed 5 animals"
+    rewards:
+      coins: 75
+      experience: 35
+      
+  cow_rancher:
+    name: "Cow Rancher"
+    description: "Start a cattle ranch"
+    icon: LEATHER
+    category: BEGINNER
+    required-progress: 7
+    sort-order: 38
+    objectives:
+      breed_cows:
+        type: BREED
+        amount: 8
+        description: "Breed 8 animals"
+    rewards:
+      coins: 85
+      experience: 38
+      
+  sheep_shepherd:
+    name: "Sheep Shepherd"
+    description: "Raise sheep for wool"
+    icon: WHITE_WOOL
+    category: BEGINNER
+    required-progress: 6
+    sort-order: 39
+    objectives:
+      collect_wool:
+        type: COLLECT
+        material: WHITE_WOOL
+        amount: 32
+        description: "Collect 32 wool (any color)"
+    rewards:
+      coins: 70
+      experience: 32
+      
+  pig_farmer:
+    name: "Pig Farmer"
+    description: "Raise pigs for food"
+    icon: PORKCHOP
+    category: BEGINNER
+    required-progress: 6
+    sort-order: 40
+    objectives:
+      breed_pigs:
+        type: BREED
+        amount: 6
+        description: "Breed 6 animals"
+    rewards:
+      coins: 80
+      experience: 35
+
+  # Exploration & Building (10 quests)
+  wood_cutter:
+    name: "Wood Cutter"
+    description: "Gather wood for building"
+    icon: OAK_LOG
+    category: BEGINNER
+    required-progress: 0
+    sort-order: 41
+    objectives:
+      mine_logs:
+        type: MINE
+        material: OAK_LOG
+        amount: 64
+        description: "Chop 64 logs (any type)"
+    rewards:
+      coins: 45
+      experience: 25
+      
+  plank_producer:
+    name: "Plank Producer"
+    description: "Process logs into planks"
+    icon: OAK_PLANKS
+    category: BEGINNER
+    required-progress: 1
+    sort-order: 42
+    objectives:
+      craft_planks:
+        type: CRAFT
+        material: OAK_PLANKS
+        amount: 128
+        description: "Craft 128 planks"
+    rewards:
+      coins: 40
+      experience: 20
+      
+  glass_maker:
+    name: "Glass Maker"
+    description: "Smelt sand into glass"
+    icon: GLASS
+    category: BEGINNER
+    required-progress: 5
+    sort-order: 43
+    objectives:
+      smelt_glass:
+        type: SMELT
+        material: GLASS
+        amount: 32
+        description: "Smelt 32 glass"
+    rewards:
+      coins: 65
+      experience: 30
+      
+  brick_builder:
+    name: "Brick Builder"
+    description: "Make bricks from clay"
+    icon: BRICK
+    category: BEGINNER
+    required-progress: 8
+    sort-order: 44
+    objectives:
+      craft_bricks:
+        type: CRAFT
+        material: BRICKS
+        amount: 16
+        description: "Craft 16 brick blocks"
+    rewards:
+      coins: 80
+      experience: 35
+      
+  ladder_climber:
+    name: "Ladder Climber"
+    description: "Craft ladders for vertical travel"
+    icon: LADDER
+    category: BEGINNER
+    required-progress: 3
+    sort-order: 45
+    objectives:
+      craft_ladder:
+        type: CRAFT
+        material: LADDER
+        amount: 32
+        description: "Craft 32 ladders"
+    rewards:
+      coins: 45
+      experience: 22
+      
+  fence_builder:
+    name: "Fence Builder"
+    description: "Build fences for your base"
+    icon: OAK_FENCE
+    category: BEGINNER
+    required-progress: 4
+    sort-order: 46
+    objectives:
+      craft_fence:
+        type: CRAFT
+        material: OAK_FENCE
+        amount: 32
+        description: "Craft 32 fences"
+    rewards:
+      coins: 55
+      experience: 28
+      
+  door_maker:
+    name: "Door Maker"
+    description: "Secure your home with doors"
+    icon: OAK_DOOR
+    category: BEGINNER
+    required-progress: 3
+    sort-order: 47
+    objectives:
+      craft_door:
+        type: CRAFT
+        material: OAK_DOOR
+        amount: 4
+        description: "Craft 4 doors"
+    rewards:
+      coins: 50
+      experience: 25
+      
+  rail_rider:
+    name: "Rail Rider"
+    description: "Build a minecart track"
+    icon: RAIL
+    category: BEGINNER
+    required-progress: 12
+    sort-order: 48
+    objectives:
+      craft_rails:
+        type: CRAFT
+        material: RAIL
+        amount: 32
+        description: "Craft 32 rails"
+    rewards:
+      coins: 100
+      experience: 45
+      
+  boat_builder:
+    name: "Boat Builder"
+    description: "Craft a boat for water travel"
+    icon: OAK_BOAT
+    category: BEGINNER
+    required-progress: 5
+    sort-order: 49
+    objectives:
+      craft_boat:
+        type: CRAFT
+        material: OAK_BOAT
+        amount: 2
+        description: "Craft 2 boats"
+    rewards:
+      coins: 55
+      experience: 28
+      
+  fishing_novice:
+    name: "Fishing Novice"
+    description: "Try your luck at fishing"
+    icon: FISHING_ROD
+    category: BEGINNER
+    required-progress: 6
+    sort-order: 50
+    objectives:
+      catch_fish:
+        type: FISH
+        amount: 10
+        description: "Catch 10 fish"
+    rewards:
+      coins: 80
+      experience: 35

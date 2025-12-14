@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "wdp_quest:item/progress_hard_5"
+  }
+}

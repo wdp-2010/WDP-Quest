@@ -1,0 +1,93 @@
+# WDP Quest Configuration
+# Complete quest system for WDP Server
+
+# Database settings
+database:
+  # SQLite file location (relative to plugin folder)
+  file: "data/quests.db"
+  # Connection pool settings
+  pool-size: 5
+
+# Daily Quest System
+# Every day, players receive a fresh set of quests to complete
+daily-quests:
+  # Enable daily quest rotation
+  enabled: true
+  # Number of quests available per day
+  quests-per-day: 5
+  # Hour of day to reset quests (24-hour format, server timezone)
+  reset-hour: 0
+  # Show countdown to next reset in GUI
+  show-countdown: true
+
+# Quest settings
+quests:
+  # Allow players to have multiple active quests
+  max-active-quests: 5
+  # Auto-track new quests when started
+  auto-track: true
+  # Show quest completion broadcast
+  broadcast-completion: true
+  # Broadcast format (placeholders: %player%, %quest%)
+  broadcast-format: "&6&l%player% &r&6completed the quest: &e%quest%"
+
+# GUI settings
+gui:
+  # Main menu title
+  main-title: "&8&l✦ &6&lDaily Quests &8&l✦"
+  # Quest detail title
+  detail-title: "&8&l✦ &e%quest% &8&l✦"
+  # Items per page in quest list
+  items-per-page: 28
+  # Sound effects
+  sounds:
+    open-menu: "BLOCK_CHEST_OPEN"
+    click: "UI_BUTTON_CLICK"
+    complete-quest: "UI_TOAST_CHALLENGE_COMPLETE"
+    start-quest: "ENTITY_PLAYER_LEVELUP"
+  # Navbar colors (hex)
+  navbar:
+    active-color: "#00FFFF"
+    inactive-color: "#808080"
+
+# Reward settings
+rewards:
+  # Multiply coin rewards based on progress level
+  scale-by-progress: true
+  # Progress scaling formula: reward * (1 + (progress / 100) * multiplier)
+  progress-multiplier: 0.5
+  # Give bonus XP for quest completion
+  bonus-xp: true
+  xp-per-quest: 50
+
+# Progress integration
+progress:
+  # Register quest completions as achievements in WDP-Progress
+  register-achievements: true
+  # Achievement prefix for quests (quest ID will be appended)
+  achievement-prefix: "quest_"
+  # Recalculate progress on quest completion
+  recalculate-on-complete: true
+
+# Messages
+messages:
+  prefix: "&8[&6Quest&8] &r"
+  quest-started: "&aYou have started the quest: &e%quest%"
+  quest-completed: "&a&lQuest Complete! &r&aYou completed: &e%quest%"
+  quest-abandoned: "&cYou abandoned the quest: &e%quest%"
+  quest-already-active: "&cYou already have this quest active!"
+  quest-already-completed: "&cYou have already completed this quest!"
+  quest-not-active: "&cYou don't have this quest active!"
+  quest-locked: "&cThis quest requires &e%progress%% &cprogress to unlock!"
+  max-quests-reached: "&cYou can only have %max% active quests!"
+  reward-coins: "&a+%amount% &eSkillCoins"
+  reward-tokens: "&a+%amount% &dSkillTokens"
+  reward-xp: "&a+%amount% &bXP"
+  objective-progress: "&7%objective%: &e%current%&7/&e%target%"
+  no-permission: "&cYou don't have permission to do that!"
+  player-not-found: "&cPlayer not found!"
+  quest-not-found: "&cQuest not found!"
+  reload-success: "&aConfiguration reloaded successfully!"
+  daily-reset: "&e&lDaily Quests Reset! &r&eNew quests are now available!"
+  quest-expires: "&7This quest expires in &e%time%"
+  hard-quest: "&c&l★ HARD QUEST &r&7- Available for &e%days% &7days"
