@@ -88,6 +88,10 @@
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
     </repository>
+    <repository>
+      <id>aurelium-repo</id>
+      <url>https://repo.aurelium.dev/releases</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
