@@ -74,10 +74,10 @@ public class QuestRewards {
         List<String> summary = new ArrayList<>();
         
         if (coins > 0) {
-            summary.add("§e" + formatNumber(coins) + " §6SkillCoins");
+            summary.add("§e" + formatNumber(coins) + " ⛃");
         }
         if (tokens > 0) {
-            summary.add("§d" + formatNumber(tokens) + " §5SkillTokens");
+            summary.add("§d" + formatNumber(tokens) + " 🎟");
         }
         if (experience > 0) {
             summary.add("§a" + experience + " §2Experience");

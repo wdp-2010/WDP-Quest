@@ -1,13 +1,13 @@
 # WDP-Quest
 
-A comprehensive quest plugin for Paper 1.21+ servers with 250 balanced quests, integrated with WDP-Progress and SkillCoins.
+A comprehensive quest plugin for Paper 1.21+ servers with 250 balanced quests, integrated with WDP-Progress and ⛃ (SkillCoins).
 
 ## Features
 
 - **250 Quests** across 5 categories based on server progress
 - **Clean GUI** with progress bars, category navigation, and quest details
 - **WDP-Progress Integration** - Quests unlock based on server progress percentage
-- **SkillCoins/Vault Integration** - Rewards in coins and tokens
+- **⛃/Vault Integration** - Rewards in ⛃ and 🎟 (icons used in UI)
 - **Multiple Objective Types** - Mine, Kill, Craft, Collect, Place, Smelt, Fish, Breed, Enchant, Trade, Level Up, Visit, Advancement, Custom
 - **SQLite Database** - Persistent player progress
 - **Multi-Objective Quests** - Some quests require multiple objectives
