@@ -26,6 +26,11 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+        <!-- Slate framework repository -->
+        <repository>
+            <id>aurelium-repo</id>
+            <url>https://repo.aurelium.dev/releases</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -46,6 +51,19 @@
         </dependency>
 
         <!-- Vault for economy integration -->
+        <dependency>
+            <groupId>com.github.MilkBowl</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.7</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Slate framework for menu system -->
+        <dependency>
+            <groupId>dev.aurelium</groupId>
+            <artifactId>slate</artifactId>
+            <version>1.2.0</version>
+        </dependency>
         <dependency>
             <groupId>com.github.MilkBowl</groupId>
             <artifactId>VaultAPI</artifactId>
