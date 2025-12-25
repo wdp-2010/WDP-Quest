@@ -65,7 +65,7 @@ public class QuestMenuHandler {
     }
     
     public void openMainMenu(Player player, int page, boolean updateOnly) {
-        Inventory inv = Bukkit.createInventory(null, 54, 
+        Inventory inv = Bukkit.createInventory(player, 54,
             plugin.getConfigManager().getMainMenuTitle());
         
         double playerProgress = plugin.getProgressIntegration().getPlayerProgress(player);
