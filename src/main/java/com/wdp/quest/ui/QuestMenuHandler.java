@@ -150,7 +150,6 @@ public class QuestMenuHandler {
         Inventory inv = Bukkit.createInventory(null, 54,
             plugin.getConfigManager().getDetailMenuTitle(quest.getDisplayName()));
         
-        double playerProgress = plugin.getProgressIntegration().getPlayerProgress(player);
         PlayerQuestData playerData = plugin.getPlayerQuestManager().getPlayerData(player);
         PlayerQuestData.QuestProgress questProgress = playerData.getQuestProgress(quest.getId());
         boolean isActive = playerData.isQuestActive(quest.getId());
@@ -161,10 +160,10 @@ public class QuestMenuHandler {
         // === ROW 0: Header ===
         List<String> iconLore = new ArrayList<>();
         iconLore.add("§7" + quest.getDescription());
-        iconLore.add("");
+        iconLore.add(" ");
         if (quest.isHardQuest()) {
             iconLore.add("§c§l⚔ HARD QUEST ⚔");
-            iconLore.add("");
+            iconLore.add(" ");
         }
         iconLore.add("§7Required Progress: §e" + quest.getRequiredProgress() + "%");
         if (quest.isRepeatable()) {
@@ -290,7 +289,7 @@ public class QuestMenuHandler {
             List<String> lore = new ArrayList<>();
             lore.add("§7Segment " + (segmentIndex + 1) + "/8");
             lore.add("§7Fill: " + color + unitsInThisSegment + "/5");
-            lore.add("");
+            lore.add(" ");
             lore.add("§7Overall: §f" + String.format("%.0f", completion) + "%");
             
             meta.setLore(lore);
@@ -323,7 +322,7 @@ public class QuestMenuHandler {
         boolean isCompleted = playerData.isQuestCompleted(quest.getId());
         
         Material icon = quest.getIcon();
-        String prefix = "";
+        String prefix = " ";
         
         if (isCompleted) {
             prefix = "§a✓ ";
@@ -336,11 +335,11 @@ public class QuestMenuHandler {
         
         List<String> lore = new ArrayList<>();
         lore.add("§7" + quest.getDescription());
-        lore.add("");
+        lore.add(" ");
         
         if (quest.isHardQuest()) {
             lore.add("§c§l⚔ HARD QUEST ⚔");
-            lore.add("");
+            lore.add(" ");
         }
         
         // Show completion status
@@ -357,7 +356,7 @@ public class QuestMenuHandler {
         }
         
         // Show objectives count
-        lore.add("");
+        lore.add(" ");
         lore.add("§6§lObjectives: §e" + quest.getObjectives().size());
         PlayerQuestData.QuestProgress questProgress = playerData.getQuestProgress(quest.getId());
         if (questProgress != null && isActive) {
@@ -371,7 +370,7 @@ public class QuestMenuHandler {
         }
         
         // Show rewards preview (first 2)
-        lore.add("");
+        lore.add(" ");
         lore.add("§6§lRewards:");
         List<String> rewardSummary = quest.getRewards().getRewardSummary();
         int rewardCount = 0;
@@ -387,7 +386,7 @@ public class QuestMenuHandler {
             rewardCount++;
         }
         
-        lore.add("");
+        lore.add(" ");
         lore.add("§a▶ Click for details");
         
         ItemStack item = createItem(icon, 
@@ -543,6 +542,10 @@ public class QuestMenuHandler {
             return;
         }
         
+        // Prepare player info for player_head
+        PlayerQuestData pqd = plugin.getPlayerQuestManager().getPlayerData(player);
+        double playerProgress = plugin.getProgressIntegration().getPlayerProgress(player);
+        
         // Apply each navbar item
         for (String key : menuConfig.getKeys(false)) {
             var itemSection = menuConfig.getConfigurationSection(key);
@@ -574,7 +577,22 @@ public class QuestMenuHandler {
             }
             
             // Create and set item
-            if (processedLore.isEmpty()) {
+            // Special handling for player_head to set skull owner
+            if (material == Material.PLAYER_HEAD) {
+                ItemStack head = createPlayerHead(player, playerProgress, pqd);
+                // Override display name and lore
+                ItemMeta meta = head.getItemMeta();
+                if (meta != null) {
+                    meta.setDisplayName(ChatColor.translateAlternateColorCodes('§', displayName));
+                    if (!processedLore.isEmpty()) {
+                        meta.setLore(processedLore.stream()
+                            .map(line -> ChatColor.translateAlternateColorCodes('§', line))
+                            .collect(java.util.stream.Collectors.toList()));
+                    }
+                    head.setItemMeta(meta);
+                }
+                inv.setItem(slot, head);
+            } else if (processedLore.isEmpty()) {
                 inv.setItem(slot, createItem(material, displayName));
             } else {
                 inv.setItem(slot, createItem(material, displayName, processedLore.toArray(new String[0])));
@@ -604,6 +622,9 @@ public class QuestMenuHandler {
             applyHardcodedDetailNavbar(inv, quest, playerData, isActive, isCompleted);
             return;
         }
+        
+        // Prepare player info for player_head
+        double playerProgress = plugin.getProgressIntegration().getPlayerProgress(player);
         
         // Apply each navbar item
         for (String key : menuConfig.getKeys(false)) {
@@ -642,8 +663,21 @@ public class QuestMenuHandler {
                 continue;
             }
             
-            // Create and set item
-            if (processedLore.isEmpty()) {
+            // Create and set item - special handling for PLAYER_HEAD
+            if (material == Material.PLAYER_HEAD) {
+                ItemStack head = createPlayerHead(player, playerProgress, playerData);
+                ItemMeta meta = head.getItemMeta();
+                if (meta != null) {
+                    meta.setDisplayName(ChatColor.translateAlternateColorCodes('§', displayName));
+                    if (!processedLore.isEmpty()) {
+                        meta.setLore(processedLore.stream()
+                            .map(line -> ChatColor.translateAlternateColorCodes('§', line))
+                            .collect(java.util.stream.Collectors.toList()));
+                    }
+                    head.setItemMeta(meta);
+                }
+                inv.setItem(slot, head);
+            } else if (processedLore.isEmpty()) {
                 inv.setItem(slot, createItem(material, displayName));
             } else {
                 inv.setItem(slot, createItem(material, displayName, processedLore.toArray(new String[0])));
@@ -661,7 +695,7 @@ public class QuestMenuHandler {
         } else if (!isCompleted) {
             inv.setItem(49, createItem(Material.EMERALD, "§a§lStart Quest", 
                 "§7Click to begin!",
-                "",
+                " ",
                 "§8Or just start doing objectives",
                 "§8and it will auto-start!"));
         } else if (quest.isRepeatable() && !playerData.isOnCooldown(quest.getId())) {
@@ -683,10 +717,19 @@ public class QuestMenuHandler {
             "§7Viewing quests " + (startIndex + 1) + "-" + Math.min(startIndex + questsPerPage, dailyQuests.size())));
         
         // Player info with currency (slot 46)
-        inv.setItem(46, createItem(Material.PLAYER_HEAD,
-            "§6" + player.getName(),
-            "§6Coins: §e" + String.format("%.0f", coins),
-            "§aTokens: §2" + tokens));
+        PlayerQuestData pqd = plugin.getPlayerQuestManager().getPlayerData(player);
+        double playerProgress = plugin.getProgressIntegration().getPlayerProgress(player);
+        ItemStack head = createPlayerHead(player, playerProgress, pqd);
+        ItemMeta headMeta = head.getItemMeta();
+        if (headMeta != null) {
+            List<String> metaLore = headMeta.hasLore() ? new ArrayList<>(headMeta.getLore()) : new ArrayList<>();
+            metaLore.add(" ");
+            metaLore.add(ChatColor.translateAlternateColorCodes('§', "§6Coins: §e" + String.format("%.0f", coins)));
+            metaLore.add(ChatColor.translateAlternateColorCodes('§', "§aTokens: §2" + tokens));
+            headMeta.setLore(metaLore);
+            head.setItemMeta(headMeta);
+        }
+        inv.setItem(46, head);
         
         // Previous page (slot 48)
         if (page > 0) {
@@ -721,7 +764,7 @@ public class QuestMenuHandler {
         } else if (!isCompleted) {
             inv.setItem(49, createItem(Material.EMERALD, "§a§lStart Quest", 
                 "§7Click to begin!",
-                "",
+                " ",
                 "§8Or just start doing objectives",
                 "§8and it will auto-start!"));
         } else if (quest.isRepeatable() && !playerData.isOnCooldown(quest.getId())) {
@@ -744,7 +787,7 @@ public class QuestMenuHandler {
     private String replacePlaceholders(String text, Player player, 
                                       int page, int totalPages, int startIndex, int questsPerPage,
                                       double coins, int tokens) {
-        if (text == null) return "";
+        if (text == null) return " ";
         
         String result = text
             .replace("{page}", String.valueOf(page + 1))
@@ -766,10 +809,10 @@ public class QuestMenuHandler {
      */
     private String replacePlaceholders(String text, Player player, Quest quest, 
                                       boolean isActive, boolean isCompleted) {
-        if (text == null) return "";
+        if (text == null) return " ";
         
         String result = text
-            .replace("{quest_name}", quest != null ? quest.getDisplayName() : "")
+            .replace("{quest_name}", quest != null ? quest.getDisplayName() : " ")
             .replace("{is_active}", String.valueOf(isActive))
             .replace("{is_completed}", String.valueOf(isCompleted));
         

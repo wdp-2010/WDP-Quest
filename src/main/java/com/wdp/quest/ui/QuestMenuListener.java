@@ -3,7 +3,6 @@ package com.wdp.quest.ui;
 import com.wdp.quest.WDPQuestPlugin;
 import com.wdp.quest.quest.Quest;
 import com.wdp.quest.ui.QuestMenuHandler.MenuState;
-import com.wdp.quest.ui.QuestMenuHandler.MenuType;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

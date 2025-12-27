@@ -2,7 +2,6 @@ package com.wdp.quest.ui.menu;
 
 import com.wdp.quest.WDPQuestPlugin;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -15,10 +14,8 @@ import java.util.List;
  */
 public class GlobalItems {
 
-    private final WDPQuestPlugin plugin;
-
     public GlobalItems(WDPQuestPlugin plugin) {
-        this.plugin = plugin;
+        // `plugin` kept for compatibility; not required by GlobalItems currently
     }
 
     /**

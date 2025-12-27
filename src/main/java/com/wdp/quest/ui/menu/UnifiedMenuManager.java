@@ -1,7 +1,6 @@
 package com.wdp.quest.ui.menu;
 
 import com.wdp.quest.WDPQuestPlugin;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -77,6 +76,7 @@ public class UnifiedMenuManager {
      * @param menuType The type of menu (e.g., "main", "trust", "quest")
      * @param context Context data for placeholders (menu_name, menu_description, page, total_pages, previous_menu, etc.)
      */
+    @SuppressWarnings("unchecked")
     public void applyNavbar(Inventory inv, Player player, String menuType, Map<String, Object> context) {
         FileConfiguration config = navbarConfigs.get("default");
         if (config == null) {
@@ -158,7 +158,6 @@ public class UnifiedMenuManager {
                 Object value = entry.getValue();
                 
                 if (value instanceof List) {
-                    @SuppressWarnings("unchecked")
                     List<String> menuList = (List<String>) value;
                     if (menuList.contains(menuType)) {
                         // Apply exception behavior
@@ -173,6 +172,7 @@ public class UnifiedMenuManager {
     /**
      * Create a navbar item based on configuration
      */
+    @SuppressWarnings("unchecked")
     private ItemStack createNavbarItem(String itemName, Map<String, Object> config, Player player, String menuType, Map<String, Object> context) {
         String materialStr = (String) config.get("material");
         String displayName = (String) config.get("display_name");
@@ -338,6 +338,7 @@ public class UnifiedMenuManager {
      * @param slot The slot number (45-53)
      * @return The NavbarAction for this slot, or null if invalid slot
      */
+    @SuppressWarnings("unchecked")
     public NavbarAction getNavbarAction(int slot) {
         if (slot < 45 || slot > 53) return null;
         

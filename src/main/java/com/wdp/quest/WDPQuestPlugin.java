@@ -15,8 +15,6 @@ import com.wdp.quest.ui.QuestMenuListener;
 import com.wdp.quest.api.QuestAPI;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.logging.Level;
-
 /**
  * WDP Quest Plugin - Complete quest system with progress integration
  */

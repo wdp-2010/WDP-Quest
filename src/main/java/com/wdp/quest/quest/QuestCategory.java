@@ -1,6 +1,5 @@
 package com.wdp.quest.quest;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
 /**
