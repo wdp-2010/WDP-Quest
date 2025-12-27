@@ -465,7 +465,7 @@ public class QuestMenuHandler {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName(ChatColor.translateAlternateColorCodes('§', name));
+            meta.setDisplayName(ChatColor.GOLD + name);
             
             List<String> loreList = new ArrayList<>();
             for (String line : lore) {
@@ -723,9 +723,10 @@ public class QuestMenuHandler {
             "§7Viewing quests " + (startIndex + 1) + "-" + Math.min(startIndex + questsPerPage, dailyQuests.size())));
         
         // Balance nugget (slot 45)
-        inv.setItem(45, createItem(Material.GOLD_NUGGET,
-            "§6Balance: §e" + String.format("%.0f", coins),
-            "§aTokens: §2" + tokens));
+        inv.setItem(45, createItem(Material.GOLD_NUGGET, " ",
+            " ",
+            "§eSkillCoins: §6" + String.format("%.0f", coins) + " ⛃",
+            "§aTokens: §2" + String.format("%,d", tokens) + " 🎟"));
         
         // Previous page (slot 48)
         if (page > 0) {
@@ -786,7 +787,7 @@ public class QuestMenuHandler {
                 plugin.getDailyQuestManager().getDailyQuests(player).size())))
             .replace("{player_name}", player.getName())
             .replace("{coins}", String.format("%.0f", coins))
-            .replace("{tokens}", String.valueOf(tokens));
+            .replace("{tokens}", String.format("%,d", tokens));
         
         return plugin.getConfigManager().colorize(result);
     }
