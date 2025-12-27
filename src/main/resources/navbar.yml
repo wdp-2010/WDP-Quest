@@ -4,29 +4,29 @@
 
 # Main menu navbar
 main_menu:
-  # Slot 45: Page info
-  page_info:
+  # Slot 45: Balance (gold nugget)
+  balance:
     slot: 45
-    material: book
-    display_name: '§e§lPage {page}/{total_pages}'
+    material: gold_nugget
+    display_name: '§6Balance: §e{coins}'
     lore:
-      - '§7Viewing quests {start}-{end}'
-  
-  # Slot 46: Player info with currency
+      - ''
+      - '§aTokens: §2{tokens}'
+
+  # Slot 46: Player head (no balance info)
   player_info:
     slot: 46
     material: player_head
     display_name: '§6{player_name}'
     lore:
-      - '§6Coins: §e{coins}'
-      - '§aTokens: §2{tokens}'
-  
+      - ''
+
   # Slot 47: Empty (black glass)
   empty_1:
     slot: 47
     material: black_stained_glass_pane
     display_name: ' '
-  
+
   # Slot 48: Previous page
   previous_page:
     slot: 48
@@ -35,13 +35,15 @@ main_menu:
     lore:
       - '§7Go to page {prev_page}'
     condition: 'page > 0'
-  
-  # Slot 49: Empty (black glass)
-  empty_2:
+
+  # Slot 49: Page info (center)
+  page_info:
     slot: 49
-    material: black_stained_glass_pane
-    display_name: ' '
-  
+    material: book
+    display_name: '§e§lPage {page}/{total_pages}'
+    lore:
+      - '§7Viewing quests {start}-{end}'
+
   # Slot 50: Next page
   next_page:
     slot: 50
@@ -50,19 +52,19 @@ main_menu:
     lore:
       - '§7Go to page {next_page}'
     condition: 'page < total_pages - 1'
-  
+
   # Slot 51: Empty (black glass)
   empty_3:
     slot: 51
     material: black_stained_glass_pane
     display_name: ' '
-  
+
   # Slot 52: Empty (black glass)
   empty_4:
     slot: 52
     material: black_stained_glass_pane
     display_name: ' '
-  
+
   # Slot 53: Close button
   close:
     slot: 53
@@ -73,26 +75,17 @@ main_menu:
 
 # Detail menu navbar
 detail_menu:
-  # Slot 48: Back button
+  # Slot 53: Back button (replaces close)
   back:
-    slot: 48
+    slot: 53
     material: arrow
     display_name: '§c§l← Back'
     lore:
       - '§7Return to quest menu'
-  
-  # Slot 49: Main action (context-dependent)
-  main_action:
-    slot: 49
-    material: emerald
-    display_name: '§a§lStart Quest'
-    lore:
-      - '§7Click to begin!'
-      - ''
-      - '§8Or just start doing objectives'
-      - '§8and it will auto-start!'
-    # This will be overridden by the handler for active/completed states
-  
+
+  # Slot 49: Main action (context-dependent) - START REMOVED
+  # (Start button removed by design - tracking and repeat stay)
+
   # Slot 50: Abandon button (only when active)
   abandon:
     slot: 50
@@ -102,22 +95,17 @@ detail_menu:
       - '§7Remove quest'
       - '§c⚠ Progress will be lost!'
     condition: 'is_active'
-  
+
   # Slot 51-52: Empty (black glass)
   empty_1:
     slot: 51
     material: black_stained_glass_pane
     display_name: ' '
-  
+
   empty_2:
     slot: 52
     material: black_stained_glass_pane
     display_name: ' '
-  
-  # Slot 53: Close button
-  close:
-    slot: 53
-    material: barrier
-    display_name: '§c§lClose'
-    lore:
-      - '§7Click to close menu'
+
+  # Close button removed (detail menu uses back at slot 53)
+

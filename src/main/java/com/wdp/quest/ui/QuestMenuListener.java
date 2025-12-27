@@ -169,10 +169,10 @@ public class QuestMenuListener implements Listener {
         boolean canStart = playerProgress >= quest.getRequiredProgress();
         
         switch (slot) {
-            // Back button (slot 48)
-            case 48 -> menuHandler.openMainMenu(player, state.page, true);
+            // Back button (slot 53)
+            case 53 -> menuHandler.openMainMenu(player, state.page, true);
             
-            // Main action button (slot 49) - context-dependent
+            // Main action button (slot 49) - context-dependent (tracking/repeat only)
             case 49 -> {
                 Material type = clicked.getType();
                 
@@ -186,12 +186,6 @@ public class QuestMenuListener implements Listener {
                         player.sendMessage(plugin.getConfigManager().colorize("&aNow tracking: &e" + quest.getDisplayName()));
                     }
                     menuHandler.openQuestDetail(player, quest, state.page, true);
-                }
-                // Start quest (Emerald)
-                else if (type == Material.EMERALD && canStart && !isActive && !isCompleted) {
-                    if (plugin.getPlayerQuestManager().startQuest(player, quest)) {
-                        menuHandler.openQuestDetail(player, quest, state.page, true);
-                    }
                 }
                 // Repeat quest (Experience Bottle)
                 else if (type == Material.EXPERIENCE_BOTTLE && isCompleted && quest.isRepeatable() && 
@@ -210,9 +204,6 @@ public class QuestMenuListener implements Listener {
                     menuHandler.openQuestDetail(player, quest, state.page, true);
                 }
             }
-            
-            // Close button (slot 53)
-            case 53 -> player.closeInventory();
         }
     }
     

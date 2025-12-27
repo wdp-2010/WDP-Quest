@@ -716,20 +716,21 @@ public class QuestMenuHandler {
             "§e§lPage " + (page + 1) + "/" + totalPages,
             "§7Viewing quests " + (startIndex + 1) + "-" + Math.min(startIndex + questsPerPage, dailyQuests.size())));
         
-        // Player info with currency (slot 46)
+        // Player head (slot 46) - no balance here (balance shown in nugget at slot 45)
         PlayerQuestData pqd = plugin.getPlayerQuestManager().getPlayerData(player);
         double playerProgress = plugin.getProgressIntegration().getPlayerProgress(player);
         ItemStack head = createPlayerHead(player, playerProgress, pqd);
-        ItemMeta headMeta = head.getItemMeta();
-        if (headMeta != null) {
-            List<String> metaLore = headMeta.hasLore() ? new ArrayList<>(headMeta.getLore()) : new ArrayList<>();
-            metaLore.add(" ");
-            metaLore.add(ChatColor.translateAlternateColorCodes('§', "§6Coins: §e" + String.format("%.0f", coins)));
-            metaLore.add(ChatColor.translateAlternateColorCodes('§', "§aTokens: §2" + tokens));
-            headMeta.setLore(metaLore);
-            head.setItemMeta(headMeta);
-        }
         inv.setItem(46, head);
+        
+        // Page info moved to center (slot 49)
+        inv.setItem(49, createItem(Material.BOOK,
+            "§e§lPage " + (page + 1) + "/" + totalPages,
+            "§7Viewing quests " + (startIndex + 1) + "-" + Math.min(startIndex + questsPerPage, dailyQuests.size())));
+        
+        // Balance nugget (slot 45)
+        inv.setItem(45, createItem(Material.GOLD_NUGGET,
+            "§6Balance: §e" + String.format("%.0f", coins),
+            "§aTokens: §2" + tokens));
         
         // Previous page (slot 48)
         if (page > 0) {
@@ -750,9 +751,6 @@ public class QuestMenuHandler {
      */
     private void applyHardcodedDetailNavbar(Inventory inv, Quest quest, 
                                            PlayerQuestData playerData, boolean isActive, boolean isCompleted) {
-        // Back button (slot 48)
-        inv.setItem(48, createItem(Material.ARROW, "§c§l← Back", "§7Return to quest menu"));
-        
         // Main action button (slot 49)
         if (isActive) {
             boolean tracking = playerData.isTracking(quest.getId());
@@ -761,12 +759,6 @@ public class QuestMenuHandler {
                 tracking ? "§d§lTracking ✓" : "§e§lTrack Quest",
                 "§7Toggle quest tracking"
             ));
-        } else if (!isCompleted) {
-            inv.setItem(49, createItem(Material.EMERALD, "§a§lStart Quest", 
-                "§7Click to begin!",
-                " ",
-                "§8Or just start doing objectives",
-                "§8and it will auto-start!"));
         } else if (quest.isRepeatable() && !playerData.isOnCooldown(quest.getId())) {
             inv.setItem(49, createItem(Material.EXPERIENCE_BOTTLE, "§b§lRepeat Quest", "§7Click to restart!"));
         }
@@ -777,8 +769,8 @@ public class QuestMenuHandler {
                 "§7Remove quest", "§c⚠ Progress will be lost!"));
         }
         
-        // Close button (slot 53)
-        inv.setItem(53, createItem(Material.BARRIER, "§c§lClose", "§7Click to close menu"));
+        // Back button moved to slot 53 (replaces close)
+        inv.setItem(53, createItem(Material.ARROW, "§c§l← Back", "§7Return to quest menu"));
     }
     
     /**
