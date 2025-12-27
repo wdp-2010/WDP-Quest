@@ -1,87 +1,78 @@
 #!/bin/bash
 
 # Script to switch between navbar implementations
-# Usage: ./switch_navbar.sh [backup|current|save-current]
+# Usage: ./switch_navbar.sh [hardcoded|config|hybrid]
 
 set -e
 
 cd /root/WDP-Rework/WDP-Quest
 
-BACKUP_FILE="src/main/java/com/wdp/quest/ui/QuestMenuHandler.java.bak"
-CURRENT_FILE="src/main/java/com/wdp/quest/ui/QuestMenuHandler.java"
-TEMP_FILE="src/main/java/com/wdp/quest/ui/QuestMenuHandler.java.temp"
+HARDCODED_FILE="src/main/java/com/wdp/quest/ui/QuestMenuHandler.java.hardcoded"
+CONFIG_FILE="src/main/java/com/wdp/quest/ui/QuestMenuHandler.java"
+BACKUP_FILE="src/main/java/com/wdp/quest/ui/QuestMenuHandler.java.backup"
 
-if [ "$1" == "backup" ]; then
-    echo "=== SWITCHING TO BACKUP (Original Good Navbar) ==="
+if [ "$1" == "hardcoded" ]; then
+    echo "=== SWITCHING TO HARDCODED NAVBAR (Original Good) ==="
     
-    # First, save current version if it's different from backup
-    if [ -f "$CURRENT_FILE" ] && [ -f "$BACKUP_FILE" ]; then
-        if ! diff -q "$CURRENT_FILE" "$BACKUP_FILE" > /dev/null 2>&1; then
-            echo "Saving current version to temp..."
-            cp "$CURRENT_FILE" "$TEMP_FILE"
-        fi
+    # Save current as backup first
+    if [ -f "$CONFIG_FILE" ]; then
+        cp "$CONFIG_FILE" "$BACKUP_FILE"
+        echo "✓ Backed up current version"
     fi
     
-    # Copy backup to current
-    if [ ! -f "$BACKUP_FILE" ]; then
-        echo "Error: Backup file not found at $BACKUP_FILE"
-        exit 1
+    # Copy hardcoded to current
+    if [ ! -f "$HARDCODED_FILE" ]; then
+        echo "Creating hardcoded backup from git..."
+        git show 2420931:src/main/java/com/wdp/quest/ui/QuestMenuHandler.java > "$HARDCODED_FILE"
     fi
-    cp "$BACKUP_FILE" "$CURRENT_FILE"
-    echo "✓ Switched to backup version"
     
-elif [ "$1" == "current" ]; then
-    echo "=== SWITCHING TO CURRENT (Complex Navbar) ==="
+    cp "$HARDCODED_FILE" "$CONFIG_FILE"
+    echo "✓ Switched to hardcoded navbar"
     
-    # Check if we have a saved current version
-    if [ -f "$TEMP_FILE" ]; then
-        echo "Restoring from temp file..."
-        cp "$TEMP_FILE" "$CURRENT_FILE"
-        rm "$TEMP_FILE"
-        echo "✓ Switched to current version from temp"
+elif [ "$1" == "config" ]; then
+    echo "=== SWITCHING TO CONFIG-BASED NAVBAR ==="
+    
+    # Restore from backup if exists
+    if [ -f "$BACKUP_FILE" ]; then
+        cp "$BACKUP_FILE" "$CONFIG_FILE"
+        echo "✓ Restored from backup"
     else
-        # Try git as fallback
-        echo "No temp file found, checking git history..."
-        LATEST_COMMIT=$(git log -1 --oneline -- src/main/java/com/wdp/quest/ui/QuestMenuHandler.java | cut -d' ' -f1 2>/dev/null || echo "")
-        if [ -n "$LATEST_COMMIT" ]; then
-            echo "Restoring from commit $LATEST_COMMIT"
-            git show "$LATEST_COMMIT:src/main/java/com/wdp/quest/ui/QuestMenuHandler.java" > "$CURRENT_FILE"
-            echo "✓ Switched to current version from git"
-        else
-            echo "Error: Could not find current version (no temp file, no git history)"
-            exit 1
-        fi
+        echo "No backup found. Current version is already config-based."
     fi
     
-elif [ "$1" == "save-current" ]; then
-    echo "=== SAVING CURRENT VERSION AS BACKUP ==="
-    if [ ! -f "$CURRENT_FILE" ]; then
-        echo "Error: Current file not found"
-        exit 1
-    fi
-    cp "$CURRENT_FILE" "$BACKUP_FILE"
-    echo "✓ Current version saved as backup"
+elif [ "$1" == "hybrid" ]; then
+    echo "=== CURRENT: HYBRID NAVBAR (Config + Hardcoded Fallback) ==="
+    echo "This is the recommended setup that uses navbar.yml with fallbacks."
     
 else
-    echo "Usage: $0 [backup|current|save-current]"
+    echo "Usage: $0 [hardcoded|config|hybrid]"
     echo ""
-    echo "  backup       - Switch to original good navbar (hardcoded)"
-    echo "  current      - Switch back to complex navbar (config-based)"
-    echo "  save-current - Save current version as backup before switching"
+    echo "  hardcoded - Pure hardcoded navbar (original good version)"
+    echo "  config    - Full config-based navbar (complex system)"
+    echo "  hybrid    - Config with hardcoded fallbacks (RECOMMENDED)"
     echo ""
-    echo "Example workflow:"
-    echo "  1. ./switch_navbar.sh save-current  # Save current state"
-    echo "  2. ./switch_navbar.sh backup        # Switch to good navbar"
-    echo "  3. ./gradlew clean build -x test    # Test compilation"
-    echo "  4. ./switch_navbar.sh current       # Switch back if needed"
+    echo "Current status:"
+    if [ -f "$CONFIG_FILE" ]; then
+        if grep -q "applyNavbar" "$CONFIG_FILE"; then
+            echo "  ✓ Hybrid mode (uses navbar.yml)"
+        elif grep -q "UnifiedMenuManager" "$CONFIG_FILE"; then
+            echo "  ✗ Config mode (complex system)"
+        else
+            echo "  ✓ Hardcoded mode (original good)"
+        fi
+    fi
+    
+    echo ""
+    echo "To test compilation: mvn clean compile"
+    echo "To package: mvn clean package"
     exit 1
 fi
 
 echo ""
 echo "File info:"
-ls -lh "$CURRENT_FILE"
+ls -lh "$CONFIG_FILE"
 echo ""
-echo "Lines: $(wc -l < "$CURRENT_FILE")"
+echo "Lines: $(wc -l < "$CONFIG_FILE")"
 
 echo ""
-echo "Ready to compile. Run: ./gradlew clean build -x test"
+echo "Ready to compile. Run: mvn clean compile"
