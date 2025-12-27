@@ -100,19 +100,19 @@ public class UnifiedMenuManager {
             
             // Handle special cases
             if ("back".equals(itemName)) {
-                // Only show back if previous_menu is provided
-                if (context == null || !context.containsKey("previous_menu")) {
-                    inv.setItem(slot, globalItems.createGlassPane());
-                    continue;
-                }
+                // Always show back button - it can close the menu if no previous menu
+                // if (context == null || !context.containsKey("previous_menu")) {
+                //     inv.setItem(slot, globalItems.createGlassPane());
+                //     continue;
+                // }
             }
             
             if ("close".equals(itemName)) {
-                // Only show close if no previous_menu
-                if (context != null && context.containsKey("previous_menu")) {
-                    inv.setItem(slot, globalItems.createGlassPane());
-                    continue;
-                }
+                // Always show close button
+                // if (context != null && context.containsKey("previous_menu")) {
+                //     inv.setItem(slot, globalItems.createGlassPane());
+                //     continue;
+                // }
             }
             
             if ("previous_page".equals(itemName) || "next_page".equals(itemName)) {

@@ -4,6 +4,9 @@ import com.wdp.quest.WDPQuestPlugin;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.io.File;
 
 /**
  * Manages plugin configuration
@@ -12,6 +15,7 @@ public class ConfigManager {
     
     private final WDPQuestPlugin plugin;
     private FileConfiguration config;
+    private FileConfiguration navbarConfig;
     
     // Cached config values
     private int maxActiveQuests;
@@ -51,6 +55,17 @@ public class ConfigManager {
         achievementPrefix = config.getString("progress.achievement-prefix", "quest_");
         recalculateOnComplete = config.getBoolean("progress.recalculate-on-complete", true);
         messagePrefix = config.getString("messages.prefix", "&8[&6Quest&8] &r");
+        
+        // Load navbar config
+        loadNavbarConfig();
+    }
+    
+    private void loadNavbarConfig() {
+        File navbarFile = new File(plugin.getDataFolder(), "navbar.yml");
+        if (!navbarFile.exists()) {
+            plugin.saveResource("navbar.yml", false);
+        }
+        navbarConfig = YamlConfiguration.loadConfiguration(navbarFile);
     }
     
     public String getMessage(String key) {
@@ -99,4 +114,5 @@ public class ConfigManager {
     public String getAchievementPrefix() { return achievementPrefix; }
     public boolean isRecalculateOnComplete() { return recalculateOnComplete; }
     public FileConfiguration getConfig() { return config; }
+    public FileConfiguration getNavbarConfig() { return navbarConfig; }
 }

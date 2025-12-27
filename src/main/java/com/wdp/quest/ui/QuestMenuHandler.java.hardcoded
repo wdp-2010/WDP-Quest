@@ -4,7 +4,6 @@ import com.wdp.quest.WDPQuestPlugin;
 import com.wdp.quest.data.PlayerQuestData;
 import com.wdp.quest.quest.Quest;
 import com.wdp.quest.quest.QuestObjective;
-import com.wdp.quest.ui.menu.UnifiedMenuManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -30,7 +29,6 @@ import java.util.UUID;
 public class QuestMenuHandler {
     
     private final WDPQuestPlugin plugin;
-    private final UnifiedMenuManager unifiedMenuManager;
     private final Map<UUID, MenuState> openMenus = new HashMap<>();
     
     // Progress bar Custom Model Data values
@@ -46,7 +44,6 @@ public class QuestMenuHandler {
     
     public QuestMenuHandler(WDPQuestPlugin plugin) {
         this.plugin = plugin;
-        this.unifiedMenuManager = new UnifiedMenuManager(plugin);
     }
     
     /**
@@ -109,15 +106,32 @@ public class QuestMenuHandler {
         fillRow(inv, 1, Material.GRAY_STAINED_GLASS_PANE);
         fillRow(inv, 3, Material.GRAY_STAINED_GLASS_PANE);
         
-        // Apply unified navbar
-        Map<String, Object> context = new HashMap<>();
-        context.put("menu_name", "Quest Menu");
-        context.put("menu_description", "Daily quest management");
-        context.put("page", page + 1);
-        context.put("total_pages", totalPages);
-        context.put("balance", coins);
+        // === BOTTOM NAVIGATION BAR (row 5, slots 45-53) ===
+        fillRow(inv, 5, Material.BLACK_STAINED_GLASS_PANE);
         
-        unifiedMenuManager.applyNavbar(inv, player, "main", context);
+        // Page info (slot 45)
+        inv.setItem(45, createItem(Material.BOOK,
+            "§e§lPage " + (page + 1) + "/" + totalPages,
+            "§7Viewing quests " + (startIndex + 1) + "-" + Math.min(startIndex + questsPerPage, dailyQuests.size())));
+        
+        // Player info with currency (slot 46)
+        inv.setItem(46, createItem(Material.PLAYER_HEAD,
+            "§6" + player.getName(),
+            "§6Coins: §e" + String.format("%.0f", coins),
+            "§aTokens: §2" + tokens));
+        
+        // Previous page (slot 48)
+        if (page > 0) {
+            inv.setItem(48, createItem(Material.ARROW, "§e§l← Previous", "§7Go to page " + page));
+        }
+        
+        // Next page (slot 50)
+        if (page < totalPages - 1) {
+            inv.setItem(50, createItem(Material.ARROW, "§e§lNext →", "§7Go to page " + (page + 2)));
+        }
+        
+        // Close button (slot 53)
+        inv.setItem(53, createItem(Material.BARRIER, "§c§lClose", "§7Click to close menu"));
         
         openMenus.put(player.getUniqueId(), new MenuState(MenuType.MAIN, null, page));
         
@@ -227,17 +241,12 @@ public class QuestMenuHandler {
             inv.setItem(rewardSlot++, createItem(Material.GOLD_NUGGET, reward));
         }
         
-        // Apply unified navbar with back button
-        Map<String, Object> context = new HashMap<>();
-        context.put("menu_name", "Quest Detail");
-        context.put("menu_description", quest.getDisplayName());
-        context.put("page", 1);
-        context.put("total_pages", 1);
-        context.put("previous_menu", "main");
+        // === ROW 5: Bottom navigation bar ===
+        fillRow(inv, 5, Material.BLACK_STAINED_GLASS_PANE);
         
-        unifiedMenuManager.applyNavbar(inv, player, "detail", context);
+        // Back button (slot 48)
+        inv.setItem(48, createItem(Material.ARROW, "§c§l← Back", "§7Return to quest menu"));
         
-        // Override specific slots with quest-specific actions
         // Main action button (slot 49)
         if (isActive) {
             boolean tracking = playerData.isTracking(quest.getId());
@@ -261,6 +270,9 @@ public class QuestMenuHandler {
             inv.setItem(50, createItem(Material.TNT, "§c§lAbandon", 
                 "§7Remove quest", "§c⚠ Progress will be lost!"));
         }
+        
+        // Close button (slot 53)
+        inv.setItem(53, createItem(Material.BARRIER, "§c§lClose", "§7Click to close menu"));
         
         openMenus.put(player.getUniqueId(), new MenuState(MenuType.DETAIL, quest.getId(), fromPage));
         
@@ -547,10 +559,6 @@ public class QuestMenuHandler {
     public enum MenuType {
         MAIN,
         DETAIL
-    }
-    
-    public UnifiedMenuManager getUnifiedMenuManager() {
-        return unifiedMenuManager;
     }
     
     public static class MenuState {

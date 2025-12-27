@@ -1,72 +1,123 @@
-# Unified Navbar Configuration for WDP Plugins
-# This file defines the bottom row (slots 45-53) for all menus
-# Layout: [Back] [Glass] [Glass] [Prev] [Page] [Next] [Glass] [Glass] [Close]
+# Navbar Configuration for WDP Quest
+# Defines the bottom navigation row (slots 45-53) for quest menus
+# This matches the original hardcoded layout
 
-navbar:
-  back:
+# Main menu navbar
+main_menu:
+  # Slot 45: Page info
+  page_info:
     slot: 45
-    material: arrow
-    display_name: '§e§l← Back'
+    material: book
+    display_name: '§e§lPage {page}/{total_pages}'
     lore:
-      - '§7Return to previous menu'
+      - '§7Viewing quests {start}-{end}'
   
-  glass_left_1:
+  # Slot 46: Player info with currency
+  player_info:
     slot: 46
-    material: black_stained_glass_pane
-    display_name: ' '
+    material: player_head
+    display_name: '§6{player_name}'
+    lore:
+      - '§6Coins: §e{coins}'
+      - '§aTokens: §2{tokens}'
   
-  glass_left_2:
+  # Slot 47: Empty (black glass)
+  empty_1:
     slot: 47
     material: black_stained_glass_pane
     display_name: ' '
   
+  # Slot 48: Previous page
   previous_page:
     slot: 48
     material: arrow
     display_name: '§e§l← Previous'
     lore:
-      - '§7Go to previous page'
+      - '§7Go to page {prev_page}'
+    condition: 'page > 0'
   
-  page_info:
+  # Slot 49: Empty (black glass)
+  empty_2:
     slot: 49
-    material: paper
-    display_name: '§b§lPage {page}/{total_pages}'
-    lore:
-      - ''
-      - '§7Current page: {page}'
-      - '§7Total pages: {total_pages}'
-      - ''
+    material: black_stained_glass_pane
+    display_name: ' '
   
+  # Slot 50: Next page
   next_page:
     slot: 50
     material: arrow
     display_name: '§e§lNext →'
     lore:
-      - '§7Go to next page'
+      - '§7Go to page {next_page}'
+    condition: 'page < total_pages - 1'
   
-  glass_right_1:
+  # Slot 51: Empty (black glass)
+  empty_3:
     slot: 51
     material: black_stained_glass_pane
     display_name: ' '
   
-  glass_right_2:
+  # Slot 52: Empty (black glass)
+  empty_4:
     slot: 52
     material: black_stained_glass_pane
     display_name: ' '
   
+  # Slot 53: Close button
   close:
     slot: 53
     material: barrier
-    display_name: '§c§l✗ Close'
+    display_name: '§c§lClose'
     lore:
-      - '§7Close this menu'
+      - '§7Click to close menu'
 
-# Exceptions for menus that should only show back button
-exceptions:
-  skill_selection:
-    - skills
-    - skill_select
-    - skill_abilities
-    - skill_sources
-    - skill_stats
-    - stat_info
+# Detail menu navbar
+detail_menu:
+  # Slot 48: Back button
+  back:
+    slot: 48
+    material: arrow
+    display_name: '§c§l← Back'
+    lore:
+      - '§7Return to quest menu'
+  
+  # Slot 49: Main action (context-dependent)
+  main_action:
+    slot: 49
+    material: emerald
+    display_name: '§a§lStart Quest'
+    lore:
+      - '§7Click to begin!'
+      - ''
+      - '§8Or just start doing objectives'
+      - '§8and it will auto-start!'
+    # This will be overridden by the handler for active/completed states
+  
+  # Slot 50: Abandon button (only when active)
+  abandon:
+    slot: 50
+    material: tnt
+    display_name: '§c§lAbandon'
+    lore:
+      - '§7Remove quest'
+      - '§c⚠ Progress will be lost!'
+    condition: 'is_active'
+  
+  # Slot 51-52: Empty (black glass)
+  empty_1:
+    slot: 51
+    material: black_stained_glass_pane
+    display_name: ' '
+  
+  empty_2:
+    slot: 52
+    material: black_stained_glass_pane
+    display_name: ' '
+  
+  # Slot 53: Close button
+  close:
+    slot: 53
+    material: barrier
+    display_name: '§c§lClose'
+    lore:
+      - '§7Click to close menu'

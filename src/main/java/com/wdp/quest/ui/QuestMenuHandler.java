@@ -4,7 +4,6 @@ import com.wdp.quest.WDPQuestPlugin;
 import com.wdp.quest.data.PlayerQuestData;
 import com.wdp.quest.quest.Quest;
 import com.wdp.quest.quest.QuestObjective;
-import com.wdp.quest.ui.menu.UnifiedMenuManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -30,7 +29,6 @@ import java.util.UUID;
 public class QuestMenuHandler {
     
     private final WDPQuestPlugin plugin;
-    private final UnifiedMenuManager unifiedMenuManager;
     private final Map<UUID, MenuState> openMenus = new HashMap<>();
     
     // Progress bar Custom Model Data values
@@ -46,7 +44,6 @@ public class QuestMenuHandler {
     
     public QuestMenuHandler(WDPQuestPlugin plugin) {
         this.plugin = plugin;
-        this.unifiedMenuManager = new UnifiedMenuManager(plugin);
     }
     
     /**
@@ -109,15 +106,8 @@ public class QuestMenuHandler {
         fillRow(inv, 1, Material.GRAY_STAINED_GLASS_PANE);
         fillRow(inv, 3, Material.GRAY_STAINED_GLASS_PANE);
         
-        // Apply unified navbar
-        Map<String, Object> context = new HashMap<>();
-        context.put("menu_name", "Quest Menu");
-        context.put("menu_description", "Daily quest management");
-        context.put("page", page + 1);
-        context.put("total_pages", totalPages);
-        context.put("balance", coins);
-        
-        unifiedMenuManager.applyNavbar(inv, player, "main", context);
+        // === BOTTOM NAVIGATION BAR (row 5, slots 45-53) ===
+        applyNavbar(inv, player, "main_menu", page, totalPages, startIndex, questsPerPage, coins, tokens);
         
         openMenus.put(player.getUniqueId(), new MenuState(MenuType.MAIN, null, page));
         
@@ -227,40 +217,8 @@ public class QuestMenuHandler {
             inv.setItem(rewardSlot++, createItem(Material.GOLD_NUGGET, reward));
         }
         
-        // Apply unified navbar with back button
-        Map<String, Object> context = new HashMap<>();
-        context.put("menu_name", "Quest Detail");
-        context.put("menu_description", quest.getDisplayName());
-        context.put("page", 1);
-        context.put("total_pages", 1);
-        context.put("previous_menu", "main");
-        
-        unifiedMenuManager.applyNavbar(inv, player, "detail", context);
-        
-        // Override specific slots with quest-specific actions
-        // Main action button (slot 49)
-        if (isActive) {
-            boolean tracking = playerData.isTracking(quest.getId());
-            inv.setItem(49, createItem(
-                tracking ? Material.ENDER_EYE : Material.ENDER_PEARL,
-                tracking ? "§d§lTracking ✓" : "§e§lTrack Quest",
-                "§7Toggle quest tracking"
-            ));
-        } else if (!isCompleted) {
-            inv.setItem(49, createItem(Material.EMERALD, "§a§lStart Quest", 
-                "§7Click to begin!",
-                "",
-                "§8Or just start doing objectives",
-                "§8and it will auto-start!"));
-        } else if (quest.isRepeatable() && !playerData.isOnCooldown(quest.getId())) {
-            inv.setItem(49, createItem(Material.EXPERIENCE_BOTTLE, "§b§lRepeat Quest", "§7Click to restart!"));
-        }
-        
-        // Abandon button (slot 50) - only when active
-        if (isActive) {
-            inv.setItem(50, createItem(Material.TNT, "§c§lAbandon", 
-                "§7Remove quest", "§c⚠ Progress will be lost!"));
-        }
+        // === ROW 5: Bottom navigation bar ===
+        applyNavbar(inv, player, "detail_menu", quest, playerData, isActive, isCompleted);
         
         openMenus.put(player.getUniqueId(), new MenuState(MenuType.DETAIL, quest.getId(), fromPage));
         
@@ -549,10 +507,6 @@ public class QuestMenuHandler {
         DETAIL
     }
     
-    public UnifiedMenuManager getUnifiedMenuManager() {
-        return unifiedMenuManager;
-    }
-    
     public static class MenuState {
         public final MenuType type;
         public final String data;
@@ -563,5 +517,297 @@ public class QuestMenuHandler {
             this.data = data;
             this.page = page;
         }
+    }
+    
+    /**
+     * Applies the navbar from config to the inventory.
+     * Main menu version with page/currency context.
+     */
+    private void applyNavbar(Inventory inv, Player player, String menuType, 
+                            int page, int totalPages, int startIndex, int questsPerPage,
+                            double coins, int tokens) {
+        // Fill row 5 with black glass
+        fillRow(inv, 5, Material.BLACK_STAINED_GLASS_PANE);
+        
+        // Load navbar config
+        var config = plugin.getConfigManager().getNavbarConfig();
+        if (config == null) {
+            // Fallback to hardcoded if config fails
+            applyHardcodedNavbar(inv, player, page, totalPages, startIndex, questsPerPage, coins, tokens);
+            return;
+        }
+        
+        var menuConfig = config.getConfigurationSection(menuType);
+        if (menuConfig == null) {
+            applyHardcodedNavbar(inv, player, page, totalPages, startIndex, questsPerPage, coins, tokens);
+            return;
+        }
+        
+        // Apply each navbar item
+        for (String key : menuConfig.getKeys(false)) {
+            var itemSection = menuConfig.getConfigurationSection(key);
+            if (itemSection == null) continue;
+            
+            int slot = itemSection.getInt("slot");
+            if (slot < 0 || slot >= 54) continue;
+            
+            // Check condition
+            String condition = itemSection.getString("condition");
+            if (condition != null && !evaluateCondition(condition, page, totalPages, false, false)) {
+                continue;
+            }
+            
+            // Get material
+            String materialName = itemSection.getString("material", "black_stained_glass_pane");
+            Material material = Material.getMaterial(materialName.toUpperCase());
+            if (material == null) material = Material.BLACK_STAINED_GLASS_PANE;
+            
+            // Get display name with placeholders
+            String displayName = itemSection.getString("display_name", " ");
+            displayName = replacePlaceholders(displayName, player, page, totalPages, startIndex, questsPerPage, coins, tokens);
+            
+            // Get lore with placeholders
+            List<String> lore = itemSection.getStringList("lore");
+            List<String> processedLore = new ArrayList<>();
+            for (String line : lore) {
+                processedLore.add(replacePlaceholders(line, player, page, totalPages, startIndex, questsPerPage, coins, tokens));
+            }
+            
+            // Create and set item
+            if (processedLore.isEmpty()) {
+                inv.setItem(slot, createItem(material, displayName));
+            } else {
+                inv.setItem(slot, createItem(material, displayName, processedLore.toArray(new String[0])));
+            }
+        }
+    }
+    
+    /**
+     * Applies the navbar from config to the inventory.
+     * Detail menu version with quest context.
+     */
+    private void applyNavbar(Inventory inv, Player player, String menuType,
+                            Quest quest, PlayerQuestData playerData, boolean isActive, boolean isCompleted) {
+        // Fill row 5 with black glass
+        fillRow(inv, 5, Material.BLACK_STAINED_GLASS_PANE);
+        
+        // Load navbar config
+        var config = plugin.getConfigManager().getNavbarConfig();
+        if (config == null) {
+            // Fallback to hardcoded if config fails
+            applyHardcodedDetailNavbar(inv, quest, playerData, isActive, isCompleted);
+            return;
+        }
+        
+        var menuConfig = config.getConfigurationSection(menuType);
+        if (menuConfig == null) {
+            applyHardcodedDetailNavbar(inv, quest, playerData, isActive, isCompleted);
+            return;
+        }
+        
+        // Apply each navbar item
+        for (String key : menuConfig.getKeys(false)) {
+            var itemSection = menuConfig.getConfigurationSection(key);
+            if (itemSection == null) continue;
+            
+            int slot = itemSection.getInt("slot");
+            if (slot < 0 || slot >= 54) continue;
+            
+            // Check condition
+            String condition = itemSection.getString("condition");
+            if (condition != null && !evaluateCondition(condition, 0, 0, isActive, isCompleted)) {
+                continue;
+            }
+            
+            // Get material
+            String materialName = itemSection.getString("material", "black_stained_glass_pane");
+            Material material = Material.getMaterial(materialName.toUpperCase());
+            if (material == null) material = Material.BLACK_STAINED_GLASS_PANE;
+            
+            // Get display name with placeholders
+            String displayName = itemSection.getString("display_name", " ");
+            displayName = replacePlaceholders(displayName, player, quest, isActive, isCompleted);
+            
+            // Get lore with placeholders
+            List<String> lore = itemSection.getStringList("lore");
+            List<String> processedLore = new ArrayList<>();
+            for (String line : lore) {
+                processedLore.add(replacePlaceholders(line, player, quest, isActive, isCompleted));
+            }
+            
+            // Special handling for main_action slot (slot 49) - context dependent
+            if (slot == 49) {
+                // This will be overridden by the specific action buttons below
+                // Skip the config version for this slot
+                continue;
+            }
+            
+            // Create and set item
+            if (processedLore.isEmpty()) {
+                inv.setItem(slot, createItem(material, displayName));
+            } else {
+                inv.setItem(slot, createItem(material, displayName, processedLore.toArray(new String[0])));
+            }
+        }
+        
+        // Add the context-dependent main action button (slot 49)
+        if (isActive) {
+            boolean tracking = playerData.isTracking(quest.getId());
+            inv.setItem(49, createItem(
+                tracking ? Material.ENDER_EYE : Material.ENDER_PEARL,
+                tracking ? "§d§lTracking ✓" : "§e§lTrack Quest",
+                "§7Toggle quest tracking"
+            ));
+        } else if (!isCompleted) {
+            inv.setItem(49, createItem(Material.EMERALD, "§a§lStart Quest", 
+                "§7Click to begin!",
+                "",
+                "§8Or just start doing objectives",
+                "§8and it will auto-start!"));
+        } else if (quest.isRepeatable() && !playerData.isOnCooldown(quest.getId())) {
+            inv.setItem(49, createItem(Material.EXPERIENCE_BOTTLE, "§b§lRepeat Quest", "§7Click to restart!"));
+        }
+    }
+    
+    /**
+     * Fallback hardcoded navbar for main menu.
+     */
+    private void applyHardcodedNavbar(Inventory inv, Player player, 
+                                     int page, int totalPages, int startIndex, int questsPerPage,
+                                     double coins, int tokens) {
+        List<Quest> dailyQuests = plugin.getDailyQuestManager().getDailyQuests(player);
+        
+        // Page info (slot 45)
+        inv.setItem(45, createItem(Material.BOOK,
+            "§e§lPage " + (page + 1) + "/" + totalPages,
+            "§7Viewing quests " + (startIndex + 1) + "-" + Math.min(startIndex + questsPerPage, dailyQuests.size())));
+        
+        // Player info with currency (slot 46)
+        inv.setItem(46, createItem(Material.PLAYER_HEAD,
+            "§6" + player.getName(),
+            "§6Coins: §e" + String.format("%.0f", coins),
+            "§aTokens: §2" + tokens));
+        
+        // Previous page (slot 48)
+        if (page > 0) {
+            inv.setItem(48, createItem(Material.ARROW, "§e§l← Previous", "§7Go to page " + page));
+        }
+        
+        // Next page (slot 50)
+        if (page < totalPages - 1) {
+            inv.setItem(50, createItem(Material.ARROW, "§e§lNext →", "§7Go to page " + (page + 2)));
+        }
+        
+        // Close button (slot 53)
+        inv.setItem(53, createItem(Material.BARRIER, "§c§lClose", "§7Click to close menu"));
+    }
+    
+    /**
+     * Fallback hardcoded navbar for detail menu.
+     */
+    private void applyHardcodedDetailNavbar(Inventory inv, Quest quest, 
+                                           PlayerQuestData playerData, boolean isActive, boolean isCompleted) {
+        // Back button (slot 48)
+        inv.setItem(48, createItem(Material.ARROW, "§c§l← Back", "§7Return to quest menu"));
+        
+        // Main action button (slot 49)
+        if (isActive) {
+            boolean tracking = playerData.isTracking(quest.getId());
+            inv.setItem(49, createItem(
+                tracking ? Material.ENDER_EYE : Material.ENDER_PEARL,
+                tracking ? "§d§lTracking ✓" : "§e§lTrack Quest",
+                "§7Toggle quest tracking"
+            ));
+        } else if (!isCompleted) {
+            inv.setItem(49, createItem(Material.EMERALD, "§a§lStart Quest", 
+                "§7Click to begin!",
+                "",
+                "§8Or just start doing objectives",
+                "§8and it will auto-start!"));
+        } else if (quest.isRepeatable() && !playerData.isOnCooldown(quest.getId())) {
+            inv.setItem(49, createItem(Material.EXPERIENCE_BOTTLE, "§b§lRepeat Quest", "§7Click to restart!"));
+        }
+        
+        // Abandon button (slot 50) - only when active
+        if (isActive) {
+            inv.setItem(50, createItem(Material.TNT, "§c§lAbandon", 
+                "§7Remove quest", "§c⚠ Progress will be lost!"));
+        }
+        
+        // Close button (slot 53)
+        inv.setItem(53, createItem(Material.BARRIER, "§c§lClose", "§7Click to close menu"));
+    }
+    
+    /**
+     * Replace placeholders in strings.
+     */
+    private String replacePlaceholders(String text, Player player, 
+                                      int page, int totalPages, int startIndex, int questsPerPage,
+                                      double coins, int tokens) {
+        if (text == null) return "";
+        
+        String result = text
+            .replace("{page}", String.valueOf(page + 1))
+            .replace("{total_pages}", String.valueOf(totalPages))
+            .replace("{prev_page}", String.valueOf(page))
+            .replace("{next_page}", String.valueOf(page + 2))
+            .replace("{start}", String.valueOf(startIndex + 1))
+            .replace("{end}", String.valueOf(Math.min(startIndex + questsPerPage, 
+                plugin.getDailyQuestManager().getDailyQuests(player).size())))
+            .replace("{player_name}", player.getName())
+            .replace("{coins}", String.format("%.0f", coins))
+            .replace("{tokens}", String.valueOf(tokens));
+        
+        return plugin.getConfigManager().colorize(result);
+    }
+    
+    /**
+     * Replace placeholders for detail menu.
+     */
+    private String replacePlaceholders(String text, Player player, Quest quest, 
+                                      boolean isActive, boolean isCompleted) {
+        if (text == null) return "";
+        
+        String result = text
+            .replace("{quest_name}", quest != null ? quest.getDisplayName() : "")
+            .replace("{is_active}", String.valueOf(isActive))
+            .replace("{is_completed}", String.valueOf(isCompleted));
+        
+        return plugin.getConfigManager().colorize(result);
+    }
+    
+    /**
+     * Evaluate condition strings like "page > 0" or "is_active".
+     */
+    private boolean evaluateCondition(String condition, int page, int totalPages, 
+                                     boolean isActive, boolean isCompleted) {
+        if (condition == null || condition.trim().isEmpty()) return true;
+        
+        try {
+            // Simple condition parser
+            if (condition.contains(">")) {
+                String[] parts = condition.split(">");
+                if (parts[0].trim().equals("page") && parts[1].trim().equals("0")) {
+                    return page > 0;
+                }
+                if (parts[0].trim().equals("page") && parts[1].trim().contains("total_pages")) {
+                    return page < totalPages - 1;
+                }
+            } else if (condition.contains("<")) {
+                String[] parts = condition.split("<");
+                if (parts[0].trim().equals("page") && parts[1].trim().contains("total_pages")) {
+                    return page < totalPages - 1;
+                }
+            } else if (condition.equals("is_active")) {
+                return isActive;
+            } else if (condition.equals("!is_active")) {
+                return !isActive;
+            }
+        } catch (Exception e) {
+            // If parsing fails, return true (show the item)
+            return true;
+        }
+        
+        return true;
     }
 }

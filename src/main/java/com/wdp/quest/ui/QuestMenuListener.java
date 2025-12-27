@@ -13,7 +13,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
-import com.wdp.quest.ui.menu.UnifiedMenuManager;
 
 import java.util.List;
 
@@ -140,9 +139,15 @@ public class QuestMenuListener implements Listener {
             return;
         }
         
-        // Handle unified navbar clicks
-        if (slot >= 45 && slot <= 53) {
-            handleNavbarClick(player, slot, clicked, state);
+        // Previous page button
+        if (slot == PREV_PAGE_SLOT && page > 0) {
+            menuHandler.openMainMenu(player, page - 1, true);
+            return;
+        }
+        
+        // Close button
+        if (slot == CLOSE_SLOT) {
+            player.closeInventory();
             return;
         }
         
@@ -209,36 +214,6 @@ public class QuestMenuListener implements Listener {
             
             // Close button (slot 53)
             case 53 -> player.closeInventory();
-        }
-    }
-    
-    private void handleNavbarClick(Player player, int slot, ItemStack clicked, MenuState state) {
-        // Use unified navbar action system
-        UnifiedMenuManager.NavbarAction action = menuHandler.getUnifiedMenuManager().getNavbarAction(slot);
-
-        switch (action) {
-            case BACK:
-                menuHandler.openMainMenu(player, state.page, true);
-                break;
-            case PREVIOUS_PAGE:
-                if (state.page > 0) {
-                    menuHandler.openMainMenu(player, state.page - 1, true);
-                }
-                break;
-            case NEXT_PAGE:
-                List<Quest> dailyQuests = plugin.getDailyQuestManager().getDailyQuests(player);
-                int totalPages = (int) Math.ceil((double) dailyQuests.size() / QUESTS_PER_PAGE);
-                if (state.page < totalPages - 1) {
-                    menuHandler.openMainMenu(player, state.page + 1, true);
-                }
-                break;
-            case CLOSE:
-                player.closeInventory();
-                break;
-            case NONE:
-            default:
-                // Not a navbar action
-                break;
         }
     }
     
