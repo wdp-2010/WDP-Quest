@@ -8,9 +8,9 @@ main_menu:
   balance:
     slot: 45
     material: gold_nugget
-    display_name: '§6Balance: §e{coins}'
+    display_name: '§e§lBalance'
     lore:
-      - ''
+      - '§eCoins: §6{coins} '
       - '§aTokens: §2{tokens}'
 
   # Slot 46: Player head (no balance info)
@@ -39,7 +39,7 @@ main_menu:
   # Slot 49: Page info (center)
   page_info:
     slot: 49
-    material: book
+    material: paper
     display_name: '§e§lPage {page}/{total_pages}'
     lore:
       - '§7Viewing quests {start}-{end}'

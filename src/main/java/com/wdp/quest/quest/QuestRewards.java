@@ -80,10 +80,14 @@ public class QuestRewards {
             summary.add("§d" + formatNumber(tokens) + " 🎟");
         }
         if (experience > 0) {
-            summary.add("§a" + experience + " §2Experience");
+            summary.add("§a" + experience + " §2XP");
         }
         if (!items.isEmpty()) {
-            summary.add("§b" + items.size() + " §3Item(s)");
+            if (items.size() == 1) {
+                summary.add("§3" + items.get(0).getType().name() + " §bx" + items.get(0).getAmount());
+            } else  {
+                summary.add("§b" + items.size() + " §3Items");
+            }
         }
         
         return summary;

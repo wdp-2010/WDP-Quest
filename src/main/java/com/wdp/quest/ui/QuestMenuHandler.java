@@ -40,7 +40,6 @@ public class QuestMenuHandler {
     // Total progress units: 8 segments × 5 fills each = 40 units = 100%
     private static final int SEGMENTS = 8;
     private static final int FILLS_PER_SEGMENT = 5;
-    private static final int TOTAL_UNITS = SEGMENTS * FILLS_PER_SEGMENT; // 40
     
     public QuestMenuHandler(WDPQuestPlugin plugin) {
         this.plugin = plugin;
@@ -98,7 +97,7 @@ public class QuestMenuHandler {
             
             for (int seg = 0; seg < SEGMENTS; seg++) {
                 int slot = rowStart + 1 + seg;
-                inv.setItem(slot, createProgressSegment(seg, completion, isHard));
+                inv.setItem(slot, createProgressSegment(seg, completion, isHard, SEGMENTS));
             }
         }
         
@@ -183,9 +182,9 @@ public class QuestMenuHandler {
         
         // === ROW 1: Full-width progress bar ===
         double completion = getQuestCompletion(quest, playerData);
-        for (int seg = 0; seg < SEGMENTS; seg++) {
-            int slot = 10 + seg; // slots 10-17
-            inv.setItem(slot, createProgressSegment(seg, completion, quest.isHardQuest()));
+        for (int seg = 0; seg < 9; seg++) {
+            int slot = 9 + seg; // slots 9-17
+            inv.setItem(slot, createProgressSegment(seg, completion, quest.isHardQuest(), 9));
         }
         
         // === ROW 2: Objectives ===
@@ -262,9 +261,12 @@ public class QuestMenuHandler {
      * @param segmentIndex Which segment (0-7)
      * @param completion Overall completion percentage (0-100)
      * @param isHard Whether this is a hard quest (red vs green)
+     * @param length Unused parameter for future use
      */
-    private ItemStack createProgressSegment(int segmentIndex, double completion, boolean isHard) {
+    private ItemStack createProgressSegment(int segmentIndex, double completion, boolean isHard, int length) {
         // Convert percentage to units (0-40)
+
+        int TOTAL_UNITS = length * FILLS_PER_SEGMENT; // 40
         int totalFilledUnits = (int) Math.round(completion / 100.0 * TOTAL_UNITS);
         
         // Calculate this segment's fill level (0-5)
@@ -287,10 +289,8 @@ public class QuestMenuHandler {
             meta.setDisplayName(segmentBar);
             
             List<String> lore = new ArrayList<>();
-            lore.add("§7Segment " + (segmentIndex + 1) + "/8");
-            lore.add("§7Fill: " + color + unitsInThisSegment + "/5");
             lore.add(" ");
-            lore.add("§7Overall: §f" + String.format("%.0f", completion) + "%");
+            lore.add("§7Overall: " + color + String.format("%.0f", completion) + "%");
             
             meta.setLore(lore);
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
@@ -435,7 +435,7 @@ public class QuestMenuHandler {
             meta.setDisplayName(ChatColor.translateAlternateColorCodes('§', "§6§l" + player.getName()));
             
             List<String> lore = new ArrayList<>();
-            lore.add(ChatColor.translateAlternateColorCodes('§', "§7WDP Progress: §e" + String.format("%.1f", playerProgress) + "%"));
+            lore.add("");
             lore.add(ChatColor.translateAlternateColorCodes('§', "§7Active Quests: §a" + playerData.getActiveQuestCount()));
             lore.add(ChatColor.translateAlternateColorCodes('§', "§7Completed: §b" + playerData.getCompletedQuestCount()));
             
@@ -710,12 +710,7 @@ public class QuestMenuHandler {
                                      int page, int totalPages, int startIndex, int questsPerPage,
                                      double coins, int tokens) {
         List<Quest> dailyQuests = plugin.getDailyQuestManager().getDailyQuests(player);
-        
-        // Page info (slot 45)
-        inv.setItem(45, createItem(Material.BOOK,
-            "§e§lPage " + (page + 1) + "/" + totalPages,
-            "§7Viewing quests " + (startIndex + 1) + "-" + Math.min(startIndex + questsPerPage, dailyQuests.size())));
-        
+    
         // Player head (slot 46) - no balance here (balance shown in nugget at slot 45)
         PlayerQuestData pqd = plugin.getPlayerQuestManager().getPlayerData(player);
         double playerProgress = plugin.getProgressIntegration().getPlayerProgress(player);
@@ -723,7 +718,7 @@ public class QuestMenuHandler {
         inv.setItem(46, head);
         
         // Page info moved to center (slot 49)
-        inv.setItem(49, createItem(Material.BOOK,
+        inv.setItem(49, createItem(Material.PAPER,
             "§e§lPage " + (page + 1) + "/" + totalPages,
             "§7Viewing quests " + (startIndex + 1) + "-" + Math.min(startIndex + questsPerPage, dailyQuests.size())));
         

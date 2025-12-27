@@ -1,6 +1,14 @@
 # WDP Quest Resource Pack
 
-Custom resource pack for the WDP Quest plugin providing visual progress bars in inventory slots.
+**AI Authorship Notice:** **This resource pack documentation was generated/updated by an AI due to a time shortage.** Verify textures and CMD IDs before deploying.
+
+---
+
+## 🚀 What is this?
+
+This resource pack provides visual progress bar textures and models used by the WDP-Quest plugin to show per-quest progress items inside GUIs.
+
+---
 
 ## How It Works
 

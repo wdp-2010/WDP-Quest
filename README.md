@@ -1,6 +1,14 @@
 # WDP-Quest
 
-A comprehensive quest plugin for Paper 1.21+ servers with 250 balanced quests, integrated with WDP-Progress and ⛃ (SkillCoins).
+**AI Authorship Notice:** **The full plugin (WDP-Quest) was written by an AI due to a time shortage.** Please review quests, configs, and database handling before running on production servers.
+
+---
+
+## 🚀 What is WDP-Quest?
+
+WDP-Quest is a large-scale quest plugin designed for Paper/Spigot servers. It provides categorized, progressive quests (250 by default), integrates with WDP-Progress for server-based unlocks, and supports reward systems such as SkillCoins and Vault-based economies.
+
+---
 
 ## Features
 
