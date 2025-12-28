@@ -78,7 +78,7 @@ detail_menu:
   # Slot 53: Back button (replaces close)
   back:
     slot: 53
-    material: arrow
+    material: spyglass
     display_name: '§c§l← Back'
     lore:
       - '§7Return to quest menu'

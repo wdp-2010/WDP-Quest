@@ -204,7 +204,7 @@ public class DailyQuestManager {
     /**
      * Calculate days since a quest would have started (based on seed cycling)
      */
-    private int getDaysSinceQuestStart(Quest quest) {
+    public int getDaysSinceQuestStart(Quest quest) {
         // Use quest ID hash to determine which day it started
         int questHash = quest.getId().hashCode();
         int cycleLength = quest.getDaysAvailable();

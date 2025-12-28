@@ -436,8 +436,35 @@ public class QuestMenuHandler {
             
             List<String> lore = new ArrayList<>();
             lore.add("");
-            lore.add(ChatColor.translateAlternateColorCodes('§', "§7Active Quests: §a" + playerData.getActiveQuestCount()));
-            lore.add(ChatColor.translateAlternateColorCodes('§', "§7Completed: §b" + playerData.getCompletedQuestCount()));
+            
+            // Get daily quests info
+            List<Quest> dailyQuests = plugin.getDailyQuestManager().getDailyQuests(player);
+            int completedDaily = 0;
+            Quest activeHardQuest = null;
+            
+            for (Quest quest : dailyQuests) {
+                if (playerData.isQuestCompleted(quest.getId())) {
+                    completedDaily++;
+                }
+                if (quest.isHardQuest() && playerData.isQuestActive(quest.getId())) {
+                    activeHardQuest = quest;
+                }
+            }
+            
+            // Time until reset
+            String timeLeft = plugin.getDailyQuestManager().getTimeUntilResetFormatted();
+            lore.add(ChatColor.translateAlternateColorCodes('§', "§7Time Left: §e" + timeLeft));
+            
+            // Daily quests completed out of 5
+            lore.add(ChatColor.translateAlternateColorCodes('§', "§7Daily Quests: §a" + completedDaily + "§7/§a5"));
+            
+            // Hard quest info if present
+            if (activeHardQuest != null) {
+                int daysLeft = plugin.getDailyQuestManager().getRemainingDays(activeHardQuest);
+                lore.add("");
+                lore.add(ChatColor.translateAlternateColorCodes('§', "§c§l⚔ HARD QUEST ⚔"));
+                lore.add(ChatColor.translateAlternateColorCodes('§', "§7Sticks for: §c" + daysLeft + "§7 more day" + (daysLeft != 1 ? "s" : "")));
+            }
             
             meta.setLore(lore);
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -717,13 +744,14 @@ public class QuestMenuHandler {
         ItemStack head = createPlayerHead(player, playerProgress, pqd);
         inv.setItem(46, head);
         
+
         // Page info moved to center (slot 49)
         inv.setItem(49, createItem(Material.PAPER,
-            "§e§lPage " + (page + 1) + "/" + totalPages,
+            "§e§lPage: §f§l" + (page + 1) + " §8§l/ " + totalPages, " ", 
             "§7Viewing quests " + (startIndex + 1) + "-" + Math.min(startIndex + questsPerPage, dailyQuests.size())));
         
         // Balance nugget (slot 45)
-        inv.setItem(45, createItem(Material.GOLD_NUGGET, " ",
+        inv.setItem(45, createItem(Material.GOLD_NUGGET, "Balance: ",
             " ",
             "§eSkillCoins: §6" + String.format("%.0f", coins) + " ⛃",
             "§aTokens: §2" + String.format("%,d", tokens) + " 🎟"));
@@ -766,7 +794,7 @@ public class QuestMenuHandler {
         }
         
         // Back button moved to slot 53 (replaces close)
-        inv.setItem(53, createItem(Material.ARROW, "§c§l← Back", "§7Return to quest menu"));
+        inv.setItem(53, createItem(Material.SPYGLASS, "§c§l← Back", "§7Return to quest menu"));
     }
     
     /**

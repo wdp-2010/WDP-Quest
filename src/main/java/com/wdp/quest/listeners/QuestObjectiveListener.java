@@ -6,7 +6,6 @@ import com.wdp.quest.quest.Quest;
 import com.wdp.quest.quest.QuestObjective;
 import com.wdp.quest.quest.QuestObjective.ObjectiveType;
 import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,6 +17,8 @@ import org.bukkit.event.entity.EntityBreedEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.FurnaceExtractEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
@@ -87,6 +88,26 @@ public class QuestObjectiveListener implements Listener {
     public void onFurnaceExtract(FurnaceExtractEvent event) {
         processObjective(event.getPlayer(), ObjectiveType.SMELT, 
             event.getBlock().getType(), event.getItemAmount());
+    }
+    
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+        
+        // Check if this is a villager trade (merchant inventory)
+        if (event.getInventory().getType() == InventoryType.MERCHANT) {
+            // Check if player is taking the result item (completing a trade)
+            if (event.getSlotType() == org.bukkit.event.inventory.InventoryType.SlotType.RESULT) {
+                ItemStack cursor = event.getCursor();
+                ItemStack current = event.getCurrentItem();
+                
+                // If cursor is empty and current item exists, player is taking the trade result
+                if ((cursor == null || cursor.getType() == Material.AIR) && 
+                    current != null && current.getType() != Material.AIR) {
+                    processObjective(player, ObjectiveType.TRADE, null, 1);
+                }
+            }
+        }
     }
     
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
