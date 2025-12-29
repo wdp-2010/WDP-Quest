@@ -246,13 +246,16 @@ public class QuestMenuHandler {
         if (playerData.isQuestCompleted(quest.getId())) {
             return 100.0;
         }
-        
+
         PlayerQuestData.QuestProgress progress = playerData.getQuestProgress(quest.getId());
         if (progress == null) {
             return 0.0;
         }
-        
-        return progress.getCompletionPercentage(quest.getTotalObjectives());
+
+        // Use actual completion percentage based on each objective's target amount
+        var targets = getObjectiveTargets(quest);
+        if (targets.isEmpty()) return 100.0;
+        return progress.getActualCompletionPercentage(targets);
     }
     
     /**
@@ -306,12 +309,23 @@ public class QuestMenuHandler {
     private String createSegmentVisual(int fillLevel, boolean isHard) {
         String filled = isHard ? "§c█" : "§a█";
         String empty = "§7░";
-        
+
         StringBuilder bar = new StringBuilder();
         for (int i = 0; i < FILLS_PER_SEGMENT; i++) {
             bar.append(i < fillLevel ? filled : empty);
         }
         return bar.toString();
+    }
+
+    /**
+     * Build a map of objective ID -> target amount for a quest
+     */
+    private java.util.Map<String, Integer> getObjectiveTargets(Quest quest) {
+        var map = new java.util.LinkedHashMap<String, Integer>();
+        for (QuestObjective obj : quest.getObjectives()) {
+            map.put(obj.getId(), obj.getTargetAmount());
+        }
+        return map;
     }
     
     // === ITEM CREATION HELPERS ===
@@ -413,8 +427,11 @@ public class QuestMenuHandler {
         } else if (isActive) {
             mat = Material.YELLOW_CONCRETE;
             name = "§e§l● In Progress";
-            double completion = questProgress != null ? 
-                questProgress.getCompletionPercentage(quest.getTotalObjectives()) : 0;
+            double completion = 0;
+            if (questProgress != null) {
+                var targets = getObjectiveTargets(quest);
+                completion = targets.isEmpty() ? 100.0 : questProgress.getActualCompletionPercentage(targets);
+            }
             lore = new String[]{
                 "§7Progress: §e" + String.format("%.0f", completion) + "%"
             };

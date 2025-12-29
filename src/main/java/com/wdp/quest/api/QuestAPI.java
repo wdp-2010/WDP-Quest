@@ -7,7 +7,6 @@ import com.wdp.quest.quest.QuestCategory;
 import org.bukkit.entity.Player;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Public API for other plugins to interact with the quest system
@@ -125,7 +124,10 @@ public class QuestAPI {
         Quest quest = plugin.getQuestManager().getQuest(questId);
         
         if (progress == null || quest == null) return -1;
-        return progress.getCompletionPercentage(quest.getTotalObjectives());
+        var targets = new java.util.LinkedHashMap<String,Integer>();
+        for (var obj : quest.getObjectives()) targets.put(obj.getId(), obj.getTargetAmount());
+        if (targets.isEmpty()) return 100.0;
+        return progress.getActualCompletionPercentage(targets);
     }
     
     /**

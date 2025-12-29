@@ -199,7 +199,12 @@ public class QuestAdminCommand implements CommandExecutor, TabCompleter {
             for (var questProgress : data.getActiveQuests()) {
                 Quest quest = plugin.getQuestManager().getQuest(questProgress.getQuestId());
                 String name = quest != null ? quest.getDisplayName() : questProgress.getQuestId();
-                double completion = questProgress.getCompletionPercentage(quest != null ? quest.getTotalObjectives() : 1);
+                double completion = 0;
+                if (quest != null) {
+                    var targets = new java.util.LinkedHashMap<String,Integer>();
+                    for (var obj : quest.getObjectives()) targets.put(obj.getId(), obj.getTargetAmount());
+                    completion = targets.isEmpty() ? 100.0 : questProgress.getActualCompletionPercentage(targets);
+                }
                 sender.sendMessage(plugin.getConfigManager().colorize(
                     "  &8- &e" + name + " &7(" + String.format("%.0f", completion) + "%)"));
             }
