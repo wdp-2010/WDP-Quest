@@ -245,7 +245,7 @@ public class QuestMenuHandler {
         fillRow(inv, 5, Material.BLACK_STAINED_GLASS_PANE);
         
         // Back button (slot 48)
-        inv.setItem(48, createItem(Material.ARROW, "§c§l← Back", "§7Return to quest menu"));
+        inv.setItem(48, createItem(Material.SPYGLASS, "§c§l← Back", "§7Return to quest menu"));
         
         // Main action button (slot 49)
         if (isActive) {

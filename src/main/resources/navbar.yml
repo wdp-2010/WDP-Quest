@@ -40,7 +40,7 @@ main_menu:
   page_info:
     slot: 49
     material: paper
-    display_name: '§e§lPage {page}/{total_pages}'
+    display_name: '§e§lPage §f§l{page} §8§l/ {total_pages}'
     lore:
       - '§7Viewing quests {start}-{end}'
 
