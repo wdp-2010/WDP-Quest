@@ -14,8 +14,10 @@ import java.util.List;
  */
 public class GlobalItems {
 
+    private final WDPQuestPlugin plugin;
+
     public GlobalItems(WDPQuestPlugin plugin) {
-        // `plugin` kept for compatibility; not required by GlobalItems currently
+        this.plugin = plugin;
     }
 
     /**
@@ -202,6 +204,22 @@ public class GlobalItems {
         ItemStack item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(" ");
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    /**
+     * Creates a balance display item showing coins and tokens
+     */
+    public ItemStack createBalanceItem(double coins, double tokens) {
+        ItemStack item = new ItemStack(Material.GOLD_NUGGET);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§6Balance:");
+        List<String> lore = new ArrayList<>();
+        lore.add(" ");
+        lore.add("§eSkillCoins: §6" + String.format("%,.0f", coins) + " ⛃");
+        lore.add("§aTokens: §2" + String.format("%,.0f", tokens) + " 🎟");
+        meta.setLore(lore);
         item.setItemMeta(meta);
         return item;
     }
