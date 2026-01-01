@@ -161,12 +161,12 @@ public class QuestMenuHandler {
         iconLore.add("§7" + quest.getDescription());
         iconLore.add(" ");
         if (quest.isHardQuest()) {
-            iconLore.add("§c§l⚔ HARD QUEST ⚔");
+            iconLore.add(plugin.getMessages().get("menu.detail.header.hard-quest"));
             iconLore.add(" ");
         }
-        iconLore.add("§7Required Progress: §e" + quest.getRequiredProgress() + "%");
+        iconLore.add(plugin.getMessages().get("menu.detail.header.required-progress", "progress", String.valueOf(quest.getRequiredProgress())));
         if (quest.isRepeatable()) {
-            iconLore.add("§7Repeatable: §aYes");
+            iconLore.add(plugin.getMessages().get("menu.detail.header.repeatable"));
         }
         
         ItemStack questIcon = createItem(quest.getIcon(),
@@ -188,7 +188,7 @@ public class QuestMenuHandler {
         }
         
         // === ROW 2: Objectives ===
-        inv.setItem(18, createItem(Material.PAPER, "§6§lObjectives", "§7Complete all to finish"));
+        inv.setItem(18, createItem(Material.PAPER, plugin.getMessages().get("menu.detail.objectives.label"), plugin.getMessages().get("menu.detail.objectives.description")));
         
         int objSlot = 19;
         for (QuestObjective objective : quest.getObjectives()) {
@@ -199,15 +199,16 @@ public class QuestMenuHandler {
             int target = objective.getTargetAmount();
             
             Material objMat = objComplete ? Material.LIME_DYE : Material.GRAY_DYE;
-            String objStatus = objComplete ? "§a✓ " : "§7○ ";
-            String progress = objComplete ? "§aComplete!" : "§7" + current + "§8/§7" + target;
+            String objStatus = objComplete ? plugin.getMessages().get("menu.detail.objectives.complete-prefix") : plugin.getMessages().get("menu.detail.objectives.incomplete-prefix");
+            String progress = objComplete ? plugin.getMessages().get("menu.detail.objectives.complete-status") : 
+                plugin.getMessages().get("menu.detail.objectives.progress-status", "current", String.valueOf(current), "target", String.valueOf(target));
             
             inv.setItem(objSlot++, createItem(objMat,
                 objStatus + "§f" + objective.getFormattedDescription(), progress));
         }
         
         // === ROW 3: Rewards ===
-        inv.setItem(27, createItem(Material.CHEST, "§6§lRewards", "§7What you'll receive"));
+        inv.setItem(27, createItem(Material.CHEST, plugin.getMessages().get("menu.detail.rewards.label"), plugin.getMessages().get("menu.detail.rewards.description")));
         
         int rewardSlot = 28;
         for (String reward : quest.getRewards().getRewardSummary()) {
@@ -293,7 +294,7 @@ public class QuestMenuHandler {
             
             List<String> lore = new ArrayList<>();
             lore.add(" ");
-            lore.add("§7Overall: " + color + String.format("%.0f", completion) + "%");
+            lore.add(plugin.getMessages().get("menu.main.progress-bar.overall", "color", color, "progress", String.format("%.0f", completion)));
             
             meta.setLore(lore);
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
@@ -352,26 +353,26 @@ public class QuestMenuHandler {
         lore.add(" ");
         
         if (quest.isHardQuest()) {
-            lore.add("§c§l⚔ HARD QUEST ⚔");
+            lore.add(plugin.getMessages().get("menu.main.quest-icon.hard-quest"));
             lore.add(" ");
         }
         
         // Show completion status
         double completion = getQuestCompletion(quest, playerData);
         if (isCompleted) {
-            lore.add("§aCompleted!");
+            lore.add(plugin.getMessages().get("menu.main.quest-icon.status.completed"));
         } else if (isActive) {
-            lore.add("§7Progress: §e" + String.format("%.0f", completion) + "%");
+            lore.add(plugin.getMessages().get("menu.main.quest-icon.status.progress", "progress", String.format("%.0f", completion)));
         } else if (!canStart) {
-            lore.add("§cRequires " + quest.getRequiredProgress() + "% progress");
+            lore.add(plugin.getMessages().get("menu.main.quest-icon.status.locked", "progress", String.valueOf(quest.getRequiredProgress())));
         } else {
-            lore.add("§7Ready to start!");
-            lore.add("§8Just start doing objectives");
+            lore.add(plugin.getMessages().get("menu.main.quest-icon.status.ready"));
+            lore.add(plugin.getMessages().get("menu.main.quest-icon.status.ready-hint"));
         }
         
         // Show objectives count
         lore.add(" ");
-        lore.add("§6§lObjectives: §e" + quest.getObjectives().size());
+        lore.add(plugin.getMessages().get("menu.main.quest-icon.objectives-label", "count", String.valueOf(quest.getObjectives().size())));
         PlayerQuestData.QuestProgress questProgress = playerData.getQuestProgress(quest.getId());
         if (questProgress != null && isActive) {
             int completed = 0;
@@ -380,19 +381,19 @@ public class QuestMenuHandler {
                     completed++;
                 }
             }
-            lore.add("§7Completed: §a" + completed + "§7/§e" + quest.getObjectives().size());
+            lore.add(plugin.getMessages().get("menu.main.quest-icon.objectives-completed", "completed", String.valueOf(completed), "total", String.valueOf(quest.getObjectives().size())));
         }
         
         // Show rewards preview (first 2)
         lore.add(" ");
-        lore.add("§6§lRewards:");
+        lore.add(plugin.getMessages().get("menu.main.quest-icon.rewards-label"));
         List<String> rewardSummary = quest.getRewards().getRewardSummary();
         int rewardCount = 0;
         for (String reward : rewardSummary) {
             if (rewardCount >= 2) {
                 int remaining = rewardSummary.size() - 2;
                 if (remaining > 0) {
-                    lore.add("§7  ... and " + remaining + " more");
+                    lore.add(plugin.getMessages().get("menu.main.quest-icon.rewards-more", "count", String.valueOf(remaining)));
                 }
                 break;
             }
@@ -401,7 +402,7 @@ public class QuestMenuHandler {
         }
         
         lore.add(" ");
-        lore.add("§a▶ Click for details");
+        lore.add(plugin.getMessages().get("menu.main.quest-icon.click-details"));
         
         ItemStack item = createItem(icon, 
             prefix + quest.getCategory().getColor() + quest.getDisplayName(),
@@ -422,23 +423,23 @@ public class QuestMenuHandler {
         
         if (isCompleted) {
             mat = Material.LIME_CONCRETE;
-            name = "§a§l✓ Completed";
-            lore = new String[]{"§7You have completed this quest!"};
+            name = plugin.getMessages().get("menu.detail.status.completed.name");
+            lore = new String[]{plugin.getMessages().get("menu.detail.status.completed.lore")};
         } else if (isActive) {
             mat = Material.YELLOW_CONCRETE;
-            name = "§e§l● In Progress";
+            name = plugin.getMessages().get("menu.detail.status.in-progress.name");
             double completion = 0;
             if (questProgress != null) {
                 var targets = getObjectiveTargets(quest);
                 completion = targets.isEmpty() ? 100.0 : questProgress.getActualCompletionPercentage(targets);
             }
             lore = new String[]{
-                "§7Progress: §e" + String.format("%.0f", completion) + "%"
+                plugin.getMessages().get("menu.detail.status.in-progress.lore", "progress", String.format("%.0f", completion))
             };
         } else {
             mat = Material.GREEN_CONCRETE;
-            name = "§a§l◇ Available";
-            lore = new String[]{"§7Ready to start!"};
+            name = plugin.getMessages().get("menu.detail.status.available.name");
+            lore = new String[]{plugin.getMessages().get("menu.detail.status.available.lore")};
         }
         
         return createItem(mat, name, lore);
@@ -470,17 +471,18 @@ public class QuestMenuHandler {
             
             // Time until reset
             String timeLeft = plugin.getDailyQuestManager().getTimeUntilResetFormatted();
-            lore.add(ChatColor.translateAlternateColorCodes('§', "§7Time Left: §e" + timeLeft));
+            lore.add(ChatColor.translateAlternateColorCodes('§', plugin.getMessages().get("menu.main.player-head.time-left", "time", timeLeft)));
             
             // Daily quests completed out of 5
-            lore.add(ChatColor.translateAlternateColorCodes('§', "§7Daily Quests: §a" + completedDaily + "§7/§a5"));
+            lore.add(ChatColor.translateAlternateColorCodes('§', plugin.getMessages().get("menu.main.player-head.daily-quests", "completed", String.valueOf(completedDaily))));
             
             // Hard quest info if present
             if (activeHardQuest != null) {
                 int daysLeft = plugin.getDailyQuestManager().getRemainingDays(activeHardQuest);
                 lore.add("");
-                lore.add(ChatColor.translateAlternateColorCodes('§', "§c§l⚔ HARD QUEST ⚔"));
-                lore.add(ChatColor.translateAlternateColorCodes('§', "§7Sticks for: §c" + daysLeft + "§7 more day" + (daysLeft != 1 ? "s" : "")));
+                lore.add(ChatColor.translateAlternateColorCodes('§', plugin.getMessages().get("menu.main.player-head.hard-quest-label")));
+                String plural = daysLeft != 1 ? "s" : "";
+                lore.add(ChatColor.translateAlternateColorCodes('§', plugin.getMessages().get("menu.main.player-head.hard-quest-days", "days", String.valueOf(daysLeft), "s", plural)));
             }
             
             meta.setLore(lore);
@@ -733,17 +735,15 @@ public class QuestMenuHandler {
             boolean tracking = playerData.isTracking(quest.getId());
             inv.setItem(49, createItem(
                 tracking ? Material.ENDER_EYE : Material.ENDER_PEARL,
-                tracking ? "§d§lTracking ✓" : "§e§lTrack Quest",
-                "§7Toggle quest tracking"
+                tracking ? plugin.getMessages().get("menu.detail.actions.track.active.name") : plugin.getMessages().get("menu.detail.actions.track.inactive.name"),
+                tracking ? plugin.getMessages().get("menu.detail.actions.track.active.lore") : plugin.getMessages().get("menu.detail.actions.track.inactive.lore")
             ));
         } else if (!isCompleted) {
-            inv.setItem(49, createItem(Material.EMERALD, "§a§lStart Quest", 
-                "§7Click to begin!",
-                " ",
-                "§8Or just start doing objectives",
-                "§8and it will auto-start!"));
+            List<String> startLore = plugin.getMessages().getList("menu.detail.actions.start.lore");
+            inv.setItem(49, createItem(Material.EMERALD, plugin.getMessages().get("menu.detail.actions.start.name"), 
+                startLore.toArray(new String[0])));
         } else if (quest.isRepeatable() && !playerData.isOnCooldown(quest.getId())) {
-            inv.setItem(49, createItem(Material.EXPERIENCE_BOTTLE, "§b§lRepeat Quest", "§7Click to restart!"));
+            inv.setItem(49, createItem(Material.EXPERIENCE_BOTTLE, plugin.getMessages().get("menu.detail.actions.repeat.name"), plugin.getMessages().get("menu.detail.actions.repeat.lore")));
         }
     }
     
@@ -764,27 +764,27 @@ public class QuestMenuHandler {
 
         // Page info moved to center (slot 49)
         inv.setItem(49, createItem(Material.PAPER,
-            "§e§lPage: §f§l" + (page + 1) + " §8§l/ " + totalPages, " ", 
-            "§7Viewing quests " + (startIndex + 1) + "-" + Math.min(startIndex + questsPerPage, dailyQuests.size())));
+            plugin.getMessages().get("menu.main.page-info.name", "page", String.valueOf(page + 1), "total", String.valueOf(totalPages)), " ", 
+            plugin.getMessages().get("menu.main.page-info.viewing", "start", String.valueOf(startIndex + 1), "end", String.valueOf(Math.min(startIndex + questsPerPage, dailyQuests.size())))));
         
         // Balance nugget (slot 45)
-        inv.setItem(45, createItem(Material.GOLD_NUGGET, "Balance: ",
+        inv.setItem(45, createItem(Material.GOLD_NUGGET, plugin.getMessages().get("menu.main.balance.name"),
             " ",
-            "§eSkillCoins: §6" + String.format("%.0f", coins) + " ⛃",
-            "§aTokens: §2" + String.format("%,d", tokens) + " 🎟"));
+            plugin.getMessages().get("menu.main.balance.coins", "amount", String.format("%.0f", coins)),
+            plugin.getMessages().get("menu.main.balance.tokens", "amount", String.format("%,d", tokens))));
         
         // Previous page (slot 48)
         if (page > 0) {
-            inv.setItem(48, createItem(Material.ARROW, "§e§l← Previous", "§7Go to page " + page));
+            inv.setItem(48, createItem(Material.ARROW, plugin.getMessages().get("menu.main.previous-page.name"), plugin.getMessages().get("menu.main.previous-page.lore", "page", String.valueOf(page))));
         }
         
         // Next page (slot 50)
         if (page < totalPages - 1) {
-            inv.setItem(50, createItem(Material.ARROW, "§e§lNext →", "§7Go to page " + (page + 2)));
+            inv.setItem(50, createItem(Material.ARROW, plugin.getMessages().get("menu.main.next-page.name"), plugin.getMessages().get("menu.main.next-page.lore", "page", String.valueOf(page + 2))));
         }
         
         // Close button (slot 53)
-        inv.setItem(53, createItem(Material.BARRIER, "§c§lClose", "§7Click to close menu"));
+        inv.setItem(53, createItem(Material.BARRIER, plugin.getMessages().get("menu.main.close.name"), plugin.getMessages().get("menu.main.close.lore")));
     }
     
     /**
@@ -797,21 +797,22 @@ public class QuestMenuHandler {
             boolean tracking = playerData.isTracking(quest.getId());
             inv.setItem(49, createItem(
                 tracking ? Material.ENDER_EYE : Material.ENDER_PEARL,
-                tracking ? "§d§lTracking ✓" : "§e§lTrack Quest",
-                "§7Toggle quest tracking"
+                tracking ? plugin.getMessages().get("menu.detail.actions.track.active.name") : plugin.getMessages().get("menu.detail.actions.track.inactive.name"),
+                tracking ? plugin.getMessages().get("menu.detail.actions.track.active.lore") : plugin.getMessages().get("menu.detail.actions.track.inactive.lore")
             ));
         } else if (quest.isRepeatable() && !playerData.isOnCooldown(quest.getId())) {
-            inv.setItem(49, createItem(Material.EXPERIENCE_BOTTLE, "§b§lRepeat Quest", "§7Click to restart!"));
+            inv.setItem(49, createItem(Material.EXPERIENCE_BOTTLE, plugin.getMessages().get("menu.detail.actions.repeat.name"), plugin.getMessages().get("menu.detail.actions.repeat.lore")));
         }
         
         // Abandon button (slot 50) - only when active
         if (isActive) {
-            inv.setItem(50, createItem(Material.TNT, "§c§lAbandon", 
-                "§7Remove quest", "§c⚠ Progress will be lost!"));
+            List<String> abandonLore = plugin.getMessages().getList("menu.detail.actions.abandon.lore");
+            inv.setItem(50, createItem(Material.TNT, plugin.getMessages().get("menu.detail.actions.abandon.name"), 
+                abandonLore.toArray(new String[0])));
         }
         
         // Back button moved to slot 53 (replaces close)
-        inv.setItem(53, createItem(Material.SPYGLASS, "§c§l← Back", "§7Return to quest menu"));
+        inv.setItem(53, createItem(Material.SPYGLASS, plugin.getMessages().get("menu.detail.actions.back.name"), plugin.getMessages().get("menu.detail.actions.back.lore")));
     }
     
     /**

@@ -180,10 +180,10 @@ public class QuestMenuListener implements Listener {
                 if ((type == Material.ENDER_EYE || type == Material.ENDER_PEARL) && isActive) {
                     if (playerData.isTracking(questId)) {
                         playerData.setTrackedQuestId(null);
-                        player.sendMessage(plugin.getConfigManager().colorize("&7Stopped tracking quest."));
+                        player.sendMessage(plugin.getMessages().get("commands.stopped-tracking"));
                     } else {
                         playerData.setTrackedQuestId(questId);
-                        player.sendMessage(plugin.getConfigManager().colorize("&aNow tracking: &e" + quest.getDisplayName()));
+                        player.sendMessage(plugin.getMessages().get("commands.now-tracking", "quest", quest.getDisplayName()));
                     }
                     menuHandler.openQuestDetail(player, quest, state.page, true);
                 }

@@ -30,7 +30,7 @@ public class QuestCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("This command can only be used by players.");
+            sender.sendMessage(plugin.getMessages().get("commands.players-only"));
             return true;
         }
         
@@ -75,7 +75,7 @@ public class QuestCommand implements CommandExecutor, TabCompleter {
     
     private void handleTrack(Player player, String[] args) {
         if (args.length < 2) {
-            player.sendMessage(plugin.getConfigManager().colorize("&cUsage: /quest track <quest>"));
+            player.sendMessage(plugin.getMessages().get("commands.usage.track"));
             return;
         }
         
@@ -90,12 +90,12 @@ public class QuestCommand implements CommandExecutor, TabCompleter {
         data.setTrackedQuestId(questId);
         Quest quest = plugin.getQuestManager().getQuest(questId);
         String questName = quest != null ? quest.getDisplayName() : questId;
-        player.sendMessage(plugin.getConfigManager().colorize("&aNow tracking: &e" + questName));
+        player.sendMessage(plugin.getMessages().get("commands.now-tracking", "quest", questName));
     }
     
     private void handleAbandon(Player player, String[] args) {
         if (args.length < 2) {
-            player.sendMessage(plugin.getConfigManager().colorize("&cUsage: /quest abandon <quest>"));
+            player.sendMessage(plugin.getMessages().get("commands.usage.abandon"));
             return;
         }
         
@@ -104,7 +104,7 @@ public class QuestCommand implements CommandExecutor, TabCompleter {
     
     private void handleInfo(Player player, String[] args) {
         if (args.length < 2) {
-            player.sendMessage(plugin.getConfigManager().colorize("&cUsage: /quest info <quest>"));
+            player.sendMessage(plugin.getMessages().get("commands.usage.info"));
             return;
         }
         

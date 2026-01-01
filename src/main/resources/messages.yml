@@ -1,0 +1,311 @@
+# WDP-Quest Messages Configuration
+# All user-visible strings in one place
+
+# Prefix shown before most messages
+prefix: "&8[&6Quest&8] &r"
+
+# ===========================================
+# COMMAND MESSAGES
+# ===========================================
+commands:
+  # Console error
+  players-only: "&cThis command can only be used by players."
+  
+  # Quest command usage
+  usage:
+    track: "&cUsage: /quest track <quest>"
+    abandon: "&cUsage: /quest abandon <quest>"
+    info: "&cUsage: /quest info <quest>"
+  
+  # Quest command responses
+  now-tracking: "&aNow tracking: &e{quest}"
+  stopped-tracking: "&7Stopped tracking quest."
+  
+  # Admin command help header/footer
+  admin:
+    help-header: "&8&m                    &r &6Quest Admin &8&m                    "
+    help-footer: "&8&m                                                          "
+    help:
+      reload: "&e/questadmin reload &7- Reload configuration"
+      give: "&e/questadmin give <player> <quest> &7- Give quest to player"
+      complete: "&e/questadmin complete <player> <quest> &7- Complete quest for player"
+      reset: "&e/questadmin reset <player> [quest] &7- Reset quest(s) for player"
+      progress: "&e/questadmin progress <player> &7- View player's quest progress"
+      list: "&e/questadmin list &7- List all loaded quests"
+    
+    # Admin command usage
+    usage:
+      give: "&cUsage: /questadmin give <player> <quest>"
+      complete: "&cUsage: /questadmin complete <player> <quest>"
+      reset: "&cUsage: /questadmin reset <player> [quest]"
+      progress: "&cUsage: /questadmin progress <player>"
+    
+    # Admin command responses
+    gave-quest: "&aGave quest &e{quest} &ato &e{player}"
+    completed-quest: "&aCompleted quest &e{quest} &afor &e{player}"
+    reset-quest: "&aReset quest &e{quest} &afor &e{player}"
+    reset-all-quests: "&aReset all quests for &e{player}"
+    
+    # Progress display
+    progress-header: "&8&m              &r &6{player}'s Quest Progress &8&m              "
+    progress-footer: "&8&m                                                              "
+    progress-level: "&7Player Progress: &e{progress}%"
+    active-quests: "&7Active Quests: &e{count}"
+    completed-quests: "&7Completed Quests: &e{count}"
+    active-label: "&7Active:"
+    active-quest-entry: "  &8- &e{quest} &7({completion}%)"
+    
+    # Quest list display
+    list-header: "&8&m                    &r &6Loaded Quests &8&m                    "
+    list-footer: "&8&m                                                          "
+    list-category: "{color}{category} &7({count} quests)"
+    list-total: "&7Total: &e{count} quests"
+
+# ===========================================
+# QUEST SYSTEM MESSAGES
+# ===========================================
+quests:
+  started: "&aYou have started the quest: &e{quest}"
+  completed: "&a&lQuest Complete! &r&aYou completed: &e{quest}"
+  abandoned: "&cYou abandoned the quest: &e{quest}"
+  already-active: "&cYou already have this quest active!"
+  already-completed: "&cYou have already completed this quest!"
+  not-active: "&cYou don't have this quest active!"
+  locked: "&cThis quest requires &e{progress}% &cprogress to unlock!"
+  max-reached: "&cYou can only have {max} active quests!"
+  cooldown: "&cThis quest is on cooldown for {seconds} more seconds."
+  not-found: "&cQuest not found!"
+  daily-reset: "&e&lDaily Quests Reset! &r&eNew quests are now available!"
+  expires: "&7This quest expires in &e{time}"
+  hard-quest: "&c&l★ HARD QUEST &r&7- Available for &e{days} &7days"
+
+# ===========================================
+# REWARD MESSAGES
+# ===========================================
+rewards:
+  coins: "&a+{amount} ⛃"
+  tokens: "&a+{amount} 🎟"
+  xp: "&a+{amount} &bXP"
+
+# ===========================================
+# OBJECTIVE MESSAGES
+# ===========================================
+objectives:
+  progress: "&7{objective}: &e{current}&7/&e{target}"
+  complete: "&aComplete!"
+
+# ===========================================
+# ERROR MESSAGES
+# ===========================================
+errors:
+  no-permission: "&cYou don't have permission to do that!"
+  player-not-found: "&cPlayer not found!"
+
+# ===========================================
+# SUCCESS MESSAGES
+# ===========================================
+success:
+  reload: "&aConfiguration reloaded successfully!"
+
+# ===========================================
+# MENU TITLES
+# ===========================================
+menu:
+  titles:
+    main: "&8&l✦ &6&lDaily Quests &8&l✦"
+    detail: "&8&l✦ &e{quest} &8&l✦"
+
+# ===========================================
+# MENU ITEMS - Main Menu
+# ===========================================
+  main:
+    # Player head info
+    player-head:
+      time-left: "&7Time Left: &e{time}"
+      daily-quests: "&7Daily Quests: &a{completed}&7/&a5"
+      hard-quest-label: "&c&l⚔ HARD QUEST ⚔"
+      hard-quest-days: "&7Sticks for: &c{days}&7 more day{s}"
+    
+    # Quest icon
+    quest-icon:
+      hard-quest: "&c&l⚔ HARD QUEST ⚔"
+      status:
+        completed: "&aCompleted!"
+        progress: "&7Progress: &e{progress}%"
+        locked: "&cRequires {progress}% progress"
+        ready: "&7Ready to start!"
+        ready-hint: "&8Just start doing objectives"
+      objectives-label: "&6&lObjectives: &e{count}"
+      objectives-completed: "&7Completed: &a{completed}&7/&e{total}"
+      rewards-label: "&6&lRewards:"
+      rewards-more: "&7  ... and {count} more"
+      click-details: "&a▶ Click for details"
+    
+    # Progress bar
+    progress-bar:
+      overall: "&7Overall: {color}{progress}%"
+    
+    # Navigation
+    page-info:
+      name: "&e&lPage: &f&l{page} &8&l/ {total}"
+      viewing: "&7Viewing quests {start}-{end}"
+    
+    balance:
+      name: "Balance:"
+      coins: "&eSkillCoins: &6{amount} ⛃"
+      tokens: "&aTokens: &2{amount} 🎟"
+    
+    previous-page:
+      name: "&e&l← Previous"
+      lore: "&7Go to page {page}"
+    
+    next-page:
+      name: "&e&lNext →"
+      lore: "&7Go to page {page}"
+    
+    close:
+      name: "&c&lClose"
+      lore: "&7Click to close menu"
+
+# ===========================================
+# MENU ITEMS - Detail Menu  
+# ===========================================
+  detail:
+    # Quest info header
+    header:
+      hard-quest: "&c&l⚔ HARD QUEST ⚔"
+      required-progress: "&7Required Progress: &e{progress}%"
+      repeatable: "&7Repeatable: &aYes"
+    
+    # Status display
+    status:
+      completed:
+        name: "&a&l✓ Completed"
+        lore: "&7You have completed this quest!"
+      in-progress:
+        name: "&e&l● In Progress"
+        lore: "&7Progress: &e{progress}%"
+      available:
+        name: "&a&l◇ Available"
+        lore: "&7Ready to start!"
+    
+    # Objectives section
+    objectives:
+      label: "&6&lObjectives"
+      description: "&7Complete all to finish"
+      complete-prefix: "&a✓ "
+      incomplete-prefix: "&7○ "
+      complete-status: "&aComplete!"
+      progress-status: "&7{current}&8/&7{target}"
+    
+    # Rewards section
+    rewards:
+      label: "&6&lRewards"
+      description: "&7What you'll receive"
+    
+    # Action buttons
+    actions:
+      track:
+        active:
+          name: "&d&lTracking ✓"
+          lore: "&7Toggle quest tracking"
+        inactive:
+          name: "&e&lTrack Quest"
+          lore: "&7Toggle quest tracking"
+      start:
+        name: "&a&lStart Quest"
+        lore:
+          - "&7Click to begin!"
+          - " "
+          - "&8Or just start doing objectives"
+          - "&8and it will auto-start!"
+      repeat:
+        name: "&b&lRepeat Quest"
+        lore: "&7Click to restart!"
+      abandon:
+        name: "&c&lAbandon"
+        lore:
+          - "&7Remove quest"
+          - "&c⚠ Progress will be lost!"
+      back:
+        name: "&c&l← Back"
+        lore: "&7Return to quest menu"
+
+# ===========================================
+# GLOBAL MENU ITEMS (shared components)
+# ===========================================
+  global:
+    close:
+      name: "&c&l✗ Close"
+      lore: "&7Click to close this menu"
+    
+    back:
+      name: "&c&l← Back"
+      lore: "&7Return to {menu}"
+    
+    back-to-main:
+      name: "&c&l← Back&7 to Main"
+      lore: "&7Return to main menu"
+    
+    previous-page:
+      name: "&e&l← Previous"
+      lore: "&7Go to page {page}"
+    
+    next-page:
+      name: "&e&lNext →"
+      lore: "&7Go to page {page}/{total}"
+    
+    page-info:
+      name: "&b&lPage {page}/{total}"
+      lore:
+        - "&7Current page: {page}"
+        - "&7Total pages: {total}"
+    
+    balance:
+      name: "&6Balance:"
+      lore:
+        - " "
+        - "&eSkillCoins: &6{coins} ⛃"
+        - "&aTokens: &2{tokens} 🎟"
+    
+    stats:
+      name: "&e&l{player}"
+      progress: "&7Progress: &a{progress}%"
+      click: "&7Click to view details"
+    
+    quest-info:
+      name: "&6&lQuest Progress"
+      current: "&7Current: &e{quest}"
+      completed: "&7Completed: &a{completed}&7/&a{total}"
+      click: "&7Click to view details"
+
+# ===========================================
+# QUEST CATEGORIES (display names & descriptions)
+# ===========================================
+categories:
+  beginner:
+    name: "Beginner"
+    color: "&a"
+    description: "Perfect for new adventurers starting their journey."
+  early:
+    name: "Early Game"
+    color: "&e"
+    description: "For players getting established in the world."
+  intermediate:
+    name: "Intermediate"
+    color: "&6"
+    description: "Challenging quests for experienced players."
+  advanced:
+    name: "Advanced"
+    color: "&c"
+    description: "Difficult quests requiring significant preparation."
+  expert:
+    name: "Expert"
+    color: "&5"
+    description: "The ultimate challenges for master adventurers."
+
+# ===========================================
+# BROADCAST MESSAGES
+# ===========================================
+broadcast:
+  quest-completed: "&6&l{player} &r&6completed the quest: &e{quest}"
