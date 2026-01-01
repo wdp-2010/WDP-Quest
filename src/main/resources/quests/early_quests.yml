@@ -1,8 +1,18 @@
-# Early Game Quests (20-40% Progress)
-# 50 quests for players getting established
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                   EARLY QUESTS (20-40% Progress) - BALANCED V2                ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║ 50 quests for players getting established                                     ║
+# ║                                                                               ║
+# ║ Reward Philosophy:                                                            ║
+# ║ - Base coins: 50-120 (equivalent to 2-4 skill level milestones)               ║
+# ║ - Hard quests: +1-2 token bonus                                               ║
+# ║ - Goal: ~400-600 coins/day for active early-game players                      ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
 
 quests:
-  # Advanced Mining (10 quests)
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # ADVANCED MINING (10 quests)
+  # ═══════════════════════════════════════════════════════════════════════════════
   gold_rush:
     name: "Gold Rush"
     description: "Mine gold from the depths"
@@ -17,7 +27,7 @@ quests:
         amount: 24
         description: "Mine 24 gold ore"
     rewards:
-      coins: 200
+      coins: 55
       experience: 75
 
   redstone_researcher:
@@ -34,7 +44,7 @@ quests:
         amount: 32
         description: "Mine 32 redstone ore"
     rewards:
-      coins: 220
+      coins: 60
       experience: 80
 
   lapis_lover:
@@ -51,7 +61,7 @@ quests:
         amount: 24
         description: "Mine 24 lapis ore"
     rewards:
-      coins: 210
+      coins: 58
       experience: 78
 
   diamond_hunter:
@@ -70,8 +80,8 @@ quests:
         amount: 8
         description: "Mine 8 diamond ore"
     rewards:
-      coins: 350
-      tokens: 3
+      coins: 95
+      tokens: 2
       experience: 120
 
   emerald_seeker:
@@ -88,7 +98,7 @@ quests:
         amount: 6
         description: "Mine 6 emerald ore"
     rewards:
-      coins: 400
+      coins: 110
       experience: 130
 
   obsidian_obtainer:
@@ -105,7 +115,7 @@ quests:
         amount: 16
         description: "Mine 16 obsidian"
     rewards:
-      coins: 280
+      coins: 75
       experience: 100
 
   amethyst_collector:
@@ -122,7 +132,7 @@ quests:
         amount: 16
         description: "Mine 16 amethyst clusters"
     rewards:
-      coins: 250
+      coins: 68
       experience: 90
 
   deepslate_diamond:
@@ -139,7 +149,7 @@ quests:
         amount: 12
         description: "Mine 12 deepslate diamond ore"
     rewards:
-      coins: 420
+      coins: 115
       experience: 140
 
   tuff_excavator:
@@ -156,7 +166,7 @@ quests:
         amount: 128
         description: "Mine 128 tuff blocks"
     rewards:
-      coins: 180
+      coins: 50
       experience: 65
 
   dripstone_delver:
@@ -173,10 +183,12 @@ quests:
         amount: 32
         description: "Mine 32 dripstone blocks"
     rewards:
-      coins: 190
+      coins: 52
       experience: 70
 
-  # Combat Progression (10 quests)
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # COMBAT PROGRESSION (10 quests)
+  # ═══════════════════════════════════════════════════════════════════════════════
   cave_spider_slayer:
     name: "Cave Spider Slayer"
     description: "Clear mineshaft spiders"
@@ -191,7 +203,7 @@ quests:
         amount: 20
         description: "Kill 20 cave spiders"
     rewards:
-      coins: 240
+      coins: 65
       experience: 90
 
   guardian_challenge:
@@ -208,7 +220,7 @@ quests:
         amount: 15
         description: "Kill 15 guardians"
     rewards:
-      coins: 320
+      coins: 85
       experience: 110
 
   pillager_purge:
@@ -225,7 +237,7 @@ quests:
         amount: 20
         description: "Kill 20 pillagers"
     rewards:
-      coins: 280
+      coins: 75
       experience: 95
 
   vindicator_vendetta:
@@ -242,7 +254,7 @@ quests:
         amount: 10
         description: "Kill 10 vindicators"
     rewards:
-      coins: 340
+      coins: 90
       experience: 115
 
   evoker_encounter:
@@ -261,8 +273,8 @@ quests:
         amount: 3
         description: "Kill 3 evokers"
     rewards:
-      coins: 450
-      tokens: 3
+      coins: 120
+      tokens: 2
       experience: 150
 
   ravager_rampage:
@@ -279,7 +291,7 @@ quests:
         amount: 2
         description: "Kill 2 ravagers"
     rewards:
-      coins: 400
+      coins: 105
       experience: 140
 
   stray_stalker:
@@ -296,33 +308,16 @@ quests:
         amount: 15
         description: "Kill 15 strays"
     rewards:
-      coins: 220
+      coins: 60
       experience: 85
-
-  warden_watcher:
-    name: "Warden Watcher"
-    description: "Survive near a warden (don't wake it!)"
-    icon: SCULK
-    category: EARLY
-    required-progress: 35
-    sort-order: 18
-    objectives:
-      mine_sculk:
-        type: MINE
-        material: SCULK
-        amount: 32
-        description: "Collect 32 sculk blocks carefully"
-    rewards:
-      coins: 380
-      experience: 130
 
   vex_vanquisher:
     name: "Vex Vanquisher"
-    description: "Defeat the annoying vexes"
+    description: "Destroy the summoned vexes"
     icon: IRON_SWORD
     category: EARLY
     required-progress: 34
-    sort-order: 19
+    sort-order: 18
     objectives:
       kill_vex:
         type: KILL
@@ -330,16 +325,16 @@ quests:
         amount: 15
         description: "Kill 15 vexes"
     rewards:
-      coins: 300
+      coins: 80
       experience: 105
 
-  silverfish_slayer:
-    name: "Silverfish Slayer"
-    description: "Exterminate the pests"
-    icon: INFESTED_STONE
+  silverfish_stomper:
+    name: "Silverfish Stomper"
+    description: "Clear out silverfish infestations"
+    icon: STONE_BRICKS
     category: EARLY
     required-progress: 26
-    sort-order: 20
+    sort-order: 19
     objectives:
       kill_silverfish:
         type: KILL
@@ -347,13 +342,35 @@ quests:
         amount: 25
         description: "Kill 25 silverfish"
     rewards:
-      coins: 200
+      coins: 55
       experience: 75
 
-  # Crafting & Smelting (10 quests)
-  diamond_tools:
-    name: "Diamond Tools"
-    description: "Craft powerful diamond tools"
+  skeleton_cavalry:
+    name: "Skeleton Cavalry"
+    description: "Take down skeleton horsemen"
+    icon: BONE
+    category: EARLY
+    required-progress: 30
+    sort-order: 20
+    hard: true
+    days-available: 2
+    objectives:
+      kill_skeleton_horse:
+        type: KILL
+        entity: SKELETON_HORSE
+        amount: 4
+        description: "Kill 4 skeleton horses"
+    rewards:
+      coins: 100
+      tokens: 1
+      experience: 125
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # CRAFTING & SMELTING (10 quests)
+  # ═══════════════════════════════════════════════════════════════════════════════
+  diamond_smith:
+    name: "Diamond Smith"
+    description: "Craft diamond equipment"
     icon: DIAMOND_PICKAXE
     category: EARLY
     required-progress: 30
@@ -364,39 +381,88 @@ quests:
         material: DIAMOND_PICKAXE
         amount: 1
         description: "Craft a diamond pickaxe"
-      craft_diamond_sword:
-        type: CRAFT
-        material: DIAMOND_SWORD
-        amount: 1
-        description: "Craft a diamond sword"
     rewards:
-      coins: 300
-      experience: 100
+      coins: 85
+      experience: 110
 
-  diamond_armor:
-    name: "Diamond Armor"
-    description: "Forge diamond protection"
-    icon: DIAMOND_CHESTPLATE
+  iron_armor_set:
+    name: "Iron Armor Set"
+    description: "Craft a full set of iron armor"
+    icon: IRON_CHESTPLATE
     category: EARLY
-    required-progress: 35
+    required-progress: 25
     sort-order: 22
     objectives:
-      craft_diamond_chest:
+      craft_iron_helmet:
         type: CRAFT
-        material: DIAMOND_CHESTPLATE
+        material: IRON_HELMET
         amount: 1
-        description: "Craft a diamond chestplate"
+        description: "Craft iron helmet"
+      craft_iron_chestplate:
+        type: CRAFT
+        material: IRON_CHESTPLATE
+        amount: 1
+        description: "Craft iron chestplate"
+      craft_iron_leggings:
+        type: CRAFT
+        material: IRON_LEGGINGS
+        amount: 1
+        description: "Craft iron leggings"
+      craft_iron_boots:
+        type: CRAFT
+        material: IRON_BOOTS
+        amount: 1
+        description: "Craft iron boots"
     rewards:
-      coins: 400
-      experience: 130
+      coins: 95
+      experience: 125
+
+  brewing_beginner:
+    name: "Brewing Beginner"
+    description: "Set up a brewing station"
+    icon: BREWING_STAND
+    category: EARLY
+    required-progress: 35
+    sort-order: 23
+    objectives:
+      craft_brewing_stand:
+        type: CRAFT
+        material: BREWING_STAND
+        amount: 1
+        description: "Craft a brewing stand"
+    rewards:
+      coins: 70
+      experience: 90
+
+  enchanting_setup:
+    name: "Enchanting Setup"
+    description: "Create an enchanting area"
+    icon: ENCHANTING_TABLE
+    category: EARLY
+    required-progress: 32
+    sort-order: 24
+    objectives:
+      craft_enchanting_table:
+        type: CRAFT
+        material: ENCHANTING_TABLE
+        amount: 1
+        description: "Craft an enchanting table"
+      craft_bookshelf:
+        type: CRAFT
+        material: BOOKSHELF
+        amount: 15
+        description: "Craft 15 bookshelves"
+    rewards:
+      coins: 110
+      experience: 140
 
   anvil_artisan:
     name: "Anvil Artisan"
     description: "Craft an anvil for repairs"
     icon: ANVIL
     category: EARLY
-    required-progress: 25
-    sort-order: 23
+    required-progress: 28
+    sort-order: 25
     objectives:
       craft_anvil:
         type: CRAFT
@@ -404,118 +470,67 @@ quests:
         amount: 1
         description: "Craft an anvil"
     rewards:
-      coins: 250
-      experience: 90
-
-  enchanting_setup:
-    name: "Enchanting Setup"
-    description: "Build an enchanting station"
-    icon: ENCHANTING_TABLE
-    category: EARLY
-    required-progress: 28
-    sort-order: 24
-    objectives:
-      craft_enchant_table:
-        type: CRAFT
-        material: ENCHANTING_TABLE
-        amount: 1
-        description: "Craft an enchanting table"
-    rewards:
-      coins: 280
+      coins: 75
       experience: 95
 
-  bookshelf_builder:
-    name: "Bookshelf Builder"
-    description: "Create bookshelves for enchanting"
-    icon: BOOKSHELF
+  glass_works:
+    name: "Glass Works"
+    description: "Produce large amounts of glass"
+    icon: GLASS
     category: EARLY
-    required-progress: 26
-    sort-order: 25
-    objectives:
-      craft_bookshelf:
-        type: CRAFT
-        material: BOOKSHELF
-        amount: 15
-        description: "Craft 15 bookshelves"
-    rewards:
-      coins: 260
-      experience: 92
-
-  brewing_beginner:
-    name: "Brewing Beginner"
-    description: "Set up a brewing station"
-    icon: BREWING_STAND
-    category: EARLY
-    required-progress: 32
+    required-progress: 22
     sort-order: 26
     objectives:
-      craft_brewing:
-        type: CRAFT
-        material: BREWING_STAND
-        amount: 1
-        description: "Craft a brewing stand"
+      smelt_glass:
+        type: SMELT
+        material: GLASS
+        amount: 128
+        description: "Smelt 128 glass"
     rewards:
-      coins: 300
-      experience: 100
+      coins: 55
+      experience: 75
 
-  golden_equipment:
-    name: "Golden Equipment"
-    description: "Craft golden gear"
-    icon: GOLDEN_APPLE
+  terracotta_producer:
+    name: "Terracotta Producer"
+    description: "Produce decorative terracotta"
+    icon: TERRACOTTA
     category: EARLY
-    required-progress: 24
+    required-progress: 26
     sort-order: 27
     objectives:
-      craft_golden_apple:
-        type: CRAFT
-        material: GOLDEN_APPLE
-        amount: 4
-        description: "Craft 4 golden apples"
+      smelt_terracotta:
+        type: SMELT
+        material: TERRACOTTA
+        amount: 64
+        description: "Smelt 64 terracotta"
     rewards:
-      coins: 350
-      experience: 115
+      coins: 60
+      experience: 80
 
-  hopper_helper:
-    name: "Hopper Helper"
-    description: "Automate with hoppers"
-    icon: HOPPER
+  smoker_chef:
+    name: "Smoker Chef"
+    description: "Cook food efficiently"
+    icon: SMOKER
     category: EARLY
-    required-progress: 27
+    required-progress: 24
     sort-order: 28
     objectives:
-      craft_hopper:
+      craft_smoker:
         type: CRAFT
-        material: HOPPER
-        amount: 8
-        description: "Craft 8 hoppers"
+        material: SMOKER
+        amount: 2
+        description: "Craft 2 smokers"
     rewards:
-      coins: 270
-      experience: 93
+      coins: 50
+      experience: 65
 
-  powered_rails:
-    name: "Powered Rails"
-    description: "Build powered rail tracks"
-    icon: POWERED_RAIL
-    category: EARLY
-    required-progress: 29
-    sort-order: 29
-    objectives:
-      craft_powered_rail:
-        type: CRAFT
-        material: POWERED_RAIL
-        amount: 16
-        description: "Craft 16 powered rails"
-    rewards:
-      coins: 290
-      experience: 98
-
-  blast_furnace_forge:
-    name: "Blast Furnace Forge"
-    description: "Build efficient smelting"
+  blast_furnace_operator:
+    name: "Blast Furnace Operator"
+    description: "Smelt ores efficiently"
     icon: BLAST_FURNACE
     category: EARLY
-    required-progress: 25
-    sort-order: 30
+    required-progress: 24
+    sort-order: 29
     objectives:
       craft_blast_furnace:
         type: CRAFT
@@ -523,33 +538,52 @@ quests:
         amount: 2
         description: "Craft 2 blast furnaces"
     rewards:
-      coins: 240
-      experience: 88
+      coins: 55
+      experience: 70
 
-  # Farming & Resources (10 quests)
-  sugarcane_supplier:
-    name: "Sugarcane Supplier"
-    description: "Grow sugarcane for paper"
+  hopper_engineer:
+    name: "Hopper Engineer"
+    description: "Create automated item transport"
+    icon: HOPPER
+    category: EARLY
+    required-progress: 30
+    sort-order: 30
+    objectives:
+      craft_hopper:
+        type: CRAFT
+        material: HOPPER
+        amount: 8
+        description: "Craft 8 hoppers"
+    rewards:
+      coins: 80
+      experience: 105
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # FARMING EXPANSION (10 quests)
+  # ═══════════════════════════════════════════════════════════════════════════════
+  sugar_cane_plantation:
+    name: "Sugar Cane Plantation"
+    description: "Build a sugar cane farm"
     icon: SUGAR_CANE
     category: EARLY
-    required-progress: 21
+    required-progress: 22
     sort-order: 31
     objectives:
-      collect_sugarcane:
+      collect_sugar_cane:
         type: COLLECT
         material: SUGAR_CANE
         amount: 128
-        description: "Harvest 128 sugarcane"
+        description: "Harvest 128 sugar cane"
     rewards:
-      coins: 200
-      experience: 70
+      coins: 55
+      experience: 75
 
   cactus_collector:
     name: "Cactus Collector"
-    description: "Farm cactus for green dye"
+    description: "Farm cactus in the desert"
     icon: CACTUS
     category: EARLY
-    required-progress: 22
+    required-progress: 24
     sort-order: 32
     objectives:
       collect_cactus:
@@ -558,16 +592,50 @@ quests:
         amount: 64
         description: "Collect 64 cactus"
     rewards:
-      coins: 190
+      coins: 50
       experience: 68
 
-  kelp_harvester:
-    name: "Kelp Harvester"
-    description: "Gather underwater kelp"
+  bamboo_harvester:
+    name: "Bamboo Harvester"
+    description: "Grow bamboo for scaffolding"
+    icon: BAMBOO
+    category: EARLY
+    required-progress: 26
+    sort-order: 33
+    objectives:
+      collect_bamboo:
+        type: COLLECT
+        material: BAMBOO
+        amount: 256
+        description: "Harvest 256 bamboo"
+    rewards:
+      coins: 60
+      experience: 80
+
+  honey_farmer:
+    name: "Honey Farmer"
+    description: "Start beekeeping"
+    icon: HONEY_BOTTLE
+    category: EARLY
+    required-progress: 30
+    sort-order: 34
+    objectives:
+      collect_honey:
+        type: COLLECT
+        material: HONEY_BOTTLE
+        amount: 8
+        description: "Collect 8 honey bottles"
+    rewards:
+      coins: 70
+      experience: 90
+
+  kelp_farm:
+    name: "Kelp Farm"
+    description: "Farm underwater kelp"
     icon: KELP
     category: EARLY
-    required-progress: 23
-    sort-order: 33
+    required-progress: 25
+    sort-order: 35
     objectives:
       collect_kelp:
         type: COLLECT
@@ -575,118 +643,16 @@ quests:
         amount: 128
         description: "Harvest 128 kelp"
     rewards:
-      coins: 195
-      experience: 72
+      coins: 52
+      experience: 70
 
-  bamboo_bonanza:
-    name: "Bamboo Bonanza"
-    description: "Collect bamboo from jungles"
-    icon: BAMBOO
-    category: EARLY
-    required-progress: 24
-    sort-order: 34
-    objectives:
-      collect_bamboo:
-        type: COLLECT
-        material: BAMBOO
-        amount: 128
-        description: "Collect 128 bamboo"
-    rewards:
-      coins: 210
-      experience: 75
-
-  nether_wart_farmer:
-    name: "Nether Wart Farmer"
-    description: "Grow nether wart for potions"
-    icon: NETHER_WART
-    category: EARLY
-    required-progress: 35
-    sort-order: 35
-    objectives:
-      collect_nether_wart:
-        type: COLLECT
-        material: NETHER_WART
-        amount: 64
-        description: "Harvest 64 nether wart"
-    rewards:
-      coins: 350
-      experience: 120
-
-  honey_harvester:
-    name: "Honey Harvester"
-    description: "Collect honey from beehives"
-    icon: HONEY_BOTTLE
-    category: EARLY
-    required-progress: 26
-    sort-order: 36
-    objectives:
-      collect_honeycomb:
-        type: COLLECT
-        material: HONEYCOMB
-        amount: 16
-        description: "Collect 16 honeycomb"
-    rewards:
-      coins: 230
-      experience: 85
-
-  glow_berries:
-    name: "Glow Berry Gatherer"
-    description: "Find glow berries in caves"
-    icon: GLOW_BERRIES
-    category: EARLY
-    required-progress: 27
-    sort-order: 37
-    objectives:
-      collect_glow_berries:
-        type: COLLECT
-        material: GLOW_BERRIES
-        amount: 32
-        description: "Collect 32 glow berries"
-    rewards:
-      coins: 250
-      experience: 88
-
-  sweet_berries:
-    name: "Sweet Berry Picker"
-    description: "Harvest sweet berries"
-    icon: SWEET_BERRIES
-    category: EARLY
-    required-progress: 21
-    sort-order: 38
-    objectives:
-      collect_sweet_berries:
-        type: COLLECT
-        material: SWEET_BERRIES
-        amount: 64
-        description: "Collect 64 sweet berries"
-    rewards:
-      coins: 180
-      experience: 65
-
-  chorus_collector:
-    name: "Chorus Collector"
-    description: "Gather chorus fruit from the End"
-    icon: CHORUS_FRUIT
-    category: EARLY
-    required-progress: 38
-    sort-order: 39
-    objectives:
-      collect_chorus:
-        type: COLLECT
-        material: CHORUS_FRUIT
-        amount: 32
-        description: "Collect 32 chorus fruit"
-    rewards:
-      coins: 400
-      experience: 140
-
-  cocoa_cultivator:
-    name: "Cocoa Cultivator"
-    description: "Grow cocoa beans in jungles"
+  cocoa_baron:
+    name: "Cocoa Baron"
+    description: "Grow cocoa in the jungle"
     icon: COCOA_BEANS
     category: EARLY
-    required-progress: 25
-    sort-order: 40
+    required-progress: 28
+    sort-order: 36
     objectives:
       collect_cocoa:
         type: COLLECT
@@ -694,16 +660,92 @@ quests:
         amount: 64
         description: "Harvest 64 cocoa beans"
     rewards:
-      coins: 220
-      experience: 80
+      coins: 65
+      experience: 85
 
-  # Skills & Activities (10 quests)
-  master_fisherman:
-    name: "Master Fisherman"
-    description: "Become a skilled angler"
-    icon: TROPICAL_FISH
+  mushroom_master:
+    name: "Mushroom Master"
+    description: "Farm both types of mushrooms"
+    icon: RED_MUSHROOM
     category: EARLY
-    required-progress: 22
+    required-progress: 27
+    sort-order: 37
+    objectives:
+      collect_red_mushroom:
+        type: COLLECT
+        material: RED_MUSHROOM
+        amount: 32
+        description: "Collect 32 red mushrooms"
+      collect_brown_mushroom:
+        type: COLLECT
+        material: BROWN_MUSHROOM
+        amount: 32
+        description: "Collect 32 brown mushrooms"
+    rewards:
+      coins: 58
+      experience: 78
+
+  rabbit_breeder:
+    name: "Rabbit Breeder"
+    description: "Raise rabbits for food and hide"
+    icon: RABBIT
+    category: EARLY
+    required-progress: 26
+    sort-order: 38
+    objectives:
+      breed_rabbits:
+        type: BREED
+        amount: 12
+        description: "Breed 12 animals"
+    rewards:
+      coins: 55
+      experience: 75
+
+  horse_tamer:
+    name: "Horse Tamer"
+    description: "Tame and breed horses"
+    icon: SADDLE
+    category: EARLY
+    required-progress: 32
+    sort-order: 39
+    objectives:
+      breed_horses:
+        type: BREED
+        amount: 6
+        description: "Breed 6 horses"
+    rewards:
+      coins: 75
+      experience: 100
+
+  bee_keeper:
+    name: "Master Bee Keeper"
+    description: "Build a large apiary"
+    icon: BEE_NEST
+    category: EARLY
+    required-progress: 35
+    sort-order: 40
+    hard: true
+    days-available: 2
+    objectives:
+      collect_honeycomb:
+        type: COLLECT
+        material: HONEYCOMB
+        amount: 32
+        description: "Collect 32 honeycomb"
+    rewards:
+      coins: 90
+      tokens: 1
+      experience: 115
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # EXPLORATION & STRUCTURES (10 quests)
+  # ═══════════════════════════════════════════════════════════════════════════════
+  fishing_pro:
+    name: "Fishing Pro"
+    description: "Become an expert angler"
+    icon: FISHING_ROD
+    category: EARLY
+    required-progress: 24
     sort-order: 41
     objectives:
       catch_fish:
@@ -711,154 +753,159 @@ quests:
         amount: 50
         description: "Catch 50 fish"
     rewards:
-      coins: 280
-      experience: 95
-
-  master_breeder:
-    name: "Master Breeder"
-    description: "Breed many animals"
-    icon: WHEAT
-    category: EARLY
-    required-progress: 24
-    sort-order: 42
-    objectives:
-      breed_animals:
-        type: BREED
-        amount: 30
-        description: "Breed 30 animals"
-    rewards:
-      coins: 260
+      coins: 70
       experience: 90
 
-  first_enchant:
-    name: "First Enchantment"
-    description: "Enchant your first items"
-    icon: ENCHANTED_BOOK
+  treasure_hunter:
+    name: "Treasure Hunter"
+    description: "Find fishing treasures"
+    icon: NAME_TAG
     category: EARLY
-    required-progress: 30
-    sort-order: 43
+    required-progress: 32
+    sort-order: 42
+    hard: true
+    days-available: 3
     objectives:
-      enchant_items:
-        type: ENCHANT
+      catch_treasure:
+        type: FISH
         amount: 5
-        description: "Enchant 5 items"
+        description: "Catch 5 treasure items"
     rewards:
-      coins: 300
-      experience: 100
+      coins: 100
+      tokens: 1
+      experience: 130
 
-  level_grinder:
-    name: "Level Grinder"
-    description: "Gain experience levels"
-    icon: EXPERIENCE_BOTTLE
-    category: EARLY
-    required-progress: 25
-    sort-order: 44
-    objectives:
-      gain_levels:
-        type: LEVEL_UP
-        amount: 15
-        description: "Gain 15 levels"
-    rewards:
-      coins: 320
-      experience: 105
-
-  villager_trader:
-    name: "Villager Trader"
+  village_trader:
+    name: "Village Trader"
     description: "Trade with villagers"
     icon: EMERALD
     category: EARLY
     required-progress: 28
-    sort-order: 45
+    sort-order: 43
     objectives:
-      trade_villagers:
+      trade_villager:
         type: TRADE
         amount: 20
         description: "Complete 20 villager trades"
     rewards:
-      coins: 350
-      experience: 115
+      coins: 75
+      experience: 95
 
-  iron_smelter:
-    name: "Iron Smelter"
-    description: "Smelt iron in bulk"
-    icon: IRON_INGOT
-    category: EARLY
-    required-progress: 23
-    sort-order: 46
-    objectives:
-      smelt_iron:
-        type: SMELT
-        material: IRON_INGOT
-        amount: 64
-        description: "Smelt 64 iron ingots"
-    rewards:
-      coins: 240
-      experience: 85
-
-  gold_smelter:
-    name: "Gold Smelter"
-    description: "Smelt gold for trading"
-    icon: GOLD_INGOT
+  desert_explorer:
+    name: "Desert Explorer"
+    description: "Explore desert structures"
+    icon: SANDSTONE
     category: EARLY
     required-progress: 26
-    sort-order: 47
+    sort-order: 44
     objectives:
-      smelt_gold:
-        type: SMELT
+      collect_gold:
+        type: COLLECT
         material: GOLD_INGOT
-        amount: 32
-        description: "Smelt 32 gold ingots"
+        amount: 16
+        description: "Collect 16 gold ingots"
     rewards:
-      coins: 270
-      experience: 92
+      coins: 60
+      experience: 80
 
-  stone_brick_maker:
-    name: "Stone Brick Maker"
-    description: "Craft decorative stone bricks"
-    icon: STONE_BRICKS
-    category: EARLY
-    required-progress: 22
-    sort-order: 48
-    objectives:
-      craft_stone_bricks:
-        type: CRAFT
-        material: STONE_BRICKS
-        amount: 128
-        description: "Craft 128 stone bricks"
-    rewards:
-      coins: 200
-      experience: 72
-
-  terracotta_artist:
-    name: "Terracotta Artist"
-    description: "Create colored terracotta"
-    icon: TERRACOTTA
+  jungle_adventurer:
+    name: "Jungle Adventurer"
+    description: "Navigate the dense jungle"
+    icon: JUNGLE_LOG
     category: EARLY
     required-progress: 27
+    sort-order: 45
+    objectives:
+      mine_jungle_wood:
+        type: MINE
+        material: JUNGLE_LOG
+        amount: 128
+        description: "Chop 128 jungle logs"
+    rewards:
+      coins: 55
+      experience: 75
+
+  ocean_diver:
+    name: "Ocean Diver"
+    description: "Explore underwater ruins"
+    icon: HEART_OF_THE_SEA
+    category: EARLY
+    required-progress: 34
+    sort-order: 46
+    objectives:
+      collect_prismarine:
+        type: COLLECT
+        material: PRISMARINE_SHARD
+        amount: 32
+        description: "Collect 32 prismarine shards"
+    rewards:
+      coins: 85
+      experience: 110
+
+  mountain_climber:
+    name: "Mountain Climber"
+    description: "Scale the highest peaks"
+    icon: SNOW_BLOCK
+    category: EARLY
+    required-progress: 25
+    sort-order: 47
+    objectives:
+      mine_snow:
+        type: MINE
+        material: SNOW_BLOCK
+        amount: 64
+        description: "Mine 64 snow blocks"
+    rewards:
+      coins: 50
+      experience: 68
+
+  swamp_explorer:
+    name: "Swamp Explorer"
+    description: "Navigate the murky swamps"
+    icon: LILY_PAD
+    category: EARLY
+    required-progress: 23
+    sort-order: 48
+    objectives:
+      collect_lily_pad:
+        type: COLLECT
+        material: LILY_PAD
+        amount: 32
+        description: "Collect 32 lily pads"
+    rewards:
+      coins: 48
+      experience: 65
+
+  cave_spelunker:
+    name: "Cave Spelunker"
+    description: "Explore deep cave systems"
+    icon: TORCH
+    category: EARLY
+    required-progress: 30
     sort-order: 49
     objectives:
-      smelt_terracotta:
-        type: SMELT
-        material: TERRACOTTA
-        amount: 64
-        description: "Smelt 64 terracotta"
+      mine_deepslate:
+        type: MINE
+        material: DEEPSLATE
+        amount: 256
+        description: "Mine 256 deepslate"
     rewards:
-      coins: 250
-      experience: 88
+      coins: 75
+      experience: 100
 
-  concrete_crafter:
-    name: "Concrete Crafter"
-    description: "Make concrete for building"
-    icon: WHITE_CONCRETE
+  mineshaft_raider:
+    name: "Mineshaft Raider"
+    description: "Clear out abandoned mineshafts"
+    icon: RAIL
     category: EARLY
-    required-progress: 29
+    required-progress: 35
     sort-order: 50
     objectives:
-      craft_concrete:
-        type: CRAFT
-        material: WHITE_CONCRETE_POWDER
+      collect_rail:
+        type: COLLECT
+        material: RAIL
         amount: 64
-        description: "Craft 64 concrete powder"
+        description: "Collect 64 rails from mineshafts"
     rewards:
-      coins: 280
-      experience: 95
+      coins: 85
+      experience: 110
