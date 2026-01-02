@@ -97,11 +97,11 @@ public class PlayerQuestManager {
         // Check if already has this quest
         if (data.hasQuest(quest.getId())) {
             if (data.isQuestCompleted(quest.getId()) && !quest.isRepeatable()) {
-                player.sendMessage(plugin.getConfigManager().getMessage("quest-already-completed"));
+                player.sendMessage(plugin.getMessages().get("quests.already-completed"));
                 return false;
             }
             if (data.isQuestActive(quest.getId())) {
-                player.sendMessage(plugin.getConfigManager().getMessage("quest-already-active"));
+                player.sendMessage(plugin.getMessages().get("quests.already-active"));
                 return false;
             }
         }
@@ -109,16 +109,14 @@ public class PlayerQuestManager {
         // Check cooldown
         if (data.isOnCooldown(quest.getId())) {
             long remaining = data.getCooldownRemaining(quest.getId()) / 1000;
-            player.sendMessage(plugin.getConfigManager().colorize(
-                "&cThis quest is on cooldown for " + remaining + " more seconds."));
+            player.sendMessage(plugin.getMessages().get("quests.cooldown", "seconds", String.valueOf(remaining)));
             return false;
         }
         
         // Check max active quests
         int maxQuests = plugin.getConfigManager().getMaxActiveQuests();
         if (data.getActiveQuestCount() >= maxQuests) {
-            player.sendMessage(plugin.getConfigManager().getMessage("max-quests-reached")
-                .replace("%max%", String.valueOf(maxQuests)));
+            player.sendMessage(plugin.getMessages().get("quests.max-reached", "max", String.valueOf(maxQuests)));
             return false;
         }
         
@@ -126,8 +124,7 @@ public class PlayerQuestManager {
         double playerProgress = plugin.getProgressIntegration().getPlayerProgress(player);
         if (playerProgress < quest.getRequiredProgress() && 
                 !player.hasPermission("wdp.quest.bypass")) {
-            player.sendMessage(plugin.getConfigManager().getMessage("quest-locked")
-                .replace("%progress%", String.format("%.1f", quest.getRequiredProgress())));
+            player.sendMessage(plugin.getMessages().get("quests.locked", "progress", String.format("%.1f", quest.getRequiredProgress())));
             return false;
         }
         
@@ -146,8 +143,7 @@ public class PlayerQuestManager {
         // Play sound and send message
         player.playSound(player.getLocation(), 
             plugin.getConfigManager().getSound("start-quest"), 1.0f, 1.0f);
-        player.sendMessage(plugin.getConfigManager().getMessage("quest-started")
-            .replace("%quest%", quest.getDisplayName()));
+        player.sendMessage(plugin.getMessages().get("quests.started", "quest", quest.getDisplayName()));
         
         return true;
     }
@@ -159,7 +155,7 @@ public class PlayerQuestManager {
         PlayerQuestData data = getPlayerData(player);
         
         if (!data.isQuestActive(questId)) {
-            player.sendMessage(plugin.getConfigManager().getMessage("quest-not-active"));
+            player.sendMessage(plugin.getMessages().get("quests.not-active"));
             return false;
         }
         
@@ -173,8 +169,7 @@ public class PlayerQuestManager {
         }
         
         String questName = quest != null ? quest.getDisplayName() : questId;
-        player.sendMessage(plugin.getConfigManager().getMessage("quest-abandoned")
-            .replace("%quest%", questName));
+        player.sendMessage(plugin.getMessages().get("quests.abandoned", "quest", questName));
         
         return true;
     }
@@ -223,14 +218,12 @@ public class PlayerQuestManager {
         // Sound and message
         player.playSound(player.getLocation(),
             plugin.getConfigManager().getSound("complete-quest"), 1.0f, 1.0f);
-        player.sendMessage(plugin.getConfigManager().getMessage("quest-completed")
-            .replace("%quest%", quest.getDisplayName()));
+        player.sendMessage(plugin.getMessages().get("quests.completed", "quest", quest.getDisplayName()));
         
         // Broadcast if enabled
         if (plugin.getConfigManager().isBroadcastCompletion()) {
-            String broadcast = plugin.getConfigManager().getBroadcastFormat()
-                .replace("%player%", player.getName())
-                .replace("%quest%", quest.getDisplayName());
+            String broadcast = plugin.getMessages().get("broadcast.quest-completed",
+                "player", player.getName(), "quest", quest.getDisplayName());
             Bukkit.broadcastMessage(broadcast);
         }
     }
@@ -254,15 +247,13 @@ public class PlayerQuestManager {
         // Give coins
         if (coinReward > 0 && economy.isEnabled()) {
             economy.giveCoins(player, coinReward);
-            player.sendMessage(config.getMessageRaw("reward-coins")
-                .replace("%amount%", String.format("%.0f", coinReward)));
+            player.sendMessage(plugin.getMessages().get("rewards.coins", "amount", String.format("%.0f", coinReward)));
         }
         
         // Give tokens
         if (rewards.getTokens() > 0 && economy.hasTokenSupport()) {
             economy.giveTokens(player, rewards.getTokens());
-            player.sendMessage(config.getMessageRaw("reward-tokens")
-                .replace("%amount%", String.format("%.0f", rewards.getTokens())));
+            player.sendMessage(plugin.getMessages().get("rewards.tokens", "amount", String.format("%.0f", rewards.getTokens())));
         }
         
         // Give experience
@@ -272,8 +263,7 @@ public class PlayerQuestManager {
         }
         if (xpReward > 0) {
             player.giveExp(xpReward);
-            player.sendMessage(config.getMessageRaw("reward-xp")
-                .replace("%amount%", String.valueOf(xpReward)));
+            player.sendMessage(plugin.getMessages().get("rewards.xp", "amount", String.valueOf(xpReward)));
         }
         
         // Give items
@@ -318,10 +308,10 @@ public class PlayerQuestManager {
         
         // Send progress message if tracking
         if (data.isTracking(quest.getId())) {
-            player.sendMessage(plugin.getConfigManager().getMessageRaw("objective-progress")
-                .replace("%objective%", objective.getFormattedDescription())
-                .replace("%current%", String.valueOf(objProgress.getCurrentAmount()))
-                .replace("%target%", String.valueOf(objective.getTargetAmount())));
+            player.sendMessage(plugin.getMessages().get("objectives.progress",
+                "objective", objective.getFormattedDescription(),
+                "current", String.valueOf(objProgress.getCurrentAmount()),
+                "target", String.valueOf(objective.getTargetAmount())));
         }
         
         // Check if quest is complete

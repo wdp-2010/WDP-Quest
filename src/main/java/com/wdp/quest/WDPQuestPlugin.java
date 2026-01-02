@@ -3,6 +3,7 @@ package com.wdp.quest;
 import com.wdp.quest.commands.QuestAdminCommand;
 import com.wdp.quest.commands.QuestCommand;
 import com.wdp.quest.config.ConfigManager;
+import com.wdp.quest.config.MessageManager;
 import com.wdp.quest.data.DatabaseManager;
 import com.wdp.quest.data.PlayerQuestManager;
 import com.wdp.quest.integrations.EconomyIntegration;
@@ -23,6 +24,7 @@ public class WDPQuestPlugin extends JavaPlugin {
     private static WDPQuestPlugin instance;
     
     private ConfigManager configManager;
+    private MessageManager messageManager;
     private DatabaseManager databaseManager;
     private QuestManager questManager;
     private DailyQuestManager dailyQuestManager;
@@ -44,6 +46,9 @@ public class WDPQuestPlugin extends JavaPlugin {
         // Initialize configuration
         configManager = new ConfigManager(this);
         configManager.loadConfig();
+        
+        // Initialize message manager
+        messageManager = new MessageManager(this);
         
         // Initialize database
         databaseManager = new DatabaseManager(this);
@@ -125,6 +130,7 @@ public class WDPQuestPlugin extends JavaPlugin {
     
     public void reload() {
         configManager.loadConfig();
+        messageManager.reload();
         questManager.loadQuests();
         dailyQuestManager.reload();
         getLogger().info("Configuration and quests reloaded.");
@@ -137,6 +143,10 @@ public class WDPQuestPlugin extends JavaPlugin {
     
     public ConfigManager getConfigManager() {
         return configManager;
+    }
+    
+    public MessageManager getMessages() {
+        return messageManager;
     }
     
     public DatabaseManager getDatabaseManager() {
