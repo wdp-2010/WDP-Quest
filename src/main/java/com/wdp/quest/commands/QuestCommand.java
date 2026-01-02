@@ -41,6 +41,32 @@ public class QuestCommand implements CommandExecutor, TabCompleter {
         
         // No args - open main menu
         if (args.length == 0) {
+            // Check if there are completed active quests waiting for claim
+            var playerData = plugin.getPlayerQuestManager().getPlayerData(player);
+            List<Quest> dailyQuests = plugin.getDailyQuestManager().getDailyQuests(player);
+            boolean hasReadyToClaim = false;
+            
+            for (Quest quest : dailyQuests) {
+                if (playerData.isQuestActive(quest.getId())) {
+                    var progress = playerData.getQuestProgress(quest.getId());
+                    if (progress != null) {
+                        var targets = new java.util.LinkedHashMap<String, Integer>();
+                        for (var obj : quest.getObjectives()) {
+                            targets.put(obj.getId(), obj.getTargetAmount());
+                        }
+                        double completion = progress.getActualCompletionPercentage(targets);
+                        if (completion >= 100.0) {
+                            hasReadyToClaim = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            if (hasReadyToClaim) {
+                player.sendMessage(plugin.getMessages().get("quests.ready-to-claim"));
+            }
+            
             menuHandler.openMainMenu(player);
             return true;
         }

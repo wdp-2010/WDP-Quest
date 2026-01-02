@@ -78,6 +78,7 @@ quests:
   daily-reset: "&e&lDaily Quests Reset! &r&eNew quests are now available!"
   expires: "&7This quest expires in &e{time}"
   hard-quest: "&c&l★ HARD QUEST &r&7- Available for &e{days} &7days"
+  ready-to-claim: "&a&l✓ &aYou have a quest ready to claim! Click the &2emerald &ato collect your rewards."
 
 # ===========================================
 # REWARD MESSAGES
