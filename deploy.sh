@@ -147,16 +147,22 @@ RESOURCEPACK_SOURCE="${PROJECT_DIR}/resourcepack"
 RESOURCEPACK_DIR="${PLUGINS_DIR}/ResourcePackManager/mixer"
 
 if [ -d "$RESOURCEPACK_SOURCE" ]; then
-    # Create the resource pack ZIP if it doesn't exist
-    if [ ! -f "${RESOURCEPACK_SOURCE}/WDPQuest-ResourcePack.zip" ]; then
-        print_step "Creating resource pack ZIP..."
-        cd "$RESOURCEPACK_SOURCE"
-        zip -q -r WDPQuest-ResourcePack.zip pack.mcmeta assets/
-        cd "$PROJECT_DIR"
-    fi
+    # Remove old resource pack ZIP
+    print_step "Removing old resource pack ZIP..."
+    rm -f "${RESOURCEPACK_SOURCE}/WDPQuest-ResourcePack.zip"
+    print_success "Old resource pack removed"
+    
+    # Create the resource pack ZIP
+    print_step "Creating resource pack ZIP..."
+    cd "$RESOURCEPACK_SOURCE"
+    zip -q -r WDPQuest-ResourcePack.zip pack.mcmeta assets/
+    cd "$PROJECT_DIR"
+    print_success "Resource pack ZIP created"
     
     # Deploy to ResourcePackManager mixer directory
     if [ -d "$RESOURCEPACK_DIR" ]; then
+        # Remove old copy from mixer
+        rm -f "${RESOURCEPACK_DIR}/WDPQuest-ResourcePack.zip"
         cp "${RESOURCEPACK_SOURCE}/WDPQuest-ResourcePack.zip" "$RESOURCEPACK_DIR/"
         chown $FILE_OWNER "${RESOURCEPACK_DIR}/WDPQuest-ResourcePack.zip" 2>/dev/null
         print_success "Resource pack deployed to mixer directory"
