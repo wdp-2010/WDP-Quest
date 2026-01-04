@@ -121,28 +121,7 @@ fi
 # Extra safety wait
 sleep 2
 
-# Step 5: Backup old plugin
-if ls "${PLUGINS_DIR}/${JAR_NAME}"*.jar 1> /dev/null 2>&1; then
-    print_step "Backing up old plugin..."
-    BACKUP_DIR="${SERVER_DIR}/backups/wdp-quest"
-    mkdir -p "$BACKUP_DIR"
-    TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-    
-    for old_jar in "${PLUGINS_DIR}/${JAR_NAME}"*.jar; do
-        BASENAME=$(basename "$old_jar")
-        cp "$old_jar" "${BACKUP_DIR}/${BASENAME}.${TIMESTAMP}.bak"
-        print_success "Backed up: ${BASENAME}"
-    done
-    print_success "Backups saved to ${BACKUP_DIR}/"
-    
-    # Keep only last 5 backups
-    print_step "Cleaning old backups (keeping last 5)..."
-    cd "$BACKUP_DIR" && ls -t *.bak 2>/dev/null | tail -n +6 | xargs rm -f 2>/dev/null
-    BACKUP_COUNT=$(ls *.bak 2>/dev/null | wc -l)
-    print_success "Backup count: ${BACKUP_COUNT}"
-fi
-
-# Step 6: Remove old JAR and copy new one
+# Step 5: Remove old JAR and copy new one
 print_step "Removing old plugin JAR..."
 rm -f "${PLUGINS_DIR}/${JAR_NAME}"*.jar 2>/dev/null
 print_success "Old JAR removed"
@@ -157,12 +136,12 @@ else
     exit 1
 fi
 
-# Step 7: Set proper ownership
+# Step 6: Set proper ownership
 print_step "Setting file ownership..."
 chown $FILE_OWNER "${PLUGINS_DIR}/${JAR_BASENAME}" 2>/dev/null || print_warning "Failed to chown (may need to adjust FILE_OWNER)"
 print_success "Ownership set"
 
-# Step 7.5: Deploy resource pack
+# Step 6.5: Deploy resource pack
 print_step "Deploying resource pack..."
 RESOURCEPACK_SOURCE="${PROJECT_DIR}/resourcepack"
 RESOURCEPACK_DIR="${PLUGINS_DIR}/ResourcePackManager/mixer"
@@ -188,12 +167,12 @@ else
     print_warning "Resource pack source not found, skipping"
 fi
 
-# Step 8: Display file info
+# Step 7: Display file info
 print_step "Deployment summary:"
 echo "  Plugin JAR: ${PLUGINS_DIR}/${JAR_BASENAME}"
 ls -lh "${PLUGINS_DIR}/${JAR_BASENAME}" 2>/dev/null | awk '{print "  Size: " $5}'
 
-# Step 9: Start the container
+# Step 8: Start the container
 print_step "Starting Pterodactyl container..."
 docker start "$CONTAINER_ID" > /dev/null 2>&1
 
@@ -203,7 +182,7 @@ else
     print_warning "Failed to execute container start command (container may not exist)"
 fi
 
-# Step 10: Verify container is running
+# Step 9: Verify container is running
 print_step "Verifying container startup..."
 START_TIMEOUT=15
 START_COUNTER=0
@@ -226,7 +205,7 @@ done
 if docker ps -q --filter "id=${CONTAINER_ID}" | grep -q .; then
     print_success "Container is running (verified in ${START_COUNTER}s)"
     
-    # Step 11: Wait for plugin to load and verify
+    # Step 10: Wait for plugin to load and verify
     print_step "Waiting for plugin to load (this may take 30-60 seconds)..."
     VERIFY_TIMEOUT=60
     VERIFY_COUNTER=0
