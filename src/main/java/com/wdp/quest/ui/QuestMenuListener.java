@@ -165,9 +165,7 @@ public class QuestMenuListener implements Listener {
         var playerData = plugin.getPlayerQuestManager().getPlayerData(player);
         boolean isActive = playerData.isQuestActive(questId);
         boolean isCompleted = playerData.isQuestCompleted(questId);
-        double playerProgress = plugin.getProgressIntegration().getPlayerProgress(player);
-        boolean canStart = playerProgress >= quest.getRequiredProgress();
-        
+                
         switch (slot) {
             // Back button (slot 53)
             case 53 -> menuHandler.openMainMenu(player, state.page, true);

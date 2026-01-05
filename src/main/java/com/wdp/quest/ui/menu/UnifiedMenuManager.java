@@ -86,7 +86,6 @@ public class UnifiedMenuManager {
      * @param menuType The type of menu (e.g., "main", "trust", "quest")
      * @param context Context data for placeholders (page, total_pages, previous_menu, coins, tokens, etc.)
      */
-    @SuppressWarnings("unchecked")
     public void applyNavbar(Inventory inv, Player player, String menuType, Map<String, Object> context) {
         FileConfiguration config = navbarConfigs.get("default");
         if (config == null) {
@@ -411,17 +410,6 @@ public class UnifiedMenuManager {
             return ((Number) value).doubleValue();
         }
         return defaultValue;
-    }
-
-    /**
-     * Helper method to get integer from config map
-     */
-    private Integer getInteger(Map<String, Object> config, String key) {
-        Object value = config.get(key);
-        if (value instanceof Number) {
-            return ((Number) value).intValue();
-        }
-        return null;
     }
 
     /**
