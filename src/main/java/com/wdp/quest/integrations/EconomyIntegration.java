@@ -81,7 +81,9 @@ public class EconomyIntegration {
             if (economyProvider != null) {
                 // Get CurrencyType.TOKENS
                 Class<?> currencyTypeClass = Class.forName("dev.aurelium.auraskills.common.skillcoins.CurrencyType");
-                tokensEnum = Enum.valueOf((Class<? extends Enum>) currencyTypeClass, "TOKENS");
+                @SuppressWarnings({"unchecked", "rawtypes"})
+                Enum tokensEnum_temp = Enum.valueOf((Class<? extends Enum>) currencyTypeClass, "TOKENS");
+                tokensEnum = tokensEnum_temp;
                 
                 // Get methods
                 addBalanceMethod = economyProvider.getClass().getMethod("addBalance", UUID.class, currencyTypeClass, double.class);
