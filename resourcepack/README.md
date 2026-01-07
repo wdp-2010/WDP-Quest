@@ -8,11 +8,13 @@
 
 This resource pack provides visual progress bar textures and models used by the WDP-Quest plugin to show per-quest progress items inside GUIs.
 
+**Compatible with Minecraft 1.21-1.21.4** (Pack Format 34)
+
 ---
 
 ## How It Works
 
-The plugin uses **Custom Model Data** on paper items to display progress bars:
+The plugin uses **Custom Model Data** on stained glass pane items to display progress bars:
 - Each progress bar is a single inventory slot
 - Shows 0/5 through 5/5 progress increments
 - **Green bars** for normal quests
@@ -39,11 +41,15 @@ The plugin uses **Custom Model Data** on paper items to display progress bars:
 
 ```
 resourcepack/
-├── pack.mcmeta
+├── pack.mcmeta                   # Pack format 34 for MC 1.21-1.21.4
 ├── assets/
 │   ├── minecraft/
-│   │   └── models/item/
-│   │       └── paper.json          # Overrides for paper item
+│   │   └── items/                # Item model definitions (1.21+ format)
+│   │       ├── gray_stained_glass_pane.json
+│   │       ├── green_stained_glass_pane.json
+│   │       ├── lime_stained_glass_pane.json
+│   │       ├── orange_stained_glass_pane.json
+│   │       └── red_stained_glass_pane.json
 │   └── wdp_quest/
 │       ├── models/item/
 │       │   ├── progress_normal_0.json
