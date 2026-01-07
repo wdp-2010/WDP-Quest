@@ -277,14 +277,28 @@ public class QuestMenuHandler {
         int unitsBeforeThis = segmentIndex * FILLS_PER_SEGMENT;
         int unitsInThisSegment = Math.max(0, Math.min(FILLS_PER_SEGMENT, totalFilledUnits - unitsBeforeThis));
         
-        // Simple CMD: 1000+fill for normal, 1010+fill for hard
-        int cmdBase = isHard ? CMD_HARD : CMD_NORMAL;
+        // Use the NEW 1.21+ item model system
+        // Each progress level has its own item definition in wdp_quest namespace
+        String modelType = isHard ? "hard" : "normal";
+        String modelName = "progress_" + modelType + "_" + unitsInThisSegment;
         
-        ItemStack item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
+        // Create item using any base material (will be replaced by resource pack)
+        ItemStack item = new ItemStack(Material.PAPER);
         ItemMeta meta = item.getItemMeta();
         
         if (meta != null) {
-            meta.setCustomModelData(cmdBase + unitsInThisSegment);
+            // Set the item model component (NEW 1.21.4+ way)
+            // This tells Minecraft to use our custom item definition
+            try {
+                // Use NBT to set the item_model component
+                item = Bukkit.getItemFactory().createItemStack(
+                    "minecraft:paper[minecraft:item_model=\"wdp_quest:" + modelName + "\"]"
+                );
+                meta = item.getItemMeta();
+            } catch (Exception e) {
+                // Fallback for older versions or if the above fails
+                plugin.getLogger().warning("Failed to set item_model, falling back to plain item: " + e.getMessage());
+            }
             
             // Visual feedback in name and lore (fallback without resource pack)
             String color = isHard ? "§c" : "§a";
