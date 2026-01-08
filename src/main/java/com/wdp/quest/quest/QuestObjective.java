@@ -87,34 +87,97 @@ public class QuestObjective {
     /**
      * Check if actionMat is in the same group as the objective material.
      * Used for objectives like "craft planks" to match all wood plank types.
+     * 
+     * ONLY matches if the objective uses OAK as the prefix, which indicates "any type".
+     * For example: OAK_PLANKS matches any planks, but JUNGLE_LOG only matches JUNGLE_LOG.
      */
     private boolean isInMaterialGroup(Material objective, Material action) {
         String objName = objective.name();
         String actName = action.name();
         
-        // Wood planks: OAK_PLANKS, SPRUCE_PLANKS, BIRCH_PLANKS, etc.
-        if (objName.endsWith("_PLANKS") && actName.endsWith("_PLANKS")) {
+        // Only allow group matching if the objective uses OAK (the "default" wood type)
+        // This means OAK_LOG will match any log, but JUNGLE_LOG only matches JUNGLE_LOG
+        if (!objName.startsWith("OAK_") && !objName.startsWith("WHITE_")) {
+            return false; // Specific material requested, no group matching
+        }
+        
+        // Wood planks: OAK_PLANKS matches any planks
+        if (objName.equals("OAK_PLANKS") && actName.endsWith("_PLANKS")) {
             return true;
         }
         
-        // Logs: OAK_LOG, SPRUCE_LOG, etc. and stripped variants
-        if ((objName.endsWith("_LOG") || objName.contains("_WOOD")) && 
-            (actName.endsWith("_LOG") || actName.contains("_WOOD"))) {
+        // Logs: OAK_LOG matches any log (including stripped variants and wood blocks)
+        if (objName.equals("OAK_LOG")) {
+            if (actName.endsWith("_LOG") || actName.endsWith("_WOOD") || 
+                actName.equals("CRIMSON_STEM") || actName.equals("WARPED_STEM") ||
+                actName.equals("CRIMSON_HYPHAE") || actName.equals("WARPED_HYPHAE") ||
+                actName.startsWith("STRIPPED_")) {
+                return true;
+            }
+        }
+        
+        // Fences: OAK_FENCE matches any fence
+        if (objName.equals("OAK_FENCE") && actName.endsWith("_FENCE") && !actName.endsWith("_FENCE_GATE")) {
             return true;
         }
         
-        // Wool colors
-        if (objName.endsWith("_WOOL") && actName.endsWith("_WOOL")) {
+        // Fence Gates: OAK_FENCE_GATE matches any fence gate
+        if (objName.equals("OAK_FENCE_GATE") && actName.endsWith("_FENCE_GATE")) {
             return true;
         }
         
-        // Concrete
-        if (objName.endsWith("_CONCRETE") && actName.endsWith("_CONCRETE")) {
+        // Doors: OAK_DOOR matches any door
+        if (objName.equals("OAK_DOOR") && actName.endsWith("_DOOR")) {
             return true;
         }
         
-        // Terracotta
-        if (objName.endsWith("_TERRACOTTA") && actName.endsWith("_TERRACOTTA")) {
+        // Trapdoors: OAK_TRAPDOOR matches any trapdoor
+        if (objName.equals("OAK_TRAPDOOR") && actName.endsWith("_TRAPDOOR")) {
+            return true;
+        }
+        
+        // Boats: OAK_BOAT matches any boat (including chest boats)
+        if (objName.equals("OAK_BOAT") && (actName.endsWith("_BOAT") || actName.endsWith("_RAFT"))) {
+            return true;
+        }
+        
+        // Stairs: OAK_STAIRS matches any wooden stairs
+        if (objName.equals("OAK_STAIRS") && actName.endsWith("_STAIRS") && 
+            !actName.contains("STONE") && !actName.contains("BRICK") && !actName.contains("QUARTZ")) {
+            return true;
+        }
+        
+        // Slabs: OAK_SLAB matches any wooden slab
+        if (objName.equals("OAK_SLAB") && actName.endsWith("_SLAB") && 
+            !actName.contains("STONE") && !actName.contains("BRICK") && !actName.contains("QUARTZ")) {
+            return true;
+        }
+        
+        // Buttons: OAK_BUTTON matches any wooden button
+        if (objName.equals("OAK_BUTTON") && actName.endsWith("_BUTTON") && 
+            !actName.equals("STONE_BUTTON")) {
+            return true;
+        }
+        
+        // Pressure Plates: OAK_PRESSURE_PLATE matches any wooden pressure plate
+        if (objName.equals("OAK_PRESSURE_PLATE") && actName.endsWith("_PRESSURE_PLATE") && 
+            !actName.contains("STONE") && !actName.contains("WEIGHTED")) {
+            return true;
+        }
+        
+        // Wool colors: WHITE_WOOL matches any wool color
+        if (objName.equals("WHITE_WOOL") && actName.endsWith("_WOOL")) {
+            return true;
+        }
+        
+        // Concrete: WHITE_CONCRETE matches any concrete color
+        if (objName.equals("WHITE_CONCRETE") && actName.endsWith("_CONCRETE")) {
+            return true;
+        }
+        
+        // Terracotta: WHITE_TERRACOTTA or TERRACOTTA matches any terracotta
+        if ((objName.equals("WHITE_TERRACOTTA") || objName.equals("TERRACOTTA")) && 
+            (actName.endsWith("_TERRACOTTA") || actName.equals("TERRACOTTA"))) {
             return true;
         }
         

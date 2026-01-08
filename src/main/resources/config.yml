@@ -69,6 +69,18 @@ progress:
   # Recalculate progress on quest completion
   recalculate-on-complete: true
 
+# Smart Progress Update System
+# Prevents spam while keeping players informed
+progress-updates:
+  # Minimum time between progress messages (milliseconds)
+  min-time-between-ms: 2000
+  # Show update if player returns after this much inactivity (milliseconds)
+  inactivity-threshold-ms: 30000
+  # Time window for spam detection (seconds)
+  spam-window-seconds: 160
+  # Max messages in window before showing warning
+  max-messages-in-window: 6
+
 # Messages
 messages:
   prefix: "&8[&6Quest&8] &r"
@@ -84,6 +96,9 @@ messages:
   reward-tokens: "&a+%amount% 🎟"
   reward-xp: "&a+%amount% &bXP"
   objective-progress: "&7%objective%: &e%current%&7/&e%target%"
+  progress-spam-warning: "&7&oToo many quest updates? Use &e/quest updates &7&oto toggle them off!"
+  progress-updates-enabled: "&aQuest progress updates &lenabled"
+  progress-updates-disabled: "&cQuest progress updates &ldisabled &r&7(you'll only see completions)"
   no-permission: "&cYou don't have permission to do that!"
   player-not-found: "&cPlayer not found!"
   quest-not-found: "&cQuest not found!"

@@ -820,7 +820,7 @@ quests:
         type: MINE
         material: JUNGLE_LOG
         amount: 128
-        description: "Chop 128 jungle logs"
+        description: "Chop 128 jungle logs (jungle only)"
     rewards:
       coins: 55
       experience: 75

@@ -14,6 +14,7 @@ import com.wdp.quest.quest.DailyQuestManager;
 import com.wdp.quest.quest.QuestManager;
 import com.wdp.quest.ui.QuestMenuListener;
 import com.wdp.quest.api.QuestAPI;
+import com.wdp.quest.util.SmartProgressTracker;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -32,6 +33,8 @@ public class WDPQuestPlugin extends JavaPlugin {
     private ProgressIntegration progressIntegration;
     private EconomyIntegration economyIntegration;
     private QuestAPI questAPI;
+    private SmartProgressTracker smartProgressTracker;
+    private int autoSaveTaskId = -1;
     
     @Override
     public void onEnable() {
@@ -78,6 +81,9 @@ public class WDPQuestPlugin extends JavaPlugin {
         
         playerQuestManager = new PlayerQuestManager(this);
         
+        // Initialize smart progress tracker
+        smartProgressTracker = new SmartProgressTracker(this);
+        
         // Initialize API
         questAPI = new QuestAPI(this);
         
@@ -87,10 +93,14 @@ public class WDPQuestPlugin extends JavaPlugin {
         // Register listeners
         registerListeners();
         
+        // Start auto-save task (every 5 minutes = 6000 ticks)
+        startAutoSave();
+        
         long loadTime = System.currentTimeMillis() - startTime;
         getLogger().info("========================================");
         getLogger().info("  WDP Quest System enabled!");
         getLogger().info("  Loaded " + questManager.getQuestCount() + " quests");
+        getLogger().info("  Auto-save enabled (5 minute intervals)");
         getLogger().info("  Load time: " + loadTime + "ms");
         getLogger().info("========================================");
     }
@@ -99,8 +109,14 @@ public class WDPQuestPlugin extends JavaPlugin {
     public void onDisable() {
         getLogger().info("Disabling WDP Quest System...");
         
+        // Cancel auto-save task
+        if (autoSaveTaskId != -1) {
+            getServer().getScheduler().cancelTask(autoSaveTaskId);
+        }
+        
         // Save all player data
         if (playerQuestManager != null) {
+            getLogger().info("Saving all player quest data...");
             playerQuestManager.saveAllPlayers();
         }
         
@@ -126,6 +142,22 @@ public class WDPQuestPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerEventListener(this), this);
         getServer().getPluginManager().registerEvents(new QuestObjectiveListener(this), this);
         getServer().getPluginManager().registerEvents(new QuestMenuListener(this), this);
+    }
+    
+    /**
+     * Start periodic auto-save task to prevent data loss
+     */
+    private void startAutoSave() {
+        // Auto-save every 5 minutes (6000 ticks)
+        autoSaveTaskId = getServer().getScheduler().runTaskTimerAsynchronously(this, () -> {
+            if (playerQuestManager != null) {
+                int playerCount = getServer().getOnlinePlayers().size();
+                if (playerCount > 0) {
+                    getLogger().info("Auto-saving quest data for " + playerCount + " online players...");
+                    playerQuestManager.saveAllPlayers();
+                }
+            }
+        }, 6000L, 6000L).getTaskId();
     }
     
     public void reload() {
@@ -175,5 +207,9 @@ public class WDPQuestPlugin extends JavaPlugin {
     
     public QuestAPI getQuestAPI() {
         return questAPI;
+    }
+    
+    public SmartProgressTracker getSmartProgressTracker() {
+        return smartProgressTracker;
     }
 }

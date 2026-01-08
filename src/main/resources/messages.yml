@@ -94,6 +94,13 @@ rewards:
 objectives:
   progress: "&7{objective}: &e{current}&7/&e{target}"
   complete: "&aComplete!"
+  
+# ===========================================
+# PROGRESS UPDATE MESSAGES
+# ===========================================
+progress-spam-warning: "&7&oToo many quest updates? Use &e/quest updates &7&oto toggle them off!"
+progress-updates-enabled: "&aQuest progress updates &lenabled"
+progress-updates-disabled: "&cQuest progress updates &ldisabled &r&7(you'll only see completions)"
 
 # ===========================================
 # ERROR MESSAGES

@@ -50,6 +50,9 @@ public class PlayerQuestManager {
         if (data != null) {
             savePlayerData(data);
         }
+        
+        // Clear smart progress tracker data
+        plugin.getSmartProgressTracker().clearPlayer(uuid);
     }
     
     /**
@@ -296,18 +299,30 @@ public class PlayerQuestManager {
         // Increment progress
         progress.incrementObjective(objective.getId(), amount, objective.getTargetAmount());
         
-        // Save objective progress
+        // Save objective progress immediately (async to not block gameplay)
         var objProgress = progress.getObjectiveProgress(objective.getId());
-        plugin.getDatabaseManager().saveObjectiveProgress(
-            player.getUniqueId(),
-            quest.getId(),
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            plugin.getDatabaseManager().saveObjectiveProgress(
+                player.getUniqueId(),
+                quest.getId(),
+                objective.getId(),
+                objProgress.getCurrentAmount(),
+                objProgress.isCompleted()
+            );
+        });
+        
+        // Use smart progress tracker to determine if we should show update
+        boolean isTracking = data.isTracking(quest.getId());
+        boolean shouldShow = plugin.getSmartProgressTracker().shouldShowUpdate(
+            player, 
+            quest.getId(), 
             objective.getId(),
             objProgress.getCurrentAmount(),
-            objProgress.isCompleted()
+            objective.getTargetAmount()
         );
         
-        // Send progress message if tracking
-        if (data.isTracking(quest.getId())) {
+        // Send progress message if tracking AND should show
+        if (isTracking && shouldShow) {
             player.sendMessage(plugin.getMessages().get("objectives.progress",
                 "objective", objective.getFormattedDescription(),
                 "current", String.valueOf(objProgress.getCurrentAmount()),

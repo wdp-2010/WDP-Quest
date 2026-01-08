@@ -178,14 +178,14 @@ print_step "Deployment summary:"
 echo "  Plugin JAR: ${PLUGINS_DIR}/${JAR_BASENAME}"
 ls -lh "${PLUGINS_DIR}/${JAR_BASENAME}" 2>/dev/null | awk '{print "  Size: " $5}'
 
-# Step 8: Start the container
-print_step "Starting Pterodactyl container..."
-docker start "$CONTAINER_ID" > /dev/null 2>&1
+# Step 8: Restart the container
+print_step "Restarting Pterodactyl container..."
+docker restart "$CONTAINER_ID" > /dev/null 2>&1
 
 if [ $? -eq 0 ]; then
-    print_success "Container start command executed"
+    print_success "Container restart command executed"
 else
-    print_warning "Failed to execute container start command (container may not exist)"
+    print_warning "Failed to execute container restart command (container may not exist)"
 fi
 
 # Step 9: Verify container is running

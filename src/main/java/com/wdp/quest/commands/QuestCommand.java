@@ -80,6 +80,7 @@ public class QuestCommand implements CommandExecutor, TabCompleter {
             case "info" -> handleInfo(player, args);
             case "active" -> handleActive(player);
             case "completed" -> handleCompleted(player);
+            case "updates" -> handleUpdates(player);
             default -> {
                 // Try to treat as quest ID
                 Quest quest = plugin.getQuestManager().getQuest(args[0]);
@@ -153,6 +154,17 @@ public class QuestCommand implements CommandExecutor, TabCompleter {
         menuHandler.openMainMenu(player);
     }
     
+    private void handleUpdates(Player player) {
+        plugin.getSmartProgressTracker().toggleUpdates(player.getUniqueId());
+        boolean enabled = plugin.getSmartProgressTracker().isEnabled(player.getUniqueId());
+        
+        if (enabled) {
+            player.sendMessage(plugin.getMessages().get("progress-updates-enabled"));
+        } else {
+            player.sendMessage(plugin.getMessages().get("progress-updates-disabled"));
+        }
+    }
+    
     public QuestMenuHandler getMenuHandler() {
         return menuHandler;
     }
@@ -164,7 +176,7 @@ public class QuestCommand implements CommandExecutor, TabCompleter {
         List<String> completions = new ArrayList<>();
         
         if (args.length == 1) {
-            completions.addAll(Arrays.asList("track", "abandon", "info"));
+            completions.addAll(Arrays.asList("track", "abandon", "info", "updates"));
             // Add quest IDs
             completions.addAll(plugin.getQuestManager().getQuestIds());
         } else if (args.length == 2) {

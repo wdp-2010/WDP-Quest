@@ -759,7 +759,7 @@ quests:
         type: CRAFT
         material: OAK_PLANKS
         amount: 128
-        description: "Craft 128 planks"
+        description: "Craft 128 planks (any type)"
     rewards:
       coins: 70
       experience: 50
@@ -827,7 +827,7 @@ quests:
         type: CRAFT
         material: OAK_FENCE
         amount: 32
-        description: "Craft 32 fences"
+        description: "Craft 32 fences (any type)"
     rewards:
       coins: 90
       experience: 60
@@ -844,7 +844,7 @@ quests:
         type: CRAFT
         material: OAK_DOOR
         amount: 4
-        description: "Craft 4 doors"
+        description: "Craft 4 doors (any type)"
     rewards:
       coins: 80
       experience: 55
@@ -881,7 +881,7 @@ quests:
         type: CRAFT
         material: OAK_BOAT
         amount: 2
-        description: "Craft 2 boats"
+        description: "Craft 2 boats (any type)"
     rewards:
       coins: 90
       experience: 60

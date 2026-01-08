@@ -384,18 +384,22 @@ public class QuestMenuHandler {
             lore.add(plugin.getMessages().get("menu.main.quest-icon.status.ready-hint"));
         }
         
-        // Show objectives count
+        // Show objectives with progress
         lore.add(" ");
         lore.add(plugin.getMessages().get("menu.main.quest-icon.objectives-label", "count", String.valueOf(quest.getObjectives().size())));
         PlayerQuestData.QuestProgress questProgress = playerData.getQuestProgress(quest.getId());
-        if (questProgress != null && isActive) {
-            int completed = 0;
-            for (var obj : quest.getObjectives()) {
-                if (questProgress.isObjectiveComplete(obj.getId())) {
-                    completed++;
-                }
-            }
-            lore.add(plugin.getMessages().get("menu.main.quest-icon.objectives-completed", "completed", String.valueOf(completed), "total", String.valueOf(quest.getObjectives().size())));
+        
+        // Add each objective with its progress
+        for (QuestObjective objective : quest.getObjectives()) {
+            boolean objComplete = questProgress != null && questProgress.isObjectiveComplete(objective.getId());
+            int current = questProgress != null ? questProgress.getObjectiveAmount(objective.getId()) : 0;
+            int target = objective.getTargetAmount();
+            
+            String objStatus = objComplete ? "§a✓" : "§7○";
+            String progressDisplay = objComplete ? "Complete" : current + "/" + target;
+            String shortDesc = objective.getFormattedDescription();
+            
+            lore.add("§8  " + objStatus + " §7" + shortDesc + ": §e" + progressDisplay);
         }
         
         // Show rewards preview (first 2)
