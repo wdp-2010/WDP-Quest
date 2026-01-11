@@ -11,23 +11,198 @@ softdepend: [Vault, AuraSkills]
 commands:
   quest:
     description: Open the quest menu or manage quests
-    usage: /quest [list|track|abandon|info] [quest]
+    usage: /quest [list|track|abandon|info|active|completed] [quest]
     permission: wdp.quest.use
     aliases: [quests, q]
   
   questadmin:
     description: Admin quest management commands
-    usage: /questadmin <reload|give|reset|complete|setprogress> [player] [quest]
+    usage: /questadmin <reload|give|reset|complete|setprogress|list> [player] [quest]
     permission: wdp.quest.admin
     aliases: [qadmin, questadm]
 
+# ═══════════════════════════════════════════════════════════════════════════════
+#                              PERMISSIONS SYSTEM
+# ═══════════════════════════════════════════════════════════════════════════════
+# Comprehensive permission nodes for fine-grained control over quest features
+# ═══════════════════════════════════════════════════════════════════════════════
+
 permissions:
+  # ─── Base Player Permissions ───
   wdp.quest.use:
-    description: Use the quest system
+    description: Base permission to use the quest system
     default: true
-  wdp.quest.admin:
-    description: Admin quest commands
+    children:
+      wdp.quest.view: true
+      wdp.quest.start: true
+      wdp.quest.track: true
+      wdp.quest.abandon: true
+  
+  wdp.quest.view:
+    description: View quest menu and quest details
+    default: true
+  
+  wdp.quest.start:
+    description: Start new quests
+    default: true
+  
+  wdp.quest.track:
+    description: Track active quests
+    default: true
+  
+  wdp.quest.abandon:
+    description: Abandon active quests
+    default: true
+  
+  wdp.quest.list:
+    description: List available quests
+    default: true
+  
+  wdp.quest.info:
+    description: View detailed quest information
+    default: true
+  
+  wdp.quest.active:
+    description: View active quests
+    default: true
+  
+  wdp.quest.completed:
+    description: View completed quests
+    default: true
+  
+  # ─── Category Access Permissions ───
+  wdp.quest.category.starter:
+    description: Access starter category quests (0-19% progress)
+    default: true
+  
+  wdp.quest.category.novice:
+    description: Access novice category quests (20-39% progress)
+    default: true
+  
+  wdp.quest.category.intermediate:
+    description: Access intermediate category quests (40-59% progress)
+    default: true
+  
+  wdp.quest.category.advanced:
+    description: Access advanced category quests (60-79% progress)
+    default: true
+  
+  wdp.quest.category.expert:
+    description: Access expert category quests (80-100% progress)
+    default: true
+  
+  wdp.quest.category.*:
+    description: Access all quest categories
     default: op
+    children:
+      wdp.quest.category.starter: true
+      wdp.quest.category.novice: true
+      wdp.quest.category.intermediate: true
+      wdp.quest.category.advanced: true
+      wdp.quest.category.expert: true
+  
+  # ─── Special Quest Permissions ───
+  wdp.quest.repeatable:
+    description: Access repeatable quests
+    default: true
+  
+  wdp.quest.daily:
+    description: Access daily quest system
+    default: true
+  
+  wdp.quest.hard:
+    description: Access hard/challenge quests
+    default: true
+  
+  # ─── Bypass Permissions ───
   wdp.quest.bypass:
-    description: Bypass quest requirements
+    description: Bypass all quest restrictions
     default: op
+    children:
+      wdp.quest.bypass.requirements: true
+      wdp.quest.bypass.cooldown: true
+      wdp.quest.bypass.progress: true
+      wdp.quest.bypass.category: true
+  
+  wdp.quest.bypass.requirements:
+    description: Bypass quest level/progress requirements
+    default: op
+  
+  wdp.quest.bypass.cooldown:
+    description: Bypass quest cooldowns
+    default: op
+  
+  wdp.quest.bypass.progress:
+    description: Bypass server progress requirements
+    default: op
+  
+  wdp.quest.bypass.category:
+    description: Access all quest categories regardless of progress
+    default: op
+  
+  # ─── Admin Permissions ───
+  wdp.quest.admin:
+    description: Full admin access to quest system
+    default: op
+    children:
+      wdp.quest.admin.reload: true
+      wdp.quest.admin.give: true
+      wdp.quest.admin.reset: true
+      wdp.quest.admin.complete: true
+      wdp.quest.admin.setprogress: true
+      wdp.quest.admin.list: true
+      wdp.quest.admin.viewdata: true
+      wdp.quest.admin.debug: true
+      wdp.quest.bypass: true
+  
+  wdp.quest.admin.reload:
+    description: Reload quest configuration
+    default: op
+  
+  wdp.quest.admin.give:
+    description: Give quests to players
+    default: op
+  
+  wdp.quest.admin.reset:
+    description: Reset player quest progress
+    default: op
+  
+  wdp.quest.admin.complete:
+    description: Force-complete quests for players
+    default: op
+  
+  wdp.quest.admin.setprogress:
+    description: Set quest progress for players
+    default: op
+  
+  wdp.quest.admin.list:
+    description: List all quests in system
+    default: op
+  
+  wdp.quest.admin.viewdata:
+    description: View detailed player quest data
+    default: op
+  
+  wdp.quest.admin.debug:
+    description: Access debug information and tools
+    default: op
+  
+  # ─── Notification Permissions ───
+  wdp.quest.notify:
+    description: Receive notifications for quest events
+    default: op
+    children:
+      wdp.quest.notify.start: true
+      wdp.quest.notify.complete: true
+      wdp.quest.notify.abandon: true
+  
+  wdp.quest.notify.start:
+    description: Notified when players start quests
+    default: op
+  
+  wdp.quest.notify.complete:
+    description: Notified when players complete quests
+    default: op
+  
+  wdp.quest.notify.abandon:
+    description: Notified when players abandon quests

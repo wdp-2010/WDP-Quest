@@ -4,8 +4,19 @@
 # Builds and deploys the quest plugin to the Minecraft server
 
 # === CONFIGURATION - edit these for your environment ===
-CONTAINER_ID="b8f24891-b5be-4847-a96e-c705c500aece"
-SERVER_DIR="/var/lib/pterodactyl/volumes/b8f24891-b5be-4847-a96e-c705c500aece"
+CONTAINER_ID_DEV="b8f24891-b5be-4847-a96e-c705c500aece"
+CONTAINER_ID_MAIN="27298ea1-0c1b-4b41-a5aa-a7d29ff04566"
+
+# Determine which server to deploy to
+if [ "$1" == "main" ] || [ "$1" == "production" ] || [ "$1" == "prod" ]; then
+    CONTAINER_ID="$CONTAINER_ID_MAIN"
+    SERVER_NAME="MAIN"
+else
+    CONTAINER_ID="$CONTAINER_ID_DEV"
+    SERVER_NAME="DEV"
+fi
+
+SERVER_DIR="/var/lib/pterodactyl/volumes/${CONTAINER_ID}"
 PLUGINS_DIR="${SERVER_DIR}/plugins"
 FILE_OWNER="pterodactyl:pterodactyl"
 JAR_NAME="WDP Quest"  # Note: The actual JAR has a space in the name
@@ -47,7 +58,7 @@ cd "$PROJECT_DIR" || exit 1
 
 echo ""
 echo -e "${BLUE}╔════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${BLUE}║            WDP-Quest Deployment Script                     ║${NC}"
+echo -e "${BLUE}║            WDP-Quest Deployment Script (${SERVER_NAME})            ║${NC}"
 echo -e "${BLUE}╚════════════════════════════════════════════════════════════╝${NC}"
 echo ""
 
@@ -69,8 +80,8 @@ print_success "Maven build completed"
 
 # Step 2: Find the built JAR
 print_step "Locating built JAR..."
-# Look for the shaded JAR (includes all dependencies)
-JAR_FILE=$(find "$PROJECT_DIR/target" -name "*-SNAPSHOT.jar" -not -name "*-sources*" -not -name "*-javadoc*" -not -name "original-*" | head -1)
+# Look for the JAR (not -SNAPSHOT since we're now at 2.0.0)
+JAR_FILE=$(find "$PROJECT_DIR/target" -name "*.jar" -not -name "*-sources*" -not -name "*-javadoc*" -not -name "original-*" | head -1)
 
 if [ -z "$JAR_FILE" ]; then
     print_error "Could not find built JAR file in target/"
